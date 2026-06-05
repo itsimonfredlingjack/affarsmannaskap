@@ -1,0 +1,6 @@
+.DS_Store
+tmp/
+output/
+outputs/
+.system_generated/
+*.log

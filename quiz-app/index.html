@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Affärsmannaskap Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="questions.js" defer></script>
+    <script src="rubrics.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <!-- Confetti canvas overlay -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="app-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="brand">
+            <span class="brand-icon">⚡</span>
+            <div class="brand-text">
+              <h2>Fokusbladet</h2>
+              <p>Affärsmannaskap</p>
+            </div>
+          </div>
+          <button class="close-sidebar-btn" id="close-sidebar" aria-label="Stäng sidopanel">&times;</button>
+        </div>
+
+        <!-- Progress Tracker Card -->
+        <div class="sidebar-card progress-card">
+          <div class="progress-header">
+            <span>Dina framsteg</span>
+            <span class="progress-val" id="sidebar-progress-percent">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-thumb" id="sidebar-progress-bar"></div>
+          </div>
+          <div class="progress-footer" id="sidebar-progress-text">0 av 0 avklarade</div>
+        </div>
+
+        <!-- Mode selector -->
+        <nav class="sidebar-nav" aria-label="Quizläge">
+          <span class="sidebar-label">Studieläge</span>
+          <div class="mode-list">
+            <button class="mode-button" type="button" data-mode="all">
+              <span class="mode-icon">📚</span> Alla frågor
+            </button>
+            <button class="mode-button" type="button" data-mode="begrepp">
+              <span class="mode-icon">🏷️</span> Begrepp
+            </button>
+            <button class="mode-button" type="button" data-mode="samband">
+              <span class="mode-icon">🔗</span> Samband
+            </button>
+            <button class="mode-button" type="button" data-mode="case">
+              <span class="mode-icon">💼</span> Case
+            </button>
+            <button class="mode-button" type="button" data-mode="repetition">
+              <span class="mode-icon">🔄</span> Repetition
+            </button>
+          </div>
+        </nav>
+
+        <!-- Search Box -->
+        <div class="sidebar-search-container">
+          <span class="sidebar-label">Sök i materialet</span>
+          <div class="search-input-wrapper">
+            <input type="search" id="sidebar-search" placeholder="Sök på begrepp, tagg..." autocomplete="off">
+            <span class="search-icon">🔍</span>
+          </div>
+        </div>
+
+        <!-- Question List -->
+        <div class="sidebar-list-container">
+          <span class="sidebar-label">Frågor (<span id="sidebar-question-count">0</span>)</span>
+          <ul class="sidebar-question-list" id="sidebar-question-list">
+            <!-- Dynamic elements go here -->
+          </ul>
+        </div>
+
+        <!-- Reset Button at bottom -->
+        <div class="sidebar-footer">
+          <button class="reset-button" id="reset-progress" type="button">
+            <span class="reset-icon">🗑️</span> Nollställ framsteg
+          </button>
+        </div>
+      </aside>
+
+      <!-- Overlay for sidebar on mobile -->
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+      <!-- MAIN WORKSPACE -->
+      <div class="workspace">
+        <header class="mobile-header">
+          <button class="menu-btn" id="open-sidebar" aria-label="Öppna sidopanel">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="mobile-brand-title">Fokusbladet</div>
+          <output class="counter" id="counter" aria-live="polite">1 av 1</output>
+        </header>
+
+        <main class="app-shell" aria-labelledby="question-title">
+          <section class="study-surface" id="study-container" aria-live="polite">
+            
+            <!-- MAIN QUESTION CARD -->
+            <article class="card main-card" id="main-question-card">
+              <div class="card-glow"></div>
+              <div class="question-meta">
+                <span class="source-line" id="source-line">AM5</span>
+                <div class="tag-row" id="tag-row" aria-label="Frågetaggar"></div>
+              </div>
+              
+              <h1 id="question-title" class="document-title">Förklara soliditet med egna ord</h1>
+              
+              <p class="study-instruction" id="study-instruction">
+                Skriv med egna ord. Visa facit och jämför själv innan du väljer nivå.
+              </p>
+    
+              <div class="input-section">
+                <label class="answer-label" for="answer-input">Ditt Svar</label>
+                <div class="textarea-wrapper">
+                  <textarea
+                    id="answer-input"
+                    class="answer-input"
+                    rows="4"
+                    spellcheck="true"
+                    autocomplete="off"
+                    placeholder="Skriv dina anteckningar här... (Svaret sparas automatiskt)"
+                  ></textarea>
+                  <div class="textarea-shortcut">
+                    <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="primary-actions" id="primary-actions">
+                <button class="primary-button" id="reveal-answer" type="button">
+                  Visa facit <span class="btn-arrow">→</span>
+                </button>
+                <button class="secondary-button" id="skip-question" type="button">
+                  Hoppa över
+                </button>
+              </div>
+            </article>
+    
+            <!-- ANSWER SECTION -->
+            <section class="answer-section" id="answer-section" hidden aria-label="Facit">
+              
+              <!-- COMPARATIVE DASHBOARD CARD -->
+              <article class="card result-card assessment-card">
+                <div class="assessment-header-row">
+                  <div class="assessment-title-block">
+                    <h3 class="section-label">Automatisk Kontroll</h3>
+                    <h2 class="assessment-score" id="assessment-score">Bedömning: Rätt</h2>
+                  </div>
+                  <p id="assessment-summary" class="assessment-summary"></p>
+                </div>
+                
+                <div class="comparison-grid">
+                  <div class="comparison-column matched-column">
+                    <div class="column-header">
+                      <span class="column-icon">✓</span>
+                      <h4>Detta täckte du in</h4>
+                    </div>
+                    <div class="criteria-wrapper">
+                      <ul id="matched-list" class="chip-list"></ul>
+                    </div>
+                  </div>
+                  <div class="comparison-column missing-column">
+                    <div class="column-header">
+                      <span class="column-icon">!</span>
+                      <h4>Detta kan utvecklas</h4>
+                    </div>
+                    <div class="criteria-wrapper">
+                      <ul id="missing-list" class="chip-list"></ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- YOUR ANSWER CARD -->
+              <article class="card result-card user-answer-card">
+                <h3 class="section-label">Ditt svar</h3>
+                <p id="user-answer-text"></p>
+              </article>
+    
+              <!-- CORRECT ANSWER CARD -->
+              <article class="card result-card correct-answer-card">
+                <h3 class="section-label">Facit / Korrekt svar</h3>
+                <p id="answer-text" class="large-text"></p>
+    
+                <details class="detail-panel">
+                  <summary>
+                    <span>Fördjupning & Exempel</span>
+                    <span class="chevron-icon">▼</span>
+                  </summary>
+                  <div class="details-content">
+                    <article class="detail-block">
+                      <h4 class="detail-label">Varför det spelar roll</h4>
+                      <p id="why-text"></p>
+                    </article>
+                    <article class="detail-block" id="example-block">
+                      <h4 class="detail-label">Exempel i praktiken</h4>
+                      <p id="example-text"></p>
+                    </article>
+                    <article class="detail-block">
+                      <h4 class="detail-label">Kopplade begrepp</h4>
+                      <div class="related-row" id="related-row"></div>
+                    </article>
+                  </div>
+                </details>
+              </article>
+    
+              <!-- FEEDBACK & NEXT ACTIONS -->
+              <div class="feedback-container">
+                <article class="self-check-callout">
+                  <p id="self-check-text"></p>
+                </article>
+    
+                <div class="feedback-actions-card">
+                  <div class="rating-selection">
+                    <span class="rating-title">Hur bra kände du till detta?</span>
+                    <div class="rating-buttons">
+                      <button class="feedback-button danger" type="button" data-rating="again">
+                        <span class="btn-indicator"></span>
+                        <div class="btn-label-group">
+                          <span class="btn-label">Träna igen</span>
+                          <kbd class="key-hint">3</kbd>
+                        </div>
+                      </button>
+                      <button class="feedback-button warning" type="button" data-rating="almost">
+                        <span class="btn-indicator"></span>
+                        <div class="btn-label-group">
+                          <span class="btn-label">Nästan</span>
+                          <kbd class="key-hint">2</kbd>
+                        </div>
+                      </button>
+                      <button class="feedback-button success" type="button" data-rating="known">
+                        <span class="btn-indicator"></span>
+                        <div class="btn-label-group">
+                          <span class="btn-label">Jag kunde det</span>
+                          <kbd class="key-hint">1</kbd>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="next-action-row">
+                    <button class="next-button primary-button" id="next-question" type="button">
+                      Nästa fråga <span class="btn-arrow">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <div class="card empty-state" id="empty-state" hidden>
+              <div class="empty-icon">🎉</div>
+              <h3 class="document-title">Snyggt jobbat!</h3>
+              <p>Du har gått igenom alla frågor i det här läget.</p>
+              <button class="primary-button" onclick="document.getElementById('reset-progress').click()" type="button" style="margin-top: 1.5rem;">
+                Starta om quizet
+              </button>
+            </div>
+    
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
