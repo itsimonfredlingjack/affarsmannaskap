@@ -2,6 +2,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "soliditet",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Förklara soliditet med egna ord",
@@ -14,6 +15,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "likviditet",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad betyder likviditet?",
@@ -26,6 +28,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "kassalikviditet",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Förklara kassalikviditet",
@@ -38,6 +41,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "balanslikviditet",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad mäter balanslikviditet?",
@@ -50,6 +54,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "resultatrakning",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad visar en resultaträkning?",
@@ -62,6 +67,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "balansrakning",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad visar en balansräkning?",
@@ -74,6 +80,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "eget-kapital",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad är eget kapital?",
@@ -86,6 +93,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "kassaflode",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad betyder kassaflöde?",
@@ -98,6 +106,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "tackningsbidrag",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad är täckningsbidrag?",
@@ -110,6 +119,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "budget-prognos",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad är skillnaden mellan budget och prognos?",
@@ -122,6 +132,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "arsredovisning",
     mode: "begrepp",
+    type: "open",
     category: "Årsredovisning",
     source: "AM5",
     question: "Vad är en årsredovisning?",
@@ -134,6 +145,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "forvaltningsberattelse",
     mode: "begrepp",
+    type: "open",
     category: "Årsredovisning",
     source: "AM5",
     question: "Varför ska man läsa förvaltningsberättelsen?",
@@ -146,6 +158,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "bmc",
     mode: "begrepp",
+    type: "open",
     category: "Modeller",
     source: "AM1/BMC",
     question: "Vad används Business Model Canvas till?",
@@ -158,6 +171,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "kundsegment",
     mode: "begrepp",
+    type: "open",
     category: "Modeller",
     source: "BMC",
     question: "Vad betyder kundsegment i BMC?",
@@ -170,6 +184,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "vardeerbjudande",
     mode: "begrepp",
+    type: "open",
     category: "Modeller",
     source: "AM2/BMC",
     question: "Vad är ett värdeerbjudande?",
@@ -182,6 +197,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "fab",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Förklara FAB-modellen",
@@ -194,6 +210,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "5p",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Vilka delar ingår i 5P?",
@@ -206,6 +223,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "swot",
     mode: "begrepp",
+    type: "open",
     category: "Strategi",
     source: "AM2/AM3",
     question: "Vad är SWOT?",
@@ -218,6 +236,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "pestelid",
     mode: "begrepp",
+    type: "open",
     category: "Omvärld",
     source: "AM3",
     question: "Vad används PESTELID till?",
@@ -230,6 +249,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "ansoff",
     mode: "begrepp",
+    type: "open",
     category: "Strategi",
     source: "AM3",
     question: "Vad visar Ansoffs matris?",
@@ -242,6 +262,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "produkt-marknad",
     mode: "begrepp",
+    type: "open",
     category: "Strategi",
     source: "Produkt-marknadsmatris",
     question: "Vad gör produkt-marknadsmatrisen i grupparbetet?",
@@ -254,6 +275,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "konkurrentanalys",
     mode: "begrepp",
+    type: "open",
     category: "Strategi",
     source: "BMC/PESTELID/SWOT",
     question: "Varför gör man konkurrentanalys?",
@@ -266,6 +288,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "foretagsformer",
     mode: "begrepp",
+    type: "open",
     category: "Företagsform",
     source: "Företagsformer 2025",
     question: "Varför är aktiebolag ofta rimligt i gruppcaset?",
@@ -278,6 +301,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "enskild-firma",
     mode: "begrepp",
+    type: "open",
     category: "Företagsform",
     source: "Företagsformer 2025",
     question: "Vad är den viktiga risken med enskild firma?",
@@ -290,6 +314,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "balanced-scorecard",
     mode: "begrepp",
+    type: "open",
     category: "Styrning",
     source: "AM4",
     question: "Vad är poängen med Balanced Scorecard?",
@@ -302,6 +327,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "foretagsplattform",
     mode: "begrepp",
+    type: "open",
     category: "Styrning",
     source: "AM4",
     question: "Vad innehåller en företagsplattform?",
@@ -314,6 +340,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "professionellt-konsultskap",
     mode: "begrepp",
+    type: "open",
     category: "Affärsmannaskap",
     source: "AM1",
     question: "Vad betyder professionellt konsultskap i kursen?",
@@ -326,6 +353,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "positionering",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Vad betyder positionering?",
@@ -338,6 +366,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "pris",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Varför är pris mer än bara en siffra?",
@@ -350,6 +379,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "fast-good-cheap",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Vad betyder fast-good-cheap-avvägningen?",
@@ -362,6 +392,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "paketering",
     mode: "begrepp",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Varför paketerar man en tjänst?",
@@ -374,6 +405,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "debiteringsgrad",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad betyder debiteringsgrad?",
@@ -386,6 +418,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "snittdebitering",
     mode: "begrepp",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Vad betyder snittdebitering?",
@@ -398,6 +431,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "likviditet-soliditet-samband",
     mode: "samband",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Hur hänger likviditet och soliditet ihop?",
@@ -410,6 +444,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "resultat-kassaflode-samband",
     mode: "samband",
+    type: "open",
     category: "Ekonomi",
     source: "AM5",
     question: "Varför är resultat och kassaflöde inte samma sak?",
@@ -422,6 +457,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "swot-pestelid-samband",
     mode: "samband",
+    type: "open",
     category: "Strategi",
     source: "AM3",
     question: "Hur hänger SWOT och PESTELID ihop?",
@@ -434,6 +470,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "bmc-swot-samband",
     mode: "samband",
+    type: "open",
     category: "Modeller",
     source: "AM1-AM3",
     question: "Hur kan BMC och SWOT användas tillsammans?",
@@ -446,6 +483,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "fab-varde-samband",
     mode: "samband",
+    type: "open",
     category: "Erbjudande",
     source: "AM2",
     question: "Hur hjälper FAB dig skriva ett bättre värdeerbjudande?",
@@ -458,6 +496,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "5p-bmc-samband",
     mode: "samband",
+    type: "open",
     category: "Erbjudande",
     source: "AM2/BMC",
     question: "Hur kompletterar 5P Business Model Canvas?",
@@ -470,6 +509,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "ansoff-risk-samband",
     mode: "samband",
+    type: "open",
     category: "Strategi",
     source: "AM3",
     question: "Varför säger Ansoff något om risk?",
@@ -482,6 +522,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "pris-tb-samband",
     mode: "samband",
+    type: "open",
     category: "Ekonomi",
     source: "AM2/AM5",
     question: "Hur hänger pris och täckningsbidrag ihop?",
@@ -494,6 +535,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "halsos-fisk-resultat-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "Hälsö Fisk AB",
     question: "Vad säger Hälsö Fisk AB:s resultat om bolagets situation?",
@@ -506,6 +548,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "essiq-resultat-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "Essiq AB",
     question: "Vad säger Essiq AB:s resultat 2021?",
@@ -518,6 +561,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "halsos-fisk-soliditet-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "Hälsö Fisk AB",
     question: "Vad betyder Hälsö Fisk AB:s soliditet på 11 procent?",
@@ -530,6 +574,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "essiq-likviditet-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "Essiq AB",
     question: "Vad är viktigt att se i Essiq AB:s likviditet?",
@@ -542,6 +587,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "halsos-essiq-jamfor-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "AM5",
     question: "Hur skiljer sig Hälsö Fisk AB och Essiq AB ekonomiskt?",
@@ -554,6 +600,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "arsredovisning-metod-case",
     mode: "case",
+    type: "open",
     category: "Årsredovisning",
     source: "AM5",
     question: "Hur läser du en årsredovisning snabbt men vettigt?",
@@ -566,6 +613,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "grupp-ekonomisk-halsokoll-case",
     mode: "case",
+    type: "open",
     category: "Grupparbete",
     source: "Modellverkstad",
     question: "Vad ska en ekonomisk hälsokoll i grupparbetet fånga?",
@@ -578,6 +626,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "rebr-case",
     mode: "case",
+    type: "open",
     category: "Omvärld",
     source: "REBR 2026",
     question: "Hur kan REBR 2026 användas i affärsresonemanget?",
@@ -590,6 +639,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "swot-beslut-case",
     mode: "case",
+    type: "open",
     category: "Grupparbete",
     source: "SWOT",
     question: "Hur gör man SWOT användbar i presentationen?",
@@ -602,6 +652,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "bmc-roda-traden-case",
     mode: "case",
+    type: "open",
     category: "Grupparbete",
     source: "BMC",
     question: "Vad är den röda tråden i BMC för gruppbolaget?",
@@ -614,6 +665,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "produktmarknad-beslut-case",
     mode: "case",
+    type: "open",
     category: "Grupparbete",
     source: "Produkt-marknad",
     question: "Hur kan produkt-marknadsmatrisen hjälpa gruppen välja idé?",
@@ -626,6 +678,7 @@ window.FOKUS_QUESTIONS = [
   {
     id: "repetition-start",
     mode: "repetition",
+    type: "open",
     category: "Repetition",
     source: "System",
     question: "Vad ska du repetera först?",
@@ -634,5 +687,497 @@ window.FOKUS_QUESTIONS = [
     why: "Det gör repetitionen mer träffsäker än att läsa allt i samma ordning varje gång.",
     example: "Om du blandar ihop likviditet och soliditet ska de komma tillbaka oftare.",
     related: ["Självbedömning", "Likviditet", "Soliditet", "Träna igen"]
+  },
+
+  // ── MC: Ekonomi / Nyckeltal ──────────────────────────────────────────
+  {
+    id: "mc-soliditet-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vad mäter soliditet?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Hur stor del av tillgångarna som finansieras med kortfristiga skulder",
+      "Företagets kortsiktiga betalningsförmåga",
+      "Hur stor del av tillgångarna som är finansierade med eget kapital",
+      "Skillnaden mellan intäkter och kostnader under en period"
+    ],
+    correctIndex: 2,
+    explanation: "Soliditet = eget kapital / totala tillgångar. Det visar långsiktig finansiell styrka. Alternativ B beskriver likviditet, inte soliditet. Alternativ D beskriver resultat.",
+    related: ["Eget kapital", "Balansräkning", "Likviditet"]
+  },
+  {
+    id: "mc-likviditet-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vad beskriver likviditet?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Hur stor andel av tillgångarna som ägs av ägarna",
+      "Företagets kortsiktiga betalningsförmåga",
+      "Hur lönsamt företaget är på lång sikt",
+      "Hur mycket utdelning ägarna kan ta ut"
+    ],
+    correctIndex: 1,
+    explanation: "Likviditet handlar om att kunna betala löpande skulder i tid. Alternativ A beskriver soliditet. Alternativ C och D handlar om lönsamhet respektive utdelning.",
+    related: ["Kassalikviditet", "Balanslikviditet", "Soliditet"]
+  },
+  {
+    id: "mc-kassalikviditet-formel",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Hur beräknas kassalikviditet?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Omsättningstillgångar / kortfristiga skulder",
+      "Eget kapital / totala tillgångar",
+      "(Omsättningstillgångar − lager) / kortfristiga skulder",
+      "Kassa och bank / långfristiga skulder"
+    ],
+    correctIndex: 2,
+    explanation: "Kassalikviditet exkluderar lagret från omsättningstillgångarna för att visa om kortfristiga skulder kan betalas utan att sälja lager. Alternativ A är formeln för balanslikviditet.",
+    related: ["Balanslikviditet", "Likviditet", "Lager"]
+  },
+  {
+    id: "mc-balanslikviditet-formel",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vilken formel beskriver balanslikviditet?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Omsättningstillgångar / kortfristiga skulder",
+      "(Omsättningstillgångar − lager) / kortfristiga skulder",
+      "Totala tillgångar / totala skulder",
+      "Eget kapital / omsättningstillgångar"
+    ],
+    correctIndex: 0,
+    explanation: "Balanslikviditet = omsättningstillgångar / kortfristiga skulder. Den ger en bred bild av kortsiktig betalningsförmåga. Alternativ B är kassalikviditet. Alternativ C och D är inte standardmått.",
+    related: ["Kassalikviditet", "Omsättningstillgångar", "Kortfristiga skulder"]
+  },
+  {
+    id: "mc-resultat-vs-balans",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vad visar en resultaträkning som en balansräkning inte visar?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Företagets tillgångar vid en viss tidpunkt",
+      "Skulder och eget kapital vid årets slut",
+      "Intäkter minus kostnader under en tidsperiod",
+      "Hur mycket kassa företaget har just nu"
+    ],
+    correctIndex: 2,
+    explanation: "Resultaträkningen visar flödet av intäkter och kostnader under en period. Balansräkningen visar ögonblicksbilden av tillgångar, skulder och eget kapital. Alternativ A, B och D tillhör balansräkningen.",
+    related: ["Resultaträkning", "Balansräkning", "Årets resultat"]
+  },
+  {
+    id: "mc-eget-kapital-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Hur definieras eget kapital?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Pengar som finns på företagets bankkonto",
+      "Totala intäkter minus totala kostnader",
+      "Tillgångar minus skulder",
+      "Aktiekapital plus långfristiga lån"
+    ],
+    correctIndex: 2,
+    explanation: "Eget kapital = tillgångar − skulder, dvs. ägarnas andel i företaget. Alternativ A är bara likvida medel. Alternativ B beskriver resultat. Alternativ D blandar in skulder i eget kapital.",
+    related: ["Soliditet", "Balansräkning", "Tillgångar"]
+  },
+  {
+    id: "mc-kassaflode-vs-resultat",
+    mode: "samband",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Varför kan ett företag visa vinst men ändå ha dåligt kassaflöde?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Intäkter bokförs när fakturan skickas, men pengarna kanske inte kommit in ännu",
+      "Vinst och kassaflöde är alltid samma sak i redovisningen",
+      "Kassaflödet räknar bara fasta kostnader",
+      "Resultaträkningen visar bara kassa och bank"
+    ],
+    correctIndex: 0,
+    explanation: "Intäkter kan bokföras innan betalning kommit in (t.ex. kundfordringar). Därför kan resultat se positivt ut medan kassan krymper. Alternativ B är direkt felaktigt. Essiq AB visade detta tydligt 2021.",
+    related: ["Kassaflöde", "Resultat", "Kundfordringar"]
+  },
+  {
+    id: "mc-tackningsbidrag-formel",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Hur beräknas täckningsbidrag?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Intäkter minus alla kostnader inklusive fasta",
+      "Nettoomsättning minus skatt",
+      "Försäljningsintäkt minus direkta kostnader",
+      "Eget kapital minus skulder"
+    ],
+    correctIndex: 2,
+    explanation: "Täckningsbidrag = försäljningsintäkt − direkta kostnader. Det visar hur mycket ett projekt bidrar till fasta kostnader och vinst. Alternativ A beskriver snarare rörelseresultat.",
+    related: ["Intäkter", "Direkta kostnader", "Lönsamhet"]
+  },
+  {
+    id: "mc-debiteringsgrad-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vad mäter debiteringsgrad i ett konsultbolag?",
+    tags: ["Ekonomi", "Konsult"],
+    options: [
+      "Andelen av omsättningen som går till löner",
+      "Andelen av arbetstiden som kan faktureras till kund",
+      "Genomsnittligt pris per timme",
+      "Andelen av vinsten som delas ut till ägarna"
+    ],
+    correctIndex: 1,
+    explanation: "Debiteringsgrad = fakturerbar tid / total arbetstid. Alternativ C beskriver snittdebitering. Hög debiteringsgrad påverkar direkt intäkter och lönsamhet i konsultbolag.",
+    related: ["Snittdebitering", "Lönsamhet", "Beläggning"]
+  },
+  {
+    id: "mc-budget-vs-prognos",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Vad är huvudskillnaden mellan budget och prognos?",
+    tags: ["Ekonomi", "AM5"],
+    options: [
+      "Budget görs efter räkenskapsåret, prognos görs före",
+      "Budget är planen i förväg, prognos är en uppdaterad bedömning av utfallet",
+      "Budget används bara i aktiebolag, prognos i enskild firma",
+      "Budget visar intäkter, prognos visar kostnader"
+    ],
+    correctIndex: 1,
+    explanation: "Budget sätts före perioden som en plan. Prognos uppdateras under perioden när ny information tillkommer. Alternativ A har ordningen bakvänd.",
+    related: ["Uppföljning", "Likviditetsbudget", "Lönsamhet"]
+  },
+
+  // ── MC: Modeller / Strategi ──────────────────────────────────────────
+  {
+    id: "mc-bmc-syfte",
+    mode: "begrepp",
+    type: "mc",
+    category: "Modeller",
+    source: "AM1/BMC",
+    question: "Vad är huvudsyftet med Business Model Canvas?",
+    tags: ["Modeller", "BMC"],
+    options: [
+      "Att analysera externa hot och möjligheter",
+      "Att beskriva hur ett företag skapar, levererar och tar betalt för värde",
+      "Att beräkna företagets soliditet och likviditet",
+      "Att jämföra konkurrenters priser"
+    ],
+    correctIndex: 1,
+    explanation: "BMC ger en helhetsbild av affärsmodellen: kund, erbjudande, resurser, aktiviteter, intäkter och kostnader. Alternativ A beskriver SWOT/PESTELID. Alternativ C är nyckeltal.",
+    related: ["Kundsegment", "Värdeerbjudande", "Intäktsströmmar"]
+  },
+  {
+    id: "mc-swot-intern-extern",
+    mode: "begrepp",
+    type: "mc",
+    category: "Strategi",
+    source: "AM2/AM3",
+    question: "Vilka delar av SWOT handlar om interna faktorer?",
+    tags: ["Strategi", "SWOT"],
+    options: [
+      "Möjligheter och hot",
+      "Styrkor och svagheter",
+      "Styrkor och möjligheter",
+      "Svagheter och hot"
+    ],
+    correctIndex: 1,
+    explanation: "Styrkor och svagheter är interna (inom företaget). Möjligheter och hot är externa (omvärlden). Alternativ C och D blandar ihop intern och extern.",
+    related: ["SWOT", "Intern analys", "Extern analys", "PESTELID"]
+  },
+  {
+    id: "mc-pestelid-bokstaver",
+    mode: "begrepp",
+    type: "mc",
+    category: "Omvärld",
+    source: "AM3",
+    question: "Vad står T för i PESTELID?",
+    tags: ["Omvärld", "PESTELID"],
+    options: [
+      "Tillgångar",
+      "Teknologiska faktorer",
+      "Täckningsbidrag",
+      "Tillväxtmål"
+    ],
+    correctIndex: 1,
+    explanation: "PESTELID: Politiskt, Ekonomiskt, Socialt, Teknologiskt, Ekologiskt/miljö, Legalt, Internationellt, Demografiskt. T = teknologiska omvärldsfaktorer. Alternativ A och C är ekonomiska begrepp.",
+    related: ["PESTELID", "Omvärld", "SWOT"]
+  },
+  {
+    id: "mc-ansoff-kvadranter",
+    mode: "begrepp",
+    type: "mc",
+    category: "Strategi",
+    source: "AM3",
+    question: "Vad kallas strategin i Ansoffs matris när ett företag säljer en ny produkt på en ny marknad?",
+    tags: ["Strategi", "Ansoff"],
+    options: [
+      "Marknadspenetration",
+      "Produktutveckling",
+      "Marknadsutveckling",
+      "Diversifiering"
+    ],
+    correctIndex: 3,
+    explanation: "Diversifiering = ny produkt + ny marknad, vilket är den mest riskfyllda strategin. Marknadspenetration (A) är befintlig produkt + befintlig marknad. Produktutveckling (B) är ny produkt + befintlig marknad.",
+    related: ["Ansoff", "Risk", "Tillväxt", "Marknad"]
+  },
+  {
+    id: "mc-fab-delar",
+    mode: "begrepp",
+    type: "mc",
+    category: "Erbjudande",
+    source: "AM2",
+    question: "Vad står B för i FAB-modellen?",
+    tags: ["Erbjudande", "AM2"],
+    options: [
+      "Budget",
+      "Balansräkning",
+      "Benefits (kundnytta)",
+      "Brand (varumärke)"
+    ],
+    correctIndex: 2,
+    explanation: "FAB = Features, Advantages, Benefits. B står för Benefits, alltså den konkreta nyttan kunden upplever. Modellen tvingar dig att gå från egenskap till kundnytta.",
+    related: ["FAB", "Värdeerbjudande", "Kundnytta"]
+  },
+  {
+    id: "mc-5p-delar",
+    mode: "begrepp",
+    type: "mc",
+    category: "Erbjudande",
+    source: "AM2",
+    question: "Vilka är de fem delarna i 5P?",
+    tags: ["Erbjudande", "AM2"],
+    options: [
+      "Produkt, pris, plats, påverkan, personal",
+      "Produkt, pris, plan, process, presentation",
+      "Produkt, paketering, positionering, press, personal",
+      "Pris, plats, process, promotion, profit"
+    ],
+    correctIndex: 0,
+    explanation: "5P = produkt, pris, plats, påverkan och personal. Modellen ger en helhetsbild av erbjudandet och hur det når kunden. De andra alternativen blandar in begrepp som inte ingår i 5P.",
+    related: ["5P", "Pris", "Paketering", "Kanal"]
+  },
+  {
+    id: "mc-bsc-perspektiv",
+    mode: "begrepp",
+    type: "mc",
+    category: "Styrning",
+    source: "AM4",
+    question: "Vilka fyra perspektiv ingår i Balanced Scorecard?",
+    tags: ["Styrning", "AM4"],
+    options: [
+      "Ekonomi, kund, intern process, lärande och tillväxt",
+      "SWOT:s fyra rutor: styrkor, svagheter, möjligheter, hot",
+      "Produkt, pris, plats, påverkan",
+      "Intäkter, kostnader, tillgångar, skulder"
+    ],
+    correctIndex: 0,
+    explanation: "Balanced Scorecard mäter verksamheten ur fyra perspektiv: ekonomi, kund, interna processer samt lärande och tillväxt. Alternativ B är SWOT. Alternativ C är 5P (minus personal). Alternativ D är redovisningsbegrepp.",
+    related: ["Balanced Scorecard", "KPI", "Mål", "Styrning"]
+  },
+  {
+    id: "mc-positionering-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Erbjudande",
+    source: "AM2",
+    question: "Vad innebär positionering?",
+    tags: ["Erbjudande", "AM2"],
+    options: [
+      "Att bestämma var kontoret ska ligga geografiskt",
+      "Att bestämma vilken plats erbjudandet ska ha i kundens huvud jämfört med alternativ",
+      "Att välja rätt position i organisationsschemat",
+      "Att placera produkter i butikshyllan"
+    ],
+    correctIndex: 1,
+    explanation: "Positionering handlar om hur kunden uppfattar erbjudandet i relation till konkurrenter. Det är ett strategiskt val om hur företaget vill bli sett. De andra alternativen handlar om fysisk placering.",
+    related: ["Differentiering", "Konkurrentanalys", "Värdeerbjudande"]
+  },
+  {
+    id: "mc-konkurrentanalys-syfte",
+    mode: "begrepp",
+    type: "mc",
+    category: "Strategi",
+    source: "BMC/PESTELID/SWOT",
+    question: "Varför genomför man en konkurrentanalys?",
+    tags: ["Strategi", "Konkurrens"],
+    options: [
+      "För att kopiera konkurrenternas erbjudande exakt",
+      "För att räkna ut företagets soliditet",
+      "För att förstå vilka alternativ kunden har och hur det egna erbjudandet kan särskiljas",
+      "För att bestämma företagets organisationsform"
+    ],
+    correctIndex: 2,
+    explanation: "Konkurrentanalys hjälper företaget förstå marknaden och differentiera sitt erbjudande. Utan den riskerar man att beskriva sitt erbjudande som unikt trots att kunden ser många alternativ.",
+    related: ["Differentiering", "Positionering", "Värdeerbjudande"]
+  },
+  {
+    id: "mc-vardeerbjudande-def",
+    mode: "begrepp",
+    type: "mc",
+    category: "Modeller",
+    source: "AM2/BMC",
+    question: "Vad är ett värdeerbjudande?",
+    tags: ["Erbjudande", "BMC"],
+    options: [
+      "En lista på alla produkter företaget säljer",
+      "Den nytta kunden får och varför kunden ska välja just den lösningen",
+      "Företagets prislista",
+      "En beskrivning av företagets interna processer"
+    ],
+    correctIndex: 1,
+    explanation: "Värdeerbjudandet fokuserar på kundens problem och den nytta som lösningen ger. Det är mer än en produktlista – det förklarar varför kunden ska välja just detta. Alternativ A och C är för snäva.",
+    related: ["FAB", "Kundnytta", "Kundsegment"]
+  },
+
+  // ── MC: Företagsform / Praktik ───────────────────────────────────────
+  {
+    id: "mc-ab-vs-enskild",
+    mode: "begrepp",
+    type: "mc",
+    category: "Företagsform",
+    source: "Företagsformer 2025",
+    question: "Vad är den avgörande skillnaden mellan aktiebolag och enskild firma gällande ansvar?",
+    tags: ["Företagsform"],
+    options: [
+      "I enskild firma har ägaren begränsat ansvar precis som i aktiebolag",
+      "I aktiebolag ansvarar ägarna normalt inte personligen för bolagets skulder",
+      "Enskild firma kräver högre aktiekapital än aktiebolag",
+      "Det finns ingen skillnad i ansvar mellan företagsformerna"
+    ],
+    correctIndex: 1,
+    explanation: "I aktiebolag är ägarna normalt skyddade från personligt ansvar, medan enskild firma innebär att företagaren personligen ansvarar för skulder. Det är den viktigaste skillnaden.",
+    related: ["Ansvar", "Aktiebolag", "Enskild firma", "Risk"]
+  },
+  {
+    id: "mc-arsredovisning-delar",
+    mode: "begrepp",
+    type: "mc",
+    category: "Årsredovisning",
+    source: "AM5",
+    question: "Vilka delar ingår i en årsredovisning?",
+    tags: ["Årsredovisning", "AM5"],
+    options: [
+      "Bara resultaträkning och balansräkning",
+      "Förvaltningsberättelse, resultaträkning, balansräkning, noter och ofta revisionsberättelse",
+      "Bara budget och prognos",
+      "SWOT-analys och konkurrentanalys"
+    ],
+    correctIndex: 1,
+    explanation: "En årsredovisning är ett komplett paket som ger flera perspektiv på företagets ekonomi och verksamhet. Enbart resultat- och balansräkning (alternativ A) räcker inte.",
+    related: ["Förvaltningsberättelse", "Resultaträkning", "Balansräkning"]
+  },
+  {
+    id: "mc-forvaltningsberattelse-syfte",
+    mode: "begrepp",
+    type: "mc",
+    category: "Årsredovisning",
+    source: "AM5",
+    question: "Vad är syftet med förvaltningsberättelsen?",
+    tags: ["Årsredovisning", "AM5"],
+    options: [
+      "Att lista alla anställdas löner",
+      "Att beskriva vad som hänt i verksamheten under året och ge kontext till siffrorna",
+      "Att visa företagets soliditet och likviditet i diagramform",
+      "Att presentera nästa års budget"
+    ],
+    correctIndex: 1,
+    explanation: "Förvaltningsberättelsen ger kontext och förklarar varför siffrorna ser ut som de gör – t.ex. att Hälsö Fisk AB hade färre kundbesök på grund av infrastrukturförändringar.",
+    related: ["Årsredovisning", "Resultat", "Omvärld"]
+  },
+  {
+    id: "mc-fast-good-cheap",
+    mode: "begrepp",
+    type: "mc",
+    category: "Erbjudande",
+    source: "AM2",
+    question: "Vad säger fast-good-cheap-principen?",
+    tags: ["Erbjudande", "AM2"],
+    options: [
+      "Alla tre kan alltid levereras om man planerar rätt",
+      "Man kan bara välja en av tre: snabb, bra eller billig",
+      "Man kan maximera två av tre men sällan alla tre samtidigt",
+      "Principen gäller bara fysiska produkter, inte tjänster"
+    ],
+    correctIndex: 2,
+    explanation: "Fast-good-cheap visar att man kan optimera två av tre men sällan alla tre samtidigt. Om kunden vill ha snabbt och bra blir det sällan billigt. Alternativ A är orealistiskt. Alternativ B är för extremt.",
+    related: ["Pris", "Kvalitet", "Leveranstid", "Kundförväntan"]
+  },
+
+  // ── MC: Sant / Falskt ────────────────────────────────────────────────
+  {
+    id: "mc-tf-resultat-kassaflode",
+    mode: "samband",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Påstående: \"Positivt resultat betyder alltid bra kassaflöde.\"",
+    tags: ["Ekonomi", "AM5"],
+    options: ["Sant", "Falskt"],
+    correctIndex: 1,
+    explanation: "Falskt. Resultat baseras på bokförda intäkter och kostnader, men kassaflödet visar faktiska pengar in och ut. Essiq AB hade positivt resultat men kraftigt minskat kassaflöde 2021 på grund av stora kundfordringar.",
+    related: ["Kassaflöde", "Resultat", "Kundfordringar"]
+  },
+  {
+    id: "mc-tf-soliditet-kortsiktig",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Påstående: \"Soliditet visar kortsiktig betalningsförmåga.\"",
+    tags: ["Ekonomi", "AM5"],
+    options: ["Sant", "Falskt"],
+    correctIndex: 1,
+    explanation: "Falskt. Soliditet visar långsiktig finansiell motståndskraft (eget kapital / totala tillgångar). Det är likviditet som visar kortsiktig betalningsförmåga. Studenter blandar ofta ihop dessa begrepp.",
+    related: ["Soliditet", "Likviditet", "Eget kapital"]
+  },
+  {
+    id: "mc-tf-pestelid-intern",
+    mode: "begrepp",
+    type: "mc",
+    category: "Omvärld",
+    source: "AM3",
+    question: "Påstående: \"PESTELID analyserar interna faktorer i företaget.\"",
+    tags: ["Omvärld", "PESTELID"],
+    options: ["Sant", "Falskt"],
+    correctIndex: 1,
+    explanation: "Falskt. PESTELID analyserar externa omvärldsfaktorer (politiska, ekonomiska, sociala osv.). Interna faktorer analyseras genom SWOT:s styrkor och svagheter.",
+    related: ["PESTELID", "SWOT", "Omvärld", "Intern analys"]
+  },
+  {
+    id: "mc-tf-eget-kapital",
+    mode: "begrepp",
+    type: "mc",
+    category: "Ekonomi",
+    source: "AM5",
+    question: "Påstående: \"Eget kapital = tillgångar minus skulder.\"",
+    tags: ["Ekonomi", "AM5"],
+    options: ["Sant", "Falskt"],
+    correctIndex: 0,
+    explanation: "Sant. Eget kapital är den del av tillgångarna som inte finansieras med skulder. Det är ägarnas kapital i bolaget och fungerar som buffert. Det är inte samma sak som pengar på banken.",
+    related: ["Eget kapital", "Tillgångar", "Skulder", "Soliditet"]
   }
 ];
