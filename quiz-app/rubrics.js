@@ -223,3 +223,286 @@ window.FOKUS_RUBRICS = {
     ]
   }
 };
+
+(function enhanceRubricsForCoach() {
+  const rubrics = window.FOKUS_RUBRICS || {};
+  const feedbackTemplates = {
+    correct: "Rätt. Du fångar huvudpoängen.",
+    almost: "Nästan. Jämför med facit och fyll på det centrala.",
+    too_vague: "Nästan, men för allmänt. Jämför med facit.",
+    confused_with: "Det här låter mer som {misconception}. Rätt svar står i facit nedan.",
+    wrong: "Rätt svar står i facit nedan.",
+    nonsense: "Rätt svar står i facit nedan.",
+    uncertain: "Jämför med facit och välj nivå själv."
+  };
+
+  function enhance(id, data) {
+    rubrics[id] = {
+      ...(rubrics[id] || {}),
+      ...data,
+      feedbackTemplates: {
+        ...feedbackTemplates,
+        ...((rubrics[id] || {}).feedbackTemplates || {}),
+        ...(data.feedbackTemplates || {})
+      }
+    };
+  }
+
+  enhance("soliditet", {
+    concepts: [
+      { key: "equity", label: "eget kapital", accepted: ["eget kapital", "ägarnas kapital", "ägarnas pengar", "ägarkapital"] },
+      { key: "relation", label: "andel eller relation", accepted: ["andel", "hur stor del", "i relation till", "delat med", "dividerat med", "finansierade med", "i stället för lån"] },
+      { key: "assets", label: "tillgångar", accepted: ["tillgångar", "totala tillgångar", "balansomslutning", "företagets tillgångar"] },
+      { key: "stability", label: "långsiktig stabilitet", accepted: ["stabilitet", "stabilt", "motståndskraft", "risk", "långsiktig", "buffert"] }
+    ],
+    requiredConcepts: ["equity", "relation"],
+    supportingConcepts: ["assets", "stability"],
+    misconceptions: [
+      {
+        id: "likviditet",
+        label: "likviditet",
+        signals: ["pengar i kassan", "kassa", "betala fakturor", "betala skulder snabbt", "kortsiktig betalningsförmåga", "likvida medel"],
+        explanation: "Likviditet handlar om kortsiktig betalningsförmåga. Soliditet handlar om eget kapital i relation till tillgångar."
+      },
+      {
+        id: "lonsamhet",
+        label: "lönsamhet",
+        signals: ["vinst", "tjäna pengar", "går med plus", "lönsam"],
+        explanation: "Lönsamhet handlar om vinst. Soliditet handlar om hur tillgångarna är finansierade."
+      }
+    ],
+    goodExamples: [
+      "Det visar hur stor del av tillgångarna som är finansierade med ägarnas kapital i stället för lån.",
+      "Soliditet är eget kapital delat med totala tillgångar."
+    ],
+    almostExamples: ["Det handlar om hur stabilt företaget är."],
+    wrongExamples: ["Det betyder pengar i kassan så företaget kan betala fakturor snabbt.", "gris"],
+    memoryRule: "Soliditet = ägarnas andel av det företaget äger.",
+      feedbackTemplates: {
+        confused_with: "Det här låter mer som {misconception}, inte soliditet. Rätt svar står i facit nedan."
+      }
+  });
+
+  enhance("likviditet", {
+    concepts: [
+      { key: "shortTerm", label: "kortsiktig betalningsförmåga", accepted: ["kortsiktig betalningsförmåga", "kort sikt", "betala skulder i tid", "betala fakturor", "betala korta skulder", "betala sina korta skulder"] },
+      { key: "cash", label: "pengar eller kassa", accepted: ["pengar", "kassa", "bank", "likvida medel", "pengar i kassan"] },
+      { key: "notProfit", label: "skiljer från vinst", accepted: ["inte samma som vinst", "inte vinst", "inte resultat", "lönsamhet"] }
+    ],
+    requiredConcepts: ["shortTerm"],
+    supportingConcepts: ["cash", "notProfit"],
+    misconceptions: [
+      {
+        id: "soliditet",
+        label: "soliditet",
+        signals: ["eget kapital", "ägarnas kapital", "totala tillgångar", "balansomslutning", "långsiktig stabilitet"],
+        explanation: "Soliditet handlar om eget kapital i relation till tillgångar. Likviditet handlar om betalningsförmåga på kort sikt."
+      },
+      {
+        id: "lonsamhet",
+        label: "lönsamhet",
+        signals: ["vinst", "förlust", "går med plus", "resultat"],
+        explanation: "Lönsamhet handlar om resultat. Likviditet handlar om pengar att betala med när skulder förfaller."
+      }
+    ],
+    memoryRule: "Likviditet = kan företaget betala nu?",
+    goodExamples: ["Om företaget kan betala sina kortfristiga skulder med pengar och likvida medel."],
+    almostExamples: ["Det handlar om pengar i företaget."],
+    wrongExamples: ["Det visar hur mycket eget kapital företaget har."]
+  });
+
+  enhance("resultatrakning", {
+    concepts: [
+      { key: "income", label: "intäkter", accepted: ["intäkter", "omsättning", "nettoomsättning", "försäljning"] },
+      { key: "cost", label: "kostnader", accepted: ["kostnader", "utgifter", "minus kostnader"] },
+      { key: "period", label: "period", accepted: ["period", "under året", "under en tid", "räkenskapsår"] },
+      { key: "profitLoss", label: "resultat", accepted: ["vinst", "förlust", "resultat", "årets resultat"] }
+    ],
+    requiredConcepts: ["income", "cost"],
+    supportingConcepts: ["period", "profitLoss"],
+    misconceptions: [
+      {
+        id: "balansrakning",
+        label: "balansräkning",
+        signals: ["tillgångar", "skulder", "eget kapital", "balansdag", "vid ett datum"],
+        explanation: "Balansräkningen visar tillgångar, skulder och eget kapital vid en tidpunkt. Resultaträkningen visar intäkter och kostnader under en period."
+      }
+    ],
+    memoryRule: "Resultaträkning = intäkter minus kostnader under en period.",
+    goodExamples: ["Den visar intäkter och kostnader under året och om det blir vinst eller förlust."],
+    almostExamples: ["Den visar om företaget går med vinst."],
+    wrongExamples: ["Den visar företagets tillgångar och skulder."]
+  });
+
+  enhance("balansrakning", {
+    concepts: [
+      { key: "assets", label: "tillgångar", accepted: ["tillgångar", "omsättningstillgångar", "anläggningstillgångar"] },
+      { key: "liabilities", label: "skulder", accepted: ["skulder", "kortfristiga skulder", "långfristiga skulder"] },
+      { key: "equity", label: "eget kapital", accepted: ["eget kapital", "ägarnas kapital"] },
+      { key: "pointInTime", label: "tidpunkt", accepted: ["tidpunkt", "balansdag", "vid ett datum", "en viss dag"] }
+    ],
+    requiredConcepts: ["assets", "liabilities", "equity"],
+    supportingConcepts: ["pointInTime"],
+    misconceptions: [
+      {
+        id: "resultatrakning",
+        label: "resultaträkning",
+        signals: ["intäkter", "kostnader", "omsättning", "vinst", "förlust", "under året"],
+        explanation: "Resultaträkningen visar intäkter och kostnader över en period. Balansräkningen visar tillgångar, skulder och eget kapital vid en tidpunkt."
+      }
+    ],
+    memoryRule: "Balansräkning = vad företaget äger och hur det är finansierat."
+  });
+
+  enhance("eget-kapital", {
+    concepts: [
+      { key: "assetsMinusLiabilities", label: "tillgångar minus skulder", accepted: ["tillgångar minus skulder", "tillgångar - skulder", "skillnaden mellan tillgångar och skulder"] },
+      { key: "owners", label: "ägarnas del", accepted: ["ägarnas kapital", "ägarnas del", "ägare", "kapital i bolaget", "ägarkapital"] },
+      { key: "buffer", label: "buffert eller risk", accepted: ["buffert", "risk", "soliditet", "motståndskraft"] }
+    ],
+    requiredConcepts: ["assetsMinusLiabilities"],
+    supportingConcepts: ["owners", "buffer"],
+    misconceptions: [
+      {
+        id: "kassa",
+        label: "kassa",
+        signals: ["pengar på banken", "kassa", "likvida medel"],
+        explanation: "Kassa är pengar som finns tillgängliga. Eget kapital är skillnaden mellan tillgångar och skulder."
+      }
+    ],
+    memoryRule: "Eget kapital = tillgångar minus skulder."
+  });
+
+  enhance("kassaflode", {
+    concepts: [
+      { key: "cashInOut", label: "pengar in och ut", accepted: ["pengar in och ut", "pengar kommer in", "pengar som kommer in", "pengar går ut", "går ut", "inbetalningar och utbetalningar"] },
+      { key: "time", label: "över tid", accepted: ["över tid", "under en period", "löpande", "period"] },
+      { key: "notResult", label: "skiljer från resultat", accepted: ["inte samma som resultat", "inte vinst", "resultat", "vinst"] }
+    ],
+    requiredConcepts: ["cashInOut"],
+    supportingConcepts: ["time", "notResult"],
+    misconceptions: [
+      {
+        id: "resultat",
+        label: "resultat",
+        signals: ["vinst", "förlust", "intäkter minus kostnader", "årets resultat"],
+        explanation: "Resultat är intäkter minus kostnader. Kassaflöde handlar om faktiska pengar in och ut."
+      }
+    ],
+    memoryRule: "Kassaflöde = pengar som faktiskt rör sig."
+  });
+
+  enhance("tackningsbidrag", {
+    concepts: [
+      { key: "income", label: "intäkt", accepted: ["intäkt", "försäljning", "försäljningsintäkt", "säljs för"] },
+      { key: "directCosts", label: "direkta eller rörliga kostnader", accepted: ["direkta kostnader", "rörliga kostnader", "kostar direkt", "minus kostnader"] },
+      { key: "contribution", label: "bidrag till fasta kostnader/vinst", accepted: ["fasta kostnader", "vinst", "marginal", "bidrar"] }
+    ],
+    requiredConcepts: ["income", "directCosts"],
+    supportingConcepts: ["contribution"],
+    misconceptions: [
+      {
+        id: "vinst",
+        label: "vinst",
+        signals: ["hela intäkten", "allt man säljer för", "omsättningen"],
+        explanation: "Täckningsbidrag är inte hela intäkten. Direkta kostnader ska dras bort först."
+      }
+    ],
+    memoryRule: "Täckningsbidrag = intäkt minus direkta kostnader."
+  });
+
+  enhance("budget-prognos", {
+    id: "budget-prognos",
+    correctRequires: ["plan", "updatedView"],
+    almostRequiresAny: ["plan", "updatedView"],
+    criteria: [
+      { key: "plan", label: "budget är plan i förväg", accepted: ["plan i förväg", "plan", "budgetera", "mål i förväg"] },
+      { key: "updatedView", label: "prognos är uppdaterad bedömning", accepted: ["uppdaterad bedömning", "bedömning", "utfall verkar bli", "prognos", "justerad"] }
+    ],
+    concepts: [
+      { key: "plan", label: "budget är plan i förväg", accepted: ["budget är planen", "plan i förväg", "budgetera", "mål i förväg"] },
+      { key: "updatedView", label: "prognos är uppdaterad bedömning", accepted: ["prognos är en uppdaterad bedömning", "uppdaterad bedömning", "hur utfallet verkar bli", "justerar prognosen"] }
+    ],
+    requiredConcepts: ["plan", "updatedView"],
+    supportingConcepts: [],
+    misconceptions: [
+      {
+        id: "samma-sak",
+        label: "budget och prognos som samma sak",
+        signals: ["samma sak", "ingen skillnad"],
+        explanation: "Budget är planen i förväg. Prognos är den uppdaterade bedömningen när verkligheten börjar synas."
+      }
+    ],
+    memoryRule: "Budget = plan. Prognos = ny bedömning."
+  });
+
+  enhance("bmc", {
+    concepts: [
+      { key: "businessModel", label: "affärsmodell", accepted: ["affärsmodell", "hur företaget fungerar", "hur bolaget fungerar"] },
+      { key: "value", label: "värde/kund/erbjudande", accepted: ["värde", "värdeskapande", "kund", "erbjudande", "värdeerbjudande"] },
+      { key: "money", label: "intäkter/kostnader/resurser", accepted: ["intäkter", "kostnader", "resurser", "nyckelresurser"] }
+    ],
+    requiredConcepts: ["businessModel", "value"],
+    supportingConcepts: ["money"],
+    memoryRule: "BMC visar hur affären skapar, levererar och fångar värde."
+  });
+
+  enhance("fab", {
+    concepts: [
+      { key: "feature", label: "egenskap", accepted: ["egenskap", "feature", "funktion"] },
+      { key: "advantage", label: "fördel", accepted: ["fördel", "advantage"] },
+      { key: "benefit", label: "kundnytta", accepted: ["kundnytta", "nytta", "benefit"] }
+    ],
+    requiredConcepts: ["feature", "advantage", "benefit"],
+    supportingConcepts: [],
+    memoryRule: "FAB = egenskap, fördel, kundnytta."
+  });
+
+  enhance("swot", {
+    concepts: [
+      { key: "strengthWeakness", label: "styrkor/svagheter", accepted: ["styrkor och svagheter", "styrkor", "svagheter"] },
+      { key: "opportunityThreat", label: "möjligheter/hot", accepted: ["möjligheter och hot", "möjligheter", "hot"] },
+      { key: "internal", label: "internt", accepted: ["internt", "interna", "inne i bolaget"] },
+      { key: "external", label: "externt", accepted: ["externt", "externa", "omvärld"] }
+    ],
+    requiredConcepts: ["internal", "external"],
+    supportingConcepts: ["strengthWeakness", "opportunityThreat"],
+    memoryRule: "SWOT = internt starkt/svagt och externt möjlighet/hot."
+  });
+
+  enhance("pestelid", {
+    concepts: [
+      { key: "outsideFactors", label: "omvärldsanalys", accepted: ["omvärldsanalys", "omvärld", "faktorer utanför", "externa faktorer"] },
+      { key: "examples", label: "faktortyper", accepted: ["politiskt", "ekonomiskt", "socialt", "teknologiskt", "legalt", "miljö", "demografi"] },
+      { key: "businessImpact", label: "påverkan på affären", accepted: ["påverkar affären", "påverkar efterfrågan", "risk", "möjlighet", "marknad"] }
+    ],
+    requiredConcepts: ["outsideFactors", "businessImpact"],
+    supportingConcepts: ["examples"],
+    memoryRule: "PESTELID = omvärldsfaktorer som påverkar affären."
+  });
+
+  enhance("ansoff", {
+    concepts: [
+      { key: "product", label: "produkt/tjänst", accepted: ["produkt", "tjänst", "erbjudande"] },
+      { key: "market", label: "marknad", accepted: ["marknad", "kundgrupp", "kundsegment"] },
+      { key: "growthRisk", label: "tillväxt/risk", accepted: ["tillväxt", "risk", "diversifiering", "marknadspenetration"] }
+    ],
+    requiredConcepts: ["product", "market"],
+    supportingConcepts: ["growthRisk"],
+    memoryRule: "Ansoff = gammal/ny produkt mot gammal/ny marknad."
+  });
+
+  enhance("halsos-essiq-jamfor-case", {
+    concepts: [
+      { key: "essiqStronger", label: "Essiq starkare resultatmässigt", accepted: ["essiq", "vinst", "positivt resultat", "starkare resultat"] },
+      { key: "halsoWeaker", label: "Hälsö mer pressat", accepted: ["hälsö", "halso", "fisk", "förlust", "pressad", "11 procent"] },
+      { key: "resultMeasure", label: "resultat", accepted: ["resultat", "vinst", "förlust"] },
+      { key: "liquidityMeasure", label: "likviditet", accepted: ["likviditet", "balanslikviditet", "kassalikviditet", "kassa"] },
+      { key: "solidityMeasure", label: "soliditet", accepted: ["soliditet", "eget kapital"] },
+      { key: "context", label: "förvaltningsberättelse/sammanhang", accepted: ["förvaltningsberättelse", "sammanhang", "efterfrågan", "kundbesök", "tillväxt"] }
+    ],
+    requiredConcepts: ["essiqStronger", "halsoWeaker", "twoMeasures"],
+    supportingConcepts: ["context"],
+    memoryRule: "Jämför bolag med flera mått: resultat, likviditet, soliditet och berättelsen."
+  });
+})();

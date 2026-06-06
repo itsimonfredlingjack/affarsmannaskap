@@ -1,0 +1,74 @@
+{
+  "purpose": "Small local eval set for Semantic Study Coach. This file is not loaded by the app.",
+  "verdicts": ["correct", "almost", "too_vague", "confused_with", "wrong", "nonsense", "uncertain"],
+  "cases": [
+    {
+      "questionId": "soliditet",
+      "answers": [
+        {
+          "text": "Det visar hur stor del av tillgångarna som är betalda med ägarnas kapital i stället för lån.",
+          "expected": ["correct", "almost"]
+        },
+        {
+          "text": "Det betyder pengar i kassan så företaget kan betala fakturor snabbt.",
+          "expected": ["confused_with"]
+        },
+        {
+          "text": "gris",
+          "expected": ["nonsense"]
+        },
+        {
+          "text": "Det handlar om hur stabilt företaget är.",
+          "expected": ["too_vague", "almost"]
+        },
+        {
+          "text": "Soliditet är eget kapital delat med totala tillgångar.",
+          "expected": ["correct"]
+        }
+      ]
+    },
+    {
+      "questionId": "likviditet",
+      "answers": [
+        {
+          "text": "Om företaget kan betala sina korta skulder med pengar i kassan.",
+          "expected": ["correct"]
+        },
+        {
+          "text": "Det visar hur stor del av tillgångarna som finansieras med eget kapital.",
+          "expected": ["confused_with"]
+        },
+        {
+          "text": "Det handlar om pengar.",
+          "expected": ["too_vague", "almost"]
+        }
+      ]
+    },
+    {
+      "questionId": "kassaflode",
+      "answers": [
+        {
+          "text": "Pengar som kommer in och går ut ur företaget under en period.",
+          "expected": ["correct"]
+        },
+        {
+          "text": "Det är samma sak som vinst.",
+          "expected": ["confused_with", "wrong"]
+        }
+      ]
+    },
+    {
+      "questionId": "resultatrakning",
+      "answers": [
+        {
+          "text": "Den visar intäkter och kostnader under året och om företaget gör vinst eller förlust.",
+          "expected": ["correct"]
+        },
+        {
+          "text": "Den visar tillgångar, skulder och eget kapital.",
+          "expected": ["confused_with"]
+        }
+      ]
+    }
+  ]
+}

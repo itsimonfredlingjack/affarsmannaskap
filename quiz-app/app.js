@@ -1,6 +1,9 @@
 (function () {
   const questions = Array.isArray(window.FOKUS_QUESTIONS) ? window.FOKUS_QUESTIONS : [];
   const rubrics = window.FOKUS_RUBRICS && typeof window.FOKUS_RUBRICS === "object" ? window.FOKUS_RUBRICS : {};
+  const grader = window.FOKUS_GRADER && typeof window.FOKUS_GRADER.gradeAnswer === "function"
+    ? window.FOKUS_GRADER
+    : null;
   const storageKey = "fokusbladet-progress-v2";
   const oldStorageKey = "fokusbladet-progress-v1";
 
@@ -25,9 +28,8 @@
     userAnswerText: document.getElementById("user-answer-text"),
     assessmentCard: document.getElementById("assessment-card"),
     assessmentScore: document.getElementById("assessment-score"),
+    assessmentTitle: document.getElementById("assessment-title"),
     assessmentSummary: document.getElementById("assessment-summary"),
-    matchedList: document.getElementById("matched-list"),
-    missingList: document.getElementById("missing-list"),
     answerText: document.getElementById("answer-text"),
     selfCheckText: document.getElementById("self-check-text"),
     whyText: document.getElementById("why-text"),
@@ -41,6 +43,7 @@
     nextButton: document.getElementById("next-question"),
     emptyState: document.getElementById("empty-state"),
     studyContainer: document.getElementById("study-container"),
+    scoreRingContainer: document.querySelector(".score-ring-container"),
     scoreRing: document.getElementById("score-ring"),
     scoreRingValue: document.getElementById("score-ring-value"),
     // Sidebar
@@ -129,8 +132,12 @@
     return new Date(cardProgress.nextReview) <= new Date();
   }
 
+  function studyQuestions() {
+    return questions.filter(q => q.mode !== "repetition");
+  }
+
   function getDueQuestions() {
-    return questions.filter(q => {
+    return studyQuestions().filter(q => {
       const p = state.progress[q.id];
       if (!p || !p.nextReview) return true; // Never seen = due
       return isDueToday(p);
@@ -272,20 +279,21 @@
      QUESTION FILTERING
      ========================================================================== */
   function filteredQuestions() {
-    if (state.mode === "all") return questions.filter(q => q.mode !== "repetition");
+    const baseQuestions = studyQuestions();
+    if (state.mode === "all") return baseQuestions;
     if (state.mode === "repetition") {
-      const weak = questions.filter(q => {
+      const weak = baseQuestions.filter(q => {
         const rating = state.progress[q.id]?.rating;
         return rating === "again" || rating === "almost";
       });
-      return weak.length ? weak : questions.filter(q => q.mode !== "repetition");
+      return weak.length ? weak : baseQuestions;
     }
-    return questions.filter(q => q.mode === state.mode);
+    return baseQuestions.filter(q => q.mode === state.mode);
   }
 
   function currentList() {
     const list = filteredQuestions();
-    return list.length ? list : questions;
+    return list.length ? list : studyQuestions();
   }
 
   function clampIndex() {
@@ -441,8 +449,8 @@
 
     renderTags(question.tags || [question.category]);
 
-    // Input area: show textarea OR MC options
-    if (els.inputSection) els.inputSection.hidden = isMC;
+    // Input area: show textarea only while open-ended answers are being written.
+    if (els.inputSection) els.inputSection.hidden = isMC || state.revealed;
     if (els.mcOptions) {
       els.mcOptions.hidden = !isMC || state.revealed;
       if (isMC && !state.revealed) renderMCOptions(question);
@@ -511,24 +519,20 @@
     const score = isCorrect ? 100 : 0;
 
     // Score ring
+    if (els.scoreRingContainer) els.scoreRingContainer.hidden = false;
     updateScoreRing(score);
 
     // Assessment badge
-    els.assessmentScore.textContent = isCorrect ? "Rätt!" : "Fel";
-    els.assessmentScore.style.backgroundColor = isCorrect ? "var(--bg-success-soft)" : "var(--bg-danger-soft)";
-    els.assessmentScore.style.borderColor = isCorrect ? "var(--border-success-soft)" : "var(--border-danger-soft)";
-    els.assessmentScore.style.color = isCorrect ? "var(--text-success-dark)" : "var(--text-danger-dark)";
+    setAssessmentBadge(isCorrect ? "correct" : "wrong", isCorrect ? "Rätt!" : "Fel");
 
+    if (els.assessmentTitle) els.assessmentTitle.textContent = isCorrect ? "Rätt svar" : "Fel svar";
     els.assessmentSummary.textContent = question.explanation;
 
     // Hide open-ended specific cards
     if (els.userAnswerCard) els.userAnswerCard.hidden = true;
     if (els.correctAnswerCard) els.correctAnswerCard.hidden = true;
     if (els.assessmentCard) els.assessmentCard.hidden = false;
-
-    // Hide comparison grid for MC
-    const compGrid = els.assessmentCard?.querySelector(".comparison-grid");
-    if (compGrid) compGrid.hidden = true;
+    if (els.assessmentCard) els.assessmentCard.classList.remove("coach-card");
 
     // MC explanation
     if (els.mcExplanation) {
@@ -551,43 +555,21 @@
      OPEN-ENDED RENDERING
      ========================================================================== */
   function renderOpenRevealed(question) {
-    const assessment = assessAnswer(question, state.submittedAnswer);
+    const assessment = getOpenAssessment(question, state.submittedAnswer);
 
     // Show open-ended specific cards
     if (els.userAnswerCard) els.userAnswerCard.hidden = false;
     if (els.correctAnswerCard) els.correctAnswerCard.hidden = false;
-    if (els.assessmentCard) els.assessmentCard.hidden = false;
+    if (els.assessmentCard) {
+      els.assessmentCard.hidden = true;
+      els.assessmentCard.classList.remove("coach-card");
+    }
     if (els.mcExplanation) els.mcExplanation.hidden = true;
-
-    // Show comparison grid
-    const compGrid = els.assessmentCard?.querySelector(".comparison-grid");
-    if (compGrid) compGrid.hidden = false;
-
-    // Score ring
-    updateScoreRing(assessment.score);
+    if (els.scoreRingContainer) els.scoreRingContainer.hidden = true;
 
     // User answer
     els.userAnswerText.textContent = state.submittedAnswer || "Inget svar angavs innan facit visades.";
 
-    // Assessment
-    els.assessmentScore.textContent = `${assessment.score}%`;
-    if (assessment.score >= 80) {
-      els.assessmentScore.style.backgroundColor = "var(--bg-success-soft)";
-      els.assessmentScore.style.borderColor = "var(--border-success-soft)";
-      els.assessmentScore.style.color = "var(--text-success-dark)";
-    } else if (assessment.score >= 40) {
-      els.assessmentScore.style.backgroundColor = "var(--bg-warning-soft)";
-      els.assessmentScore.style.borderColor = "var(--border-warning-soft)";
-      els.assessmentScore.style.color = "var(--text-warning-dark)";
-    } else {
-      els.assessmentScore.style.backgroundColor = "var(--bg-danger-soft)";
-      els.assessmentScore.style.borderColor = "var(--border-danger-soft)";
-      els.assessmentScore.style.color = "var(--text-danger-dark)";
-    }
-
-    els.assessmentSummary.textContent = assessment.summary;
-    renderListChips(els.matchedList, assessment.matched);
-    renderListChips(els.missingList, assessment.missing);
     markSuggestedRating(assessment.suggestedRating);
 
     els.answerText.textContent = question.answer;
@@ -619,6 +601,51 @@
     }
   }
 
+  function getOpenAssessment(question, rawAnswer) {
+    const rubric = rubrics[question.id];
+    if (grader) return grader.gradeAnswer(question, rawAnswer, rubric);
+    return assessAnswer(question, rawAnswer);
+  }
+
+  function verdictLabel(verdict) {
+    const labels = {
+      correct: "Rätt",
+      almost: "Nästan",
+      too_vague: "Nästan",
+      confused_with: "Fel svar",
+      wrong: "Fel svar",
+      nonsense: "Fel svar",
+      uncertain: "Jämför"
+    };
+    return labels[verdict] || "Bedömning";
+  }
+
+  function setAssessmentBadge(verdict, label) {
+    if (!els.assessmentScore) return;
+    const classes = [
+      "verdict-correct",
+      "verdict-almost",
+      "verdict-too-vague",
+      "verdict-confused",
+      "verdict-wrong",
+      "verdict-nonsense",
+      "verdict-uncertain"
+    ];
+    els.assessmentScore.classList.remove(...classes);
+    const className = {
+      correct: "verdict-correct",
+      almost: "verdict-almost",
+      too_vague: "verdict-too-vague",
+      confused_with: "verdict-confused",
+      wrong: "verdict-wrong",
+      nonsense: "verdict-nonsense",
+      uncertain: "verdict-uncertain"
+    }[verdict] || "verdict-uncertain";
+    els.assessmentScore.classList.add(className);
+    els.assessmentScore.textContent = label;
+    if (els.assessmentCard) els.assessmentCard.dataset.verdict = verdict || "";
+  }
+
   /* ==========================================================================
      HELPERS
      ========================================================================== */
@@ -632,6 +659,15 @@
     });
   }
 
+  function editorIconSvg() {
+    return `
+      <svg class="q-type-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" />
+      </svg>
+    `;
+  }
+
   function renderRelated(related) {
     els.relatedRow.innerHTML = "";
     related.forEach(label => {
@@ -641,15 +677,6 @@
       button.textContent = label;
       button.addEventListener("click", () => jumpToRelated(label));
       els.relatedRow.appendChild(button);
-    });
-  }
-
-  function renderListChips(element, items) {
-    element.innerHTML = "";
-    items.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      element.appendChild(li);
     });
   }
 
@@ -724,7 +751,7 @@
       els.missedRetry.innerHTML = "";
       const missed = results.filter(r => r.score < 100);
       if (missed.length === 0) {
-        els.missedRetry.innerHTML = '<p class="no-missed">Perfekt! Inga missade frågor. 🎉</p>';
+        els.missedRetry.innerHTML = '<p class="no-missed">Perfekt. Inga missade frågor.</p>';
       } else {
         const header = document.createElement("h4");
         header.className = "missed-header";
@@ -764,9 +791,13 @@
     if (!questions.length) return;
 
     // Progress stats
-    const totalCount = questions.filter(q => q.mode !== "repetition").length;
-    const mastered = Object.values(state.progress).filter(p => p.rating === "known" && p.repetitions >= 2).length;
-    const percent = Math.min(100, Math.round((mastered / totalCount) * 100));
+    const baseQuestions = studyQuestions();
+    const totalCount = baseQuestions.length;
+    const mastered = baseQuestions.filter(q => {
+      const progress = state.progress[q.id];
+      return progress?.rating === "known" && progress.repetitions >= 2;
+    }).length;
+    const percent = totalCount ? Math.min(100, Math.round((mastered / totalCount) * 100)) : 0;
 
     if (els.sidebarProgressPercent) els.sidebarProgressPercent.textContent = `${percent}%`;
     if (els.sidebarProgressBar) els.sidebarProgressBar.style.width = `${percent}%`;
@@ -806,8 +837,15 @@
 
         const typeIcon = document.createElement("span");
         typeIcon.className = "q-item-type";
-        typeIcon.textContent = q.type === "mc" ? "MC" : "✍️";
         typeIcon.title = q.type === "mc" ? "Flervalsfråga" : "Öppen fråga";
+        if (q.type === "mc") {
+          typeIcon.textContent = "MC";
+          typeIcon.classList.add("q-item-type-text");
+        } else {
+          typeIcon.innerHTML = editorIconSvg();
+          typeIcon.classList.add("q-item-type-icon");
+          typeIcon.setAttribute("aria-hidden", "true");
+        }
 
         const title = document.createElement("span");
         title.className = "q-item-title";
@@ -901,6 +939,17 @@
     state.submittedAnswer = els.answerInput.value.trim();
     state.revealed = true;
     transitionRender();
+    focusAssessmentAfterReveal();
+  }
+
+  function focusAssessmentAfterReveal() {
+    const focusTarget = () => {
+      if (state.revealed && els.assessmentTitle && !els.answerSection?.hidden) {
+        els.assessmentTitle.focus({ preventScroll: true });
+      }
+    };
+    requestAnimationFrame(focusTarget);
+    window.setTimeout(focusTarget, 220);
   }
 
   function nextQuestion() {
@@ -940,7 +989,7 @@
     const isMC = question.type === "mc";
     const score = isMC
       ? (state.selectedMCIndex === question.correctIndex ? 100 : 0)
-      : computeOpenScore(question, state.submittedAnswer);
+      : computeOpenScore(question, state.submittedAnswer, rating);
 
     // SM-2 calculation
     const prevProgress = state.progress[question.id] || {};
@@ -968,18 +1017,13 @@
     nextQuestion();
   }
 
-  function computeOpenScore(question, rawAnswer) {
-    const rubric = rubrics[question.id];
-    if (!rubric) return 0;
-    const answer = normalize(rawAnswer);
-    if (!answer) return 0;
-    let matched = 0;
-    rubric.criteria.forEach(criterion => {
-      if (criterion.accepted.some(phrase => answer.includes(normalize(phrase)))) {
-        matched++;
-      }
-    });
-    return Math.round((matched / rubric.criteria.length) * 100);
+  function computeOpenScore(question, rawAnswer, manualRating = "") {
+    const assessment = getOpenAssessment(question, rawAnswer);
+    if (assessment.verdict === "uncertain" && manualRating) {
+      const manualScores = { known: 100, almost: 60, again: 0 };
+      return manualScores[manualRating] ?? assessment.scoreInternal ?? 0;
+    }
+    return assessment.scoreInternal ?? assessment.score ?? 0;
   }
 
   function resetProgress() {
