@@ -1,4 +1,21 @@
-window.FOKUS_QUESTIONS = [
+export interface Question {
+  id: string;
+  mode: 'begrepp' | 'samband' | 'case' | 'repetition';
+  type: 'open' | 'mc';
+  category: string;
+  source: string;
+  question: string;
+  tags: string[];
+  answer?: string;
+  why?: string;
+  example?: string;
+  related?: string[];
+  options?: string[];
+  correctIndex?: number;
+  explanation?: string;
+}
+
+export const FOKUS_QUESTIONS: Question[] = [
   {
     id: "soliditet",
     mode: "begrepp",
@@ -72,7 +89,7 @@ window.FOKUS_QUESTIONS = [
     source: "AM5",
     question: "Vad visar en balansräkning?",
     tags: ["Ekonomi", "AM5"],
-    answer: "Balansräkningen visar tillgångar, skulder och eget kapital vid en viss tidpunkt.",
+    answer: "Balansräkningen visar tillgångar, skulder och eget kapital vid a viss tidpunkt.",
     why: "Den visar hur bolaget är finansierat och hur stor del av tillgångarna som är bundna i skulder eller eget kapital.",
     example: "Hälsö Fisk AB hade 1 184 841 kr i tillgångar och 130 528 kr i eget kapital 2017.",
     related: ["Tillgångar", "Skulder", "Eget kapital", "Soliditet"]
@@ -125,7 +142,7 @@ window.FOKUS_QUESTIONS = [
     question: "Vad är skillnaden mellan budget och prognos?",
     tags: ["Ekonomi", "AM5"],
     answer: "Budget är planen i förväg. Prognos är en uppdaterad bedömning av hur utfallet verkar bli.",
-    why: "Skillnaden hjälper ett företag att styra både mål och verklighet när intäkter eller kostnader ändras.",
+    why: "Skillnaden hjälper ett företag å styra både mål och verklighet när intäkter eller kostnader ändras.",
     example: "Ett konsultbolag kan budgetera 80 procent beläggning men justera prognosen när uppdrag försenas.",
     related: ["Uppföljning", "Q/T/H", "Likviditetsbudget", "Lönsamhet"]
   },
@@ -282,7 +299,7 @@ window.FOKUS_QUESTIONS = [
     tags: ["Strategi", "Konkurrens"],
     answer: "Konkurrentanalys används för att förstå vilka alternativ kunden har och hur det egna erbjudandet kan särskiljas.",
     why: "Utan konkurrentanalys riskerar företaget att beskriva sitt erbjudande som unikt fast kunden ser många alternativ.",
-    example: "Ett litet IT-konsultbolag kan konkurrera med snabbhet och nisch, medan större bolag konkurrerar med kapacitet och varumärke.",
+    example: "Ett litet IT-konsultbolag kan konkurrera med snabbhet och nisch, medan större bolag konkurrera med kapacitet och varumärke.",
     related: ["Differentiering", "Positionering", "Pris", "Värdeerbjudande"]
   },
   {
@@ -295,7 +312,7 @@ window.FOKUS_QUESTIONS = [
     tags: ["Företagsform", "Grupparbete"],
     answer: "Aktiebolag är ofta rimligt eftersom ägarna normalt inte ansvarar personligen för bolagets skulder.",
     why: "När bolaget säljer konsulttjänster och kan ta avtal, risk och anställningar blir begränsat ansvar viktigt.",
-    example: "Ett IT-konsultbolag med flera delägare och tillväxtambition passar ofta bättre som AB än enskild firma.",
+    example: "Ett IT-konsultbolag med several delägare och tillväxtambition passar ofta bättre som AB än enskild firma.",
     related: ["Ansvar", "Ägande", "Kapital", "Risk"]
   },
   {
@@ -397,7 +414,7 @@ window.FOKUS_QUESTIONS = [
     source: "AM2",
     question: "Varför paketerar man en tjänst?",
     tags: ["Erbjudande", "AM2"],
-    answer: "Paketering gör tjänsten tydligare, lättare att köpa och lättare att jämföra.",
+    answer: "Paketering gör tjänsten tydligare, lättare å köpa och lättare att jämföra.",
     why: "Kunden förstår bättre vad som ingår, vad det kostar och vilket resultat som kan förväntas.",
     example: "En förstudie på två veckor med fast pris kan vara enklare att sälja än ett öppet konsultupplägg.",
     related: ["Pris", "Värdeerbjudande", "5P", "Kundnytta"]
@@ -688,8 +705,6 @@ window.FOKUS_QUESTIONS = [
     example: "Om du blandar ihop likviditet och soliditet ska de komma tillbaka oftare.",
     related: ["Självbedömning", "Likviditet", "Soliditet", "Träna igen"]
   },
-
-  // ── MC: Ekonomi / Nyckeltal ──────────────────────────────────────────
   {
     id: "mc-soliditet-def",
     mode: "begrepp",
@@ -870,8 +885,6 @@ window.FOKUS_QUESTIONS = [
     explanation: "Budget sätts före perioden som en plan. Prognos uppdateras under perioden när ny information tillkommer. Alternativ A har ordningen bakvänd.",
     related: ["Uppföljning", "Likviditetsbudget", "Lönsamhet"]
   },
-
-  // ── MC: Modeller / Strategi ──────────────────────────────────────────
   {
     id: "mc-bmc-syfte",
     mode: "begrepp",
@@ -883,7 +896,7 @@ window.FOKUS_QUESTIONS = [
     options: [
       "Att analysera externa hot och möjligheter",
       "Att beskriva hur ett företag skapar, levererar och tar betalt för värde",
-      "Att beräkna företagets soliditet och likviditet",
+      "Att beräknare företagets soliditet och likviditet",
       "Att jämföra konkurrenters priser"
     ],
     correctIndex: 1,
@@ -1052,8 +1065,6 @@ window.FOKUS_QUESTIONS = [
     explanation: "Värdeerbjudandet fokuserar på kundens problem och den nytta som lösningen ger. Det är mer än en produktlista – det förklarar varför kunden ska välja just detta. Alternativ A och C är för snäva.",
     related: ["FAB", "Kundnytta", "Kundsegment"]
   },
-
-  // ── MC: Företagsform / Praktik ───────────────────────────────────────
   {
     id: "mc-ab-vs-enskild",
     mode: "begrepp",
@@ -1117,7 +1128,7 @@ window.FOKUS_QUESTIONS = [
     question: "Vad säger fast-good-cheap-principen?",
     tags: ["Erbjudande", "AM2"],
     options: [
-      "Alla tre kan alltid levereras om man planerar rätt",
+      "Alla three kan alltid levereras om man planerar rätt",
       "Man kan bara välja en av tre: snabb, bra eller billig",
       "Man kan maximera två av tre men sällan alla tre samtidigt",
       "Principen gäller bara fysiska produkter, inte tjänster"
@@ -1126,8 +1137,6 @@ window.FOKUS_QUESTIONS = [
     explanation: "Fast-good-cheap visar att man kan optimera två av tre men sällan alla tre samtidigt. Om kunden vill ha snabbt och bra blir det sällan billigt. Alternativ A är orealistiskt. Alternativ B är för extremt.",
     related: ["Pris", "Kvalitet", "Leveranstid", "Kundförväntan"]
   },
-
-  // ── MC: Sant / Falskt ────────────────────────────────────────────────
   {
     id: "mc-tf-resultat-kassaflode",
     mode: "samband",

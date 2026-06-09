@@ -12,8 +12,8 @@ OUT_DOCX.mkdir(parents=True, exist_ok=True)
 OUT_MD.mkdir(parents=True, exist_ok=True)
 
 TITLE = "Affärsmannaskap - levande instuderingsmaterial"
-DOCX_PATH = OUT_DOCX / "Affarsmannaskap_levande_instuderingsmaterial.docx"
-MD_PATH = OUT_MD / "Affarsmannaskap_levande_instuderingsmaterial.md"
+DOCX_PATH = OUT_DOCX / "Individuellt - Affärsmannaskap instuderingsmaterial.docx"
+MD_PATH = OUT_MD / "Individuellt - Affärsmannaskap instuderingsmaterial.md"
 
 
 def set_cell_margins(cell, top=80, start=120, bottom=80, end=120):
@@ -315,6 +315,24 @@ CONCEPTS = [
     ("Kassaflöde", "Pengar in och ut över tid.", "Kassaflödet avgör om bolaget kan betala löpande även när resultatet ser bra ut.", "Essiq AB:s likvida medel minskade från 26 509 757 kr till 2 822 630 kr under 2021.", "Att bara titta på årets resultat."),
     ("Täckningsbidrag", "Försäljningsintäkt minus direkta kostnader för en tjänst eller ett projekt.", "Visar hur mycket projektet bidrar till fasta kostnader och vinst.", "Ett projekt som säljs för 180 000 kr och kostar 105 000 kr direkt ger 75 000 kr i TB.", "Att kalla hela intäkten för vinst."),
     ("Budget och prognos", "Budget är plan, prognos är uppdaterad bedömning av hur det går.", "Det hjälper gruppen se avvikelser innan de blir akuta.", "Ett konsultbolag följer intäkt och beläggning per kvartal, tertial eller halvår.", "Att göra budget en gång och sedan aldrig justera."),
+    ("Scenario", "Ett tänkbart utfall i budgeten, till exempel låg, normal eller hög försäljning.", "Scenarier gör budgeten mindre låst och hjälper gruppen se risk.", "Konsultbolaget räknar på vad som händer vid 50, 70 och 85 procent debiteringsgrad.", "Att bara räkna på ett optimistiskt läge."),
+    ("Sociala avgifter", "Arbetsgivarens lagstadgade avgifter ovanpå bruttolönen.", "De gör att lönekostnaden är högre än den lön medarbetaren ser.", "En konsults månadskostnad måste räknas med lön, sociala avgifter, pension och andra personalkostnader.", "Att budgetera endast bruttolön."),
+    ("Semesterlön/semestertillägg", "Ersättning för semester som behöver räknas in i personalkostnaden.", "Den påverkar verklig kostnad för anställda och därmed pris och beläggningskrav.", "Föreläsning 6 tar upp 12 procent vid 25 semesterdagar och justering med 0,48 procent per extra dag.", "Att glömma semesterkostnaden i konsultkalkylen."),
+    ("Overhead (OH)", "Indirekta kostnader som behövs för att verksamheten ska fungera men inte hör till ett enskilt uppdrag.", "OH måste bäras av intäkterna från debiterbart arbete.", "Utbildning, administration, licenser, kontor, försäkringar, sälj och intern tid.", "Att bara räkna konsultens lön och glömma allt runt omkring."),
+    ("Debiteringsgrad/faktureringsgrad", "Andelen arbetstid som kan faktureras kund.", "Ett centralt lönsamhetsmått i konsultbolag.", "Om en konsult har mycket intern tid behöver timpris eller paketpris täcka färre fakturerbara timmar.", "Att anta att all arbetstid kan faktureras."),
+    ("Affärsmodell", "Hur bolaget skapar, levererar och tar betalt för värde.", "Den avgör vilka intäkter, kostnader och risker bolaget får.", "Ett IT-bolag kan kombinera konsulttimmar, fastprisprojekt, abonnemang och licenser.", "Att bara beskriva tjänsten och inte hur pengar faktiskt tjänas."),
+    ("Freemium", "Grundversionen är gratis medan kunden betalar för premiumfunktioner.", "Kan skapa låg tröskel in men kräver tydlig väg till betalning.", "En digital tjänst låter små team testa gratis men tar betalt för avancerad automation.", "Att få många gratisanvändare utan betalningsmodell."),
+    ("Prenumeration", "Kunden betalar återkommande, ofta per månad eller år.", "Ger återkommande intäkter men kräver löpande värde.", "Support, förvaltning, licenser eller förbättringsstöd säljs som månadsavtal.", "Att behandla prenumeration som engångsprojekt."),
+    ("Fastprisprojekt", "Leverans säljs till ett bestämt pris för en definierad omfattning.", "Kan vara attraktivt för kunden men flyttar risk till leverantören.", "Ett införandepaket för SharePoint säljs för fast pris efter avgränsad förstudie.", "Att sälja fast pris utan tydlig omfattning och ändringshantering."),
+    ("Löpande räkning", "Kunden betalar för faktisk nedlagd tid eller resursförbrukning.", "Minskar leverantörens omfattningsrisk men kräver förtroende och uppföljning.", "En senior konsult faktureras per timme under ett förbättringsarbete.", "Att missa att kunden kan uppleva svag kostnadskontroll."),
+    ("Ramavtal", "Ett avtal som sätter ramarna för ett samarbete och sedan avropas mot.", "Vanligt i offentlig sektor och större organisationer.", "Ett konsultbolag kvalificerar sig som leverantör och får separata avrop för konkreta uppdrag.", "Att tro att ramavtal automatiskt betyder garanterad försäljning."),
+    ("Avrop", "Beställning eller konkret uppdrag som görs inom ett ramavtal.", "Det är ofta avropet som anger den faktiska leveransen.", "Kunden avropar en förstudie enligt villkoren i ramavtalet.", "Att inte skilja mellan ramens villkor och det enskilda uppdraget."),
+    ("Letter of Intent", "En avsiktsförklaring inför ett möjligt samarbete.", "Kan visa riktning innan slutligt avtal finns, men behöver läsas försiktigt.", "Parterna skriver en LOI om att utreda ett gemensamt produktprojekt.", "Att behandla en avsiktsförklaring som färdigt leveransavtal."),
+    ("Konsultavtal", "Avtal som reglerar uppdrag, ansvar, ersättning, avtalstid, sekretess och andra villkor.", "Det styr både leverans och risk.", "Avtalet anger omfattning, rapportering, betalning, underleverantörer och ansvar.", "Att starta uppdrag utan att omfattning, ansvar och ersättning är tydligt."),
+    ("NDA/sekretessavtal", "Avtal eller klausul som reglerar hur konfidentiell information får användas.", "IT-projekt kan ge insyn i kundens data, processer och affärshemligheter.", "Konsulten får inte sprida kundens systemritningar eller interna processdata.", "Att tro att sekretess bara gäller källkod."),
+    ("SLA", "Service Level Agreement: överenskommelse om servicenivå, tillgänglighet, svarstid eller åtgärdstid.", "Gör drift- och supportförväntningar mätbara.", "Support svarar inom viss tid och kritiska incidenter prioriteras enligt avtal.", "Att lova servicenivåer utan kapacitet eller uppföljning."),
+    ("MSA", "Master Service Agreement: huvudavtal som reglerar grundvillkor för flera uppdrag.", "Minskar behovet att förhandla allt från början varje gång.", "Ett konsultbolag har ett MSA med kunden och separata uppdragsbilagor för projekt.", "Att blanda ihop huvudavtal med konkret uppdragsbeskrivning."),
+    ("GDPR/personuppgifter", "Regler för behandling av personuppgifter.", "IT-lösningar, drift, support och analys kan innebära personuppgiftsbehandling.", "Kunden och leverantören behöver reda ut roller, dataflöden och säkerhet.", "Att se GDPR som en juridisk bilaga utan påverkan på lösningen."),
     ("Årsredovisning", "Paket med förvaltningsberättelse, resultaträkning, balansräkning, noter och ofta revisionsberättelse.", "Den ger flera vinklar på hur bolaget mår.", "AM5 använder Hälsö Fisk AB och Essiq AB som läsexempel.", "Att bara läsa en siffra utan att läsa sammanhanget."),
 ]
 
@@ -332,6 +350,8 @@ MODELS = [
     ("Mål och Balanced Scorecard", "Sätta mål och nyckeltal ur flera perspektiv.", "När gruppen ska visa hur bolaget följer upp framgång och inte bara beskriver erbjudandet.", "Hur vet vi att bolaget rör sig åt rätt håll?", "Kund: kundnöjdhet. Medarbetare: kompetensutveckling. Interna processer: leverans i tid. Finansiellt: marginal och återkommande intäkter.", ["Bara finansiella mål används.", "KPI:er saknar koppling till mål.", "Målen är för stora eller omöjliga att följa upp."], ["Vilka fyra perspektiv följer vi upp?", "Vilka nyckeltal visar verklig framdrift?", "Hur hanterar vi avvikelser?"]),
     ("Ekonomisk hälsokoll", "Läsa resultat, balansräkning, likviditet, soliditet och kassaflöde tillsammans.", "När gruppen ska visa om affären är ekonomiskt hållbar och inte bara snyggt beskriven.", "Mår bolaget bra nog för att fortsätta, växa och ta risk?", "Essiq AB visar positivt resultat och högre soliditet än Hälsö Fisk AB, men också kraftigt minskade likvida medel under 2021.", ["Omsättning används som bevis för lönsamhet.", "Likviditet och soliditet blandas ihop.", "En siffra tas ur årsredovisningen utan sammanhang."], ["Finns vinst eller förlust?", "Kan korta skulder betalas?", "Hur stark är kapitalbasen?", "Vad säger kassaflödet?"]),
     ("Årsredovisningsläsning", "Läsa förvaltningsberättelse, resultaträkning, balansräkning, kassaflöde, noter och revisionsberättelse i rätt ordning.", "När ni ska förstå varför två bolag med helt olika verksamheter ser olika ut ekonomiskt.", "Vilka delar av årsredovisningen stödjer samma berättelse om bolagets hälsa?", "Hälsö Fisk AB:s förvaltningsberättelse förklarar pressad försäljning med förändringar i Kungälv; Essiq AB beskriver hög efterfrågan och hög beläggning.", ["Resultaträkningen läses utan förvaltningsberättelsen.", "Jämförelseperioder jämförs rakt av trots olika längd.", "Rapporterad soliditet ersätts med egen förenklad kvot utan notering."], ["Vad säger bolaget själv har hänt?", "Vilka siffror stödjer berättelsen?", "Finns osäkerheter i perioden eller nyckeltalen?"]),
+    ("Budget/prognos i konsultbolag", "Bygga en realistisk framåtblick över intäkter, kostnader, beläggning och scenarier.", "När gruppen ska visa om affären kan bära löner, pensioner, försäkringar, licenser, sälj och intern tid.", "Vilken intäkt krävs för att bolaget ska vara lönsamt i olika scenarier?", "Ett konsultbolag räknar på lön, sociala avgifter, pension, utbildning, licenser och debiteringsgrad innan pris sätts.", ["Blanda ihop budget och prognos.", "Glömma personalkringkostnader.", "Räkna med 100 procent fakturerbar tid."], ["Vilka kostnader finns även när inga nya projekt säljs?", "Vad händer om debiteringsgraden sjunker?", "När behöver prognosen revideras?"]),
+    ("Avtalskarta för IT-projekt", "Identifiera vilka avtal, nivåer och riskfrågor som styr ett IT-uppdrag.", "När gruppen ska visa affärsmässig kontroll över leverans, ansvar, data, drift och ersättning.", "Vad måste vara reglerat innan kunden och leverantören bör starta?", "Ramavtal kan sätta ramen, avropet beskriver uppdraget och konsultavtalet reglerar omfattning, ansvar, ersättning och sekretess.", ["Tro att muntlig samsyn räcker.", "Glömma ägande, hosting, underhåll och personuppgifter.", "Lova SLA utan leveransförmåga."], ["Vem äger lösningen?", "Vem hostar och underhåller?", "Hur regleras ändringar, ansvar och data?"]),
 ]
 
 
@@ -438,6 +458,103 @@ def add_annual_reports_section(doc, md):
         md.p(answer)
 
 
+def add_lecture6_section(doc, md):
+    h1(doc, "9. Föreläsning 6: budget, lönsamhet, affärsmodell och avtal")
+    md.h2("9. Föreläsning 6: budget, lönsamhet, affärsmodell och avtal")
+    p(doc, "Källa: Affärsmannaskap 6, Föreläsning 6, 2026-06-05. Föreläsningen fortsätter företagsekonomin men flyttar fokus från att läsa årsredovisningar till att själv styra en konsultaffär: budget, prognos, kostnader för anställda, lönsamhetslogik, affärsmodeller och avtal.")
+    md.p("Källa: Affärsmannaskap 6, Föreläsning 6, 2026-06-05. Föreläsningen fortsätter företagsekonomin men flyttar fokus från att läsa årsredovisningar till att själv styra en konsultaffär: budget, prognos, kostnader för anställda, lönsamhetslogik, affärsmodeller och avtal.")
+    p(doc, "Den praktiska poängen för en IT-projektledare är att tekniska beslut snabbt blir affärsbeslut: scope, bemanning, licenser, drift, ansvar, dataskydd och leveransform påverkar både kundvärde och lönsamhet.")
+    md.p("Den praktiska poängen för en IT-projektledare är att tekniska beslut snabbt blir affärsbeslut: scope, bemanning, licenser, drift, ansvar, dataskydd och leveransform påverkar både kundvärde och lönsamhet.")
+
+    h2(doc, "Budget och prognos")
+    md.h3("Budget och prognos")
+    p(doc, "Föreläsningen beskriver budget som en kvalificerad gissning om framtiden. En budget behöver därför visa både intäkter, kostnader och scenarier. Prognos/forecast är uppföljning och eventuell revidering av budgeten när verkligheten ändras.")
+    md.p("Föreläsningen beskriver budget som en kvalificerad gissning om framtiden. En budget behöver därför visa både intäkter, kostnader och scenarier. Prognos/forecast är uppföljning och eventuell revidering av budgeten när verkligheten ändras.")
+    budget_rows = [
+        ("Kostnader", "Lön, sociala avgifter, pensioner, köpta tjänster, utrustning, telefon, licenser, lokal/hyra, resor, utbildning, försäkringar, kontorsmaterial, marknadsföring/sälj samt representation, möten och events."),
+        ("Intäkter", "Arvoden, kick-back, royalty, licensintäkter och andra betalningsströmmar som passar affärsmodellen."),
+        ("Scenarier", "Räkna inte bara på bästa läget. Gör exempelvis låg, normal och hög beläggning/försäljning så gruppen ser risk och känslighet."),
+        ("Prognos", "Följ upp budgeten och revidera när antaganden om försäljning, kostnad, bemanning eller leverans inte längre stämmer."),
+    ]
+    table(doc, ["Del", "Vad gruppen ska få med"], budget_rows, [1.35, 5.15], font_size=8.4)
+    md.table(["Del", "Vad gruppen ska få med"], budget_rows)
+
+    h2(doc, "Vad kostar en anställd?")
+    md.h3("Vad kostar en anställd?")
+    employee_rows = [
+        ("Synlig lön", "Bruttolönen är bara startpunkten. Arbetsgivaren måste också bära arbetsgivaravgifter, pension, semester och andra personalkostnader."),
+        ("Försäkringar", "Föreläsningen tar upp företagsförsäkring och avtalsförsäkringar kopplade till exempelvis sjukdom, arbetsskada, arbetsbrist, dödsfall och föräldraledighet."),
+        ("Pension", "Pensionskostnader behöver budgeteras separat. Föreläsningen anger ITP-exempel från 1 500 kr per månad, vilket ska läsas som kursens exempel, inte som universellt belopp."),
+        ("Semester", "Semesterlönen tas upp som 12 procent vid 25 dagar och justering med 0,48 procent per extra semesterdag. Rörliga delar kan påverka."),
+        ("Overhead", "Utbildning, administration, licenser, intern tid, sälj och annat som behövs för verksamheten måste täckas av debiterbara intäkter."),
+    ]
+    table(doc, ["Kostnadsdel", "Studiestöd"], employee_rows, [1.35, 5.15], font_size=8.3)
+    md.table(["Kostnadsdel", "Studiestöd"], employee_rows)
+
+    h2(doc, "Lönsamhet i konsultbolag")
+    md.h3("Lönsamhet i konsultbolag")
+    profitability_rows = [
+        ("Tjänstemix", "Paketerade tjänster/produkter, fastprisprojekt, löpande räkning och fasta avtal ger olika risk, marginal och intäktsstabilitet."),
+        ("Debiteringsgrad", "Ju lägre andel tid som faktureras kund, desto mer måste varje debiterbar timme eller varje paket bära."),
+        ("Medarbetarkostnad", "Räkna med lön, sociala avgifter, pension, försäkring, utbildning, licenser och overhead innan priset bedöms."),
+        ("Påverkbara faktorer", "Gruppen kan påverka paketering, pris, scope, beläggning, återkommande avtal, leveranseffektivitet och hur mycket intern tid som krävs."),
+    ]
+    table(doc, ["Fråga", "Hur den påverkar affären"], profitability_rows, [1.45, 5.05], font_size=8.5)
+    md.table(["Fråga", "Hur den påverkar affären"], profitability_rows)
+
+    h2(doc, "Affärsmodeller som togs upp")
+    md.h3("Affärsmodeller som togs upp")
+    business_model_rows = [
+        ("Freemium", "Gratis grundversion, betalda premiumfunktioner. Exempel i föreläsningen: Spotify och Dropbox."),
+        ("Prenumeration", "Återkommande avgift per månad eller år. Kan passa support, leasing, licenser och löpande förbättringsstöd."),
+        ("Återförsäljare/e-handel", "Köper in och säljer vidare, fysiskt eller online. Exempel i föreläsningen: Amazon och Temu."),
+        ("Franchise", "Varumärke och koncept licensieras ut mot avgift. Exempel i föreläsningen: McDonald's och Espresso House."),
+        ("Cirkulär ekonomi", "Tjänar pengar på återanvändning, reparation eller uthyrning i stället för bara nyförsäljning."),
+        ("P2P/plattform", "Mellanhand som kopplar ihop utbud och efterfrågan och tar avgift eller provision. Exempel i föreläsningen: Airbnb och Uber."),
+        ("Rakhyvel och blad", "Grundprodukt säljs billigt medan tillbehör eller förbrukning säljs dyrare, till exempel skrivare och bläckpatroner."),
+        ("Paketering", "Färdiga paketerbjudanden där kunden köper ett samlat innehåll, exempelvis ett Office-paket eller ett konsultpaket."),
+    ]
+    table(doc, ["Modell", "Enkel förklaring"], business_model_rows, [1.65, 4.85], font_size=8.2)
+    md.table(["Modell", "Enkel förklaring"], business_model_rows)
+
+    h2(doc, "Avtalsrätt och IT-projekt")
+    md.h3("Avtalsrätt och IT-projekt")
+    p(doc, "Föreläsningen använder avtalsrätt för att visa varför affären behöver tydliga ramar. Handslag och muntlig samsyn kan vara otillräckligt när uppdraget rör programvara, drift, data, ersättning, ansvar och ändringar.")
+    md.p("Föreläsningen använder avtalsrätt för att visa varför affären behöver tydliga ramar. Handslag och muntlig samsyn kan vara otillräckligt när uppdraget rör programvara, drift, data, ersättning, ansvar och ändringar.")
+    contract_level_rows = [
+        ("Ramavtal", "Reglerar ramarna för samarbetet och avropas mot. Vanligt i offentlig sektor och större organisationer."),
+        ("Avtal", "Reglerar ett mer specifikt tillfälle, en specifik leverans eller en specifik produkt/tjänst."),
+        ("Letter of Intent", "Avsiktsförklaring inför ett möjligt samarbete. Ska inte förväxlas med ett färdigt leveransavtal."),
+    ]
+    table(doc, ["Nivå", "Studiestöd"], contract_level_rows, [1.55, 4.95], font_size=8.5)
+    md.table(["Nivå", "Studiestöd"], contract_level_rows)
+
+    h2(doc, "Kundens funderingar inför avtal")
+    md.h3("Kundens funderingar inför avtal")
+    contract_questions = [
+        "Vem äger själva produkten eller programvaran?",
+        "Vem hostar IT-systemet och hur hanteras drift och underhåll?",
+        "Finns resurser att skala upp eller ned systemet vid behov?",
+        "Vilka krav finns på systemets design och arkitektur?",
+        "Hur hanteras open source?",
+        "Hur regleras ersättning, underleverantörer och ansvar?",
+        "Hur hanteras dataskydd, personuppgifter, sekretess, tvister och ansvarsbegränsningar?",
+        "Agerar parterna som självständiga parter och är det tydligt vem som ansvarar för vad?",
+    ]
+    bullets(doc, contract_questions)
+    md.bullets(contract_questions)
+
+    h2(doc, "Konsultavtal och standardavtal")
+    md.h3("Konsultavtal och standardavtal")
+    consulting_rows = [
+        ("Konsultavtal", "Uppdrag/omfattning, rapportering, konsultens och uppdragsgivarens ansvar, betalning/ersättning, avtalstid, sekretess/NDA, underleverantörer, konkurrens och överlåtelse."),
+        ("IT och Telekomföretagens avtal", "Föreläsningen nämner Avtal 90, IT-Projekt, Agila Projekt, IT-Tjänster, IT-Infrastrukturtjänster och IT-Underhåll som exempel på standardavtal."),
+        ("Fler avtalstyper", "Molntjänster, sekretessavtal, SLA, MSA, franchise, licens, royalties, patent, upphovsrätt och GDPR/personuppgifter."),
+    ]
+    table(doc, ["Område", "Vad som ska kommas ihåg"], consulting_rows, [1.6, 4.9], font_size=8.2)
+    md.table(["Område", "Vad som ska kommas ihåg"], consulting_rows)
+
+
 def build_document():
     doc = make_doc()
     md = MD()
@@ -449,7 +566,7 @@ def build_document():
     md.h2("1. Så använder du dokumentet")
     p(doc, "Det här är ett levande instuderingsmaterial. Det betyder att dokumentet ska kunna byggas ut när kursen fortsätter och när fler föreläsningar, modeller eller exempel tillkommer.")
     bullets(doc, [
-        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning och REBR 2026 som extern källa.",
+        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt och REBR 2026 som extern källa.",
         "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, tentafrågor och nya case från lektioner.",
         "Studera genom att först läsa förklaringen, sedan titta på exemplet och till sist svara på kontrollfrågorna utan att titta.",
         "Miniövningarna är till för att träna användning, inte bara minne.",
@@ -457,7 +574,7 @@ def build_document():
     ])
     md.p("Det här är ett levande instuderingsmaterial. Det betyder att dokumentet ska kunna byggas ut när kursen fortsätter och när fler föreläsningar, modeller eller exempel tillkommer.")
     md.bullets([
-        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning och REBR 2026 som extern källa.",
+        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt och REBR 2026 som extern källa.",
         "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, tentafrågor och nya case från lektioner.",
         "Studera genom att först läsa förklaringen, sedan titta på exemplet och till sist svara på kontrollfrågorna utan att titta.",
         "Miniövningarna är till för att träna användning, inte bara minne.",
@@ -470,7 +587,7 @@ def build_document():
     bullets(doc, [
         "För en IT-projektledare betyder affärsmannaskap att teknik måste kopplas till kundens verksamhet, nytta, risk och ekonomi.",
         "För en konsult betyder det att varje interaktion påverkar förtroende, relation och framtida affär.",
-        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål och ekonomisk hälsokoll.",
+        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell och avtal.",
         "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg.",
     ])
     p(doc, "Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss och hur blir det en fungerande affär?")
@@ -478,7 +595,7 @@ def build_document():
     md.bullets([
         "För en IT-projektledare betyder affärsmannaskap att teknik måste kopplas till kundens verksamhet, nytta, risk och ekonomi.",
         "För en konsult betyder det att varje interaktion påverkar förtroende, relation och framtida affär.",
-        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål och ekonomisk hälsokoll.",
+        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell och avtal.",
         "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg.",
     ])
     md.p("Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss och hur blir det en fungerande affär?")
@@ -496,6 +613,7 @@ def build_document():
         ("Värdeerbjudande", "Vi gör administration enklare och mer spårbar genom praktisk automation och AI-stöd i kundens befintliga Microsoft 365-miljö."),
         ("Tjänster", "Förstudie, SharePoint-struktur, Power Automate-flöden, enklare AI-stöd, utbildning och löpande förbättringsstöd."),
         ("Prissättning", "Fast pris för förstudie, projektpris för införande och månadsabonnemang för förbättringar och stöd."),
+        ("Affärsmodell/intäktsmodell", "Kombinerar förstudier, fastprisinföranden, löpande förbättringsstöd och prenumerationsliknande support så att intäkterna inte bara bygger på engångsprojekt."),
         ("Differentiering", "Kombinerar verksamhetsförståelse med praktiskt Microsoft 365-genomförande. Fokus på små steg som kunden kan använda direkt."),
         ("Kanaler", "LinkedIn, rekommendationer, partnernätverk, seminarier för mindre organisationer och direktkontakt med verksamhetschefer."),
         ("Intäktsströmmar", "Förstudier, införandeprojekt, utbildningar och återkommande abonnemang."),
@@ -509,7 +627,9 @@ def build_document():
         ("Värderingar", "Tydlighet, ansvar, lärande och respekt för kundens vardag. De ska synas i statusmöten, dokumentation och rekommendationer."),
         ("Affärsidé", "Vi kartlägger, automatiserar och förbättrar administrativa processer för små och medelstora organisationer."),
         ("Mål/KPI", "Kundnöjdhet efter införande, andel leveranser i tid, återkommande intäkter och kompetenstimmar per konsult."),
+        ("Budget/prognos", "Budgetera löner, sociala avgifter, pension, försäkring, licenser, utbildning, sälj och realistisk debiteringsgrad. Följ upp med prognos när beläggning eller kostnader ändras."),
         ("Ekonomisk hälsokoll", "Följ resultat, kassalikviditet, soliditet och kassaflöde så att bolaget inte bara växer på papperet utan också kan betala sina korta skulder."),
+        ("Avtalsfrågor", "Klargör omfattning, ersättning, ansvar, sekretess, underleverantörer, hosting, underhåll, personuppgifter och vem som äger lösningen."),
     ]
     table(doc, ["Del", "Exempel"], example_rows, [1.8, 4.7], font_size=8.5)
     md.table(["Del", "Exempel"], example_rows)
@@ -553,9 +673,10 @@ def build_document():
     md.table(["Typ", "Innehåll"], rebr_rows)
 
     add_annual_reports_section(doc, md)
+    add_lecture6_section(doc, md)
 
-    h1(doc, "9. Instuderingsfrågor")
-    md.h2("9. Instuderingsfrågor")
+    h1(doc, "10. Instuderingsfrågor")
+    md.h2("10. Instuderingsfrågor")
     q_rows = [
         ("Grundnivå", "Affärsmannaskap", "Förklara affärsmannaskap med egna ord. Hur skiljer det sig från att bara sälja?"),
         ("Grundnivå", "Kundvärde", "Vad är skillnaden mellan en funktion och kundvärde?"),
@@ -565,6 +686,8 @@ def build_document():
         ("Grundnivå", "Resultaträkning", "Vad är skillnaden mellan nettoomsättning, rörelseresultat och årets resultat?"),
         ("Grundnivå", "Balansräkning", "Vad betyder tillgångar, skulder och eget kapital?"),
         ("Grundnivå", "Likviditet/soliditet", "Vad mäter likviditet respektive soliditet?"),
+        ("Grundnivå", "Budget/prognos", "Vad är skillnaden mellan budget och prognos/forecast?"),
+        ("Grundnivå", "Avtal", "Vad är skillnaden mellan ramavtal, avrop, avtal och Letter of Intent?"),
         ("Tillämpning", "SWOT", "Gör en enkel SWOT för Verksamhetslyftet Digital AB."),
         ("Tillämpning", "PESTELID", "Välj tre omvärldsfaktorer som påverkar ett IT-konsultbolag och förklara påverkan."),
         ("Tillämpning", "BMC", "Fyll i fem BMC-rutor för ett bolag som säljer AI-stöd i administration."),
@@ -572,17 +695,20 @@ def build_document():
         ("Tillämpning", "Mål/KPI", "Sätt ett mål och ett KPI för kund, medarbetare, interna processer och ekonomi."),
         ("Tillämpning", "Ekonomisk hälsokoll", "Räkna enkel soliditet och likviditet för ett bolag och skriv vad siffrorna betyder."),
         ("Tillämpning", "Produkt-marknad", "Jämför två tjänster mot två kundsegment och motivera vilket alternativ som ska prioriteras."),
+        ("Tillämpning", "Konsultlönsamhet", "Hur påverkas lönsamheten om debiteringsgraden sjunker eller intern tid ökar?"),
+        ("Tillämpning", "Affärsmodell", "Välj två affärsmodeller från föreläsning 6 och förklara hur de skulle kunna passa ett IT-konsultbolag."),
         ("Analys", "Prissättning", "När är fast pris bättre än timpris? Vilka risker finns?"),
         ("Analys", "Ansoff", "Jämför marknadspenetration och diversifiering för ett IT-konsultbolag."),
         ("Analys", "Konkurrentanalys", "Varför är interna IT-avdelningar och färdiga AI-verktyg också konkurrenter/substitut?"),
         ("Analys", "REBR/omvärld", "Hur kan REBR användas som stöd utan att överdriva slutsatserna?"),
         ("Analys", "Årsredovisning", "Hur skiljer sig Hälsö Fisk AB och Essiq AB om du jämför resultat, likviditet och soliditet?"),
+        ("Analys", "Avtalsrätt", "Vilka avtalsfrågor är mest riskfyllda i ett IT-projekt: ägande, hosting, underhåll, personuppgifter, ersättning eller ansvar? Motivera."),
     ]
     table(doc, ["Nivå", "Område", "Fråga"], q_rows, [1.05, 1.35, 4.1], font_size=8.4)
     md.table(["Nivå", "Område", "Fråga"], q_rows)
 
-    h1(doc, "10. Miniövningar")
-    md.h2("10. Miniövningar")
+    h1(doc, "11. Miniövningar")
+    md.h2("11. Miniövningar")
     ex_rows = [
         ("Skriv ett värdeerbjudande", "Skriv två meningar: kundproblem och nytta.", "Vi hjälper mindre organisationer att minska manuell administration genom AI-stöd och automation i Microsoft 365."),
         ("Välj kundsegment", "Välj ett segment och motivera med behov, betalningsvilja och åtkomst.", "små och medelstora organisationer med dokumenttunga processer, eftersom de ofta saknar intern utvecklingskapacitet men har tydliga effektivitetsproblem."),
@@ -595,12 +721,15 @@ def build_document():
         ("Skriv företagsplattform", "Skriv vision, mission, tre värderingar och affärsidé.", "Vision: smart digitalisering för mindre organisationer. Mission: minska administration. Värderingar: tydlighet, ansvar, lärande. Affärsidé: praktisk automation i M365."),
         ("Sätt mål med BSC", "Sätt ett mål och ett KPI i varje perspektiv.", "Kund: nöjdhet efter projekt. Medarbetare: kompetenstimmar. Interna processer: leverans i tid. Finansiellt: återkommande intäkter."),
         ("Läs två årsredovisningar", "Jämför resultat, likviditet och soliditet.", "Hälsö Fisk AB visar förlust, 11 procent soliditet och svag likviditet. Essiq AB visar vinst, 28,20 procent soliditet och bättre balanslikviditet men minskat kassaläge."),
+        ("Gör en enkel konsultbudget", "Lista intäkter, personalkostnader, overhead och tre scenarier för beläggning.", "Intäkt: arvoden och supportabonnemang. Kostnad: lön, sociala avgifter, pension, licenser, försäkring och sälj. Scenario: 50, 70 och 85 procent debiteringsgrad."),
+        ("Välj affärsmodell", "Välj en huvudmodell och en kompletterande modell för bolaget.", "Huvudmodell: fastprisinföranden. Komplettering: prenumeration för löpande support och förbättringsstöd."),
+        ("Gör avtalskarta", "Skriv fem punkter som måste regleras innan ett IT-uppdrag startar.", "Omfattning, ersättning, ägande av lösning, hosting/drift, personuppgifter, sekretess och ansvar vid försening eller ändringar."),
     ]
     table(doc, ["Övning", "Uppgift", "Kort exempelsvar"], ex_rows, [1.45, 2.0, 3.05], font_size=8.0)
     md.table(["Övning", "Uppgift", "Kort exempelsvar"], ex_rows)
 
-    h1(doc, "11. Checklista inför grupparbetet")
-    md.h2("11. Checklista inför grupparbetet")
+    h1(doc, "12. Checklista inför grupparbetet")
+    md.h2("12. Checklista inför grupparbetet")
     checklist = [
         "Har vi en tydlig kund, inte bara en bred marknad?",
         "Vet vi vilket kundproblem vi löser?",
@@ -611,7 +740,10 @@ def build_document():
         "Har vi motiverat företagsform med ansvar, ägare och trovärdighet?",
         "Har vi formulerat vision, mission, värderingar och affärsidé så att de hänger ihop?",
         "Har vi mål och KPI:er för kund, medarbetare, interna processer och ekonomi?",
+        "Har vi valt affärsmodell och intäktsmodell, inte bara beskrivit tjänsten?",
+        "Har vi budgeterat lön, sociala avgifter, pension, försäkring, licenser, sälj och realistisk debiteringsgrad?",
         "Har vi gjort en enkel ekonomisk hälsokoll med resultat, likviditet, soliditet och kassaflöde?",
+        "Har vi identifierat avtalsfrågor kring scope, ersättning, ansvar, sekretess, underleverantörer, hosting, underhåll och personuppgifter?",
         "Har vi använt externa källor försiktigt och korrekt?",
         "Kan varje gruppmedlem förklara affärslogiken från kundproblem till intäkt?",
         "Har vi en röd tråd mellan produkt-marknad, BMC, SWOT, PESTELID och presentation?",
@@ -619,8 +751,8 @@ def build_document():
     bullets(doc, checklist)
     md.bullets(checklist)
 
-    h1(doc, "12. Levande avsnitt för framtida kursmaterial")
-    md.h2("12. Levande avsnitt för framtida kursmaterial")
+    h1(doc, "13. Levande avsnitt för framtida kursmaterial")
+    md.h2("13. Levande avsnitt för framtida kursmaterial")
     p(doc, "Använd det här avsnittet när nytt kursmaterial kommer. Skriv kort först. När något återkommer eller blir viktigt, flytta in det i rätt tidigare avsnitt.")
     md.p("Använd det här avsnittet när nytt kursmaterial kommer. Skriv kort först. När något återkommer eller blir viktigt, flytta in det i rätt tidigare avsnitt.")
     future_rows = [
