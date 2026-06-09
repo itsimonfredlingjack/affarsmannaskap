@@ -1,5 +1,6 @@
-import { useEffect, useRef, type JSX } from 'react';
+import { useState, useEffect, useRef, type JSX } from 'react';
 import type { Question } from '../logic/questions';
+import type { Assessment } from '../logic/grader';
 import { AnswerOptions } from './AnswerOptions';
 
 interface QuestionCardProps {
@@ -13,6 +14,8 @@ interface QuestionCardProps {
   onSkip: () => void;
   currentQuestionIndex: number;
   totalQuestions: number;
+  assessment?: Assessment;
+  onRateAnswer?: (rating: 'known' | 'almost' | 'again') => void;
 }
 
 export function QuestionCard({
@@ -26,8 +29,11 @@ export function QuestionCard({
   onSkip,
   currentQuestionIndex,
   totalQuestions,
+  assessment,
+  onRateAnswer,
 }: QuestionCardProps): JSX.Element {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [showDetails, setShowDetails] = useState(false);
 
   // Auto-focus textarea on open questions when question changes
   useEffect(() => {
@@ -35,6 +41,11 @@ export function QuestionCard({
       textareaRef.current.focus();
     }
   }, [question.id, isRevealed, question.type]);
+
+  // Reset details collapse on question change
+  useEffect(() => {
+    setShowDetails(false);
+  }, [question.id]);
 
   // Keyboard shortcut: Ctrl + Enter / Cmd + Enter to reveal answer
   useEffect(() => {
@@ -60,65 +71,70 @@ export function QuestionCard({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [question, answerInput, selectedMCIndex, isRevealed, onRevealAnswer, setSelectedMCIndex]);
 
-  const isSubmitDisabled = question.type === 'open' 
-    ? answerInput.trim().length === 0 
+  const isSubmitDisabled = question.type === 'open'
+    ? answerInput.trim().length === 0
     : selectedMCIndex === -1;
+
+  const isMC = question.type === 'mc';
+  const isCorrectMC = isMC && selectedMCIndex === question.correctIndex;
+
+  // Verdict for open questions
+  const getVerdict = () => {
+    if (!assessment) return null;
+    if (isMC) return isCorrectMC ? 'correct' : 'wrong';
+    return assessment.verdict;
+  };
+  const verdict = getVerdict();
 
   return (
     <div className="max-w-2xl mx-auto w-full px-4 py-4">
-      <div className="p-4 sm:p-6 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 relative">
-        
-        {/* Card Header */}
-        <header className="flex flex-wrap items-center justify-between gap-3 mb-4 font-mono text-[10px]">
-          <div className="flex items-center space-x-2.5">
-            {/* Minimalist Question Index Tag */}
-            <span className="font-bold text-blue-600 dark:text-blue-400">
-              [Q{String(currentQuestionIndex).padStart(2, '0')} / Q{String(totalQuestions).padStart(2, '0')}]
-            </span>
-            <span className="text-slate-400 dark:text-zinc-550 uppercase">
-              :: {question.type === 'open' ? 'ÖPPEN FRÅGA' : 'FLERVALSFRÅGA'}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-1">
-            {question.tags.map(tag => (
-              <span 
-                key={tag} 
-                className="px-1.5 py-0.2 bg-slate-100 dark:bg-zinc-900 text-slate-500 dark:text-zinc-500 border border-slate-250 dark:border-zinc-850"
-              >
-                {tag.toUpperCase()}
-              </span>
-            ))}
-            <span className="px-1.5 py-0.2 bg-slate-100 dark:bg-zinc-900 text-slate-500 dark:text-zinc-500 border border-slate-250 dark:border-zinc-850">
-              {question.source.toUpperCase()}
-            </span>
-          </div>
-        </header>
+      {/* Progress indicator */}
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-sm text-slate-500 dark:text-zinc-500">
+          Fråga {currentQuestionIndex} av {totalQuestions}
+        </span>
+        {isRevealed && verdict && (
+          <span className={`text-sm font-bold px-3 py-1 rounded-full ${
+            verdict === 'correct'
+              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400'
+              : verdict === 'partial'
+              ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400'
+              : 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-400'
+          }`}>
+            {verdict === 'correct' ? '✓ Rätt' : verdict === 'partial' ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
+          </span>
+        )}
+      </div>
 
-        {/* Question Title */}
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-zinc-100 mb-5 leading-snug">
-          {question.question}
-        </h2>
+      {/* Main Card */}
+      <div className="rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-sm overflow-hidden">
 
-        {/* Dynamic Input Section */}
-        <div>
+        {/* Question */}
+        <div className="px-6 pt-6 pb-5">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-zinc-100 leading-snug">
+            {question.question}
+          </h2>
+        </div>
+
+        {/* Input or Revealed content */}
+        <div className="px-6 pb-6 space-y-5">
           {!isRevealed ? (
-            <div className="mb-4">
+            /* PRE-REVEAL: Answer input */
+            <div>
               {question.type === 'open' ? (
-                <div className="relative">
-                  <label className="sr-only" htmlFor="answer-input">Ditt svar</label>
+                <div>
                   <textarea
                     id="answer-input"
                     ref={textareaRef}
                     value={answerInput}
                     onChange={(e) => setAnswerInput(e.target.value)}
-                    placeholder="Skriv ditt svar med egna ord här..."
+                    placeholder="Skriv ditt svar här..."
                     rows={4}
-                    className="w-full p-3.5 rounded-none bg-slate-50 dark:bg-zinc-950 border border-slate-250 dark:border-zinc-800 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-650 focus:outline-none focus:border-blue-500 focus:ring-0 text-sm leading-relaxed resize-none transition-all font-mono"
+                    className="w-full p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base leading-relaxed resize-none transition-all"
                   />
-                  <div className="absolute right-3.5 bottom-3.5 text-[9px] text-slate-400 dark:text-zinc-650 font-semibold font-mono hidden sm:flex items-center">
-                    <span>SKICKA: </span>
-                    <span className="ml-1 px-1 py-0.2 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">⌘ ENTER</span>
-                  </div>
+                  <p className="mt-2 text-xs text-slate-400 dark:text-zinc-600 text-right">
+                    ⌘ Enter för att visa facit
+                  </p>
                 </div>
               ) : (
                 <AnswerOptions
@@ -130,57 +146,168 @@ export function QuestionCard({
               )}
             </div>
           ) : (
-            /* Locked State Preview */
-            <div className="mb-4">
-              {question.type === 'open' ? (
-                <div className="p-3.5 rounded-none bg-slate-50 dark:bg-zinc-900/20 border border-slate-200 dark:border-zinc-800/80 text-sm font-mono text-zinc-400">
-                  <span className="block text-[9px] text-slate-400 dark:text-zinc-600 uppercase font-bold mb-1.5">
-                    DITT AVGIVNA SVAR
-                  </span>
-                  <p className="whitespace-pre-wrap italic leading-relaxed text-slate-700 dark:text-zinc-300 font-sans text-xs">
-                    "{answerInput}"
-                  </p>
+            /* POST-REVEAL: Show answer comparison */
+            <div className="space-y-5">
+
+              {isMC ? (
+                /* MC Revealed */
+                <div className="space-y-4">
+                  <AnswerOptions
+                    options={question.options || []}
+                    selectedIndex={selectedMCIndex}
+                    onSelect={setSelectedMCIndex}
+                    isRevealed={true}
+                    correctIndex={question.correctIndex}
+                  />
+                  {question.explanation && (
+                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
+                      <p className="text-sm font-semibold text-slate-600 dark:text-zinc-400 mb-1">Förklaring</p>
+                      <p className="text-base text-slate-800 dark:text-zinc-200 leading-relaxed">
+                        {question.explanation}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <AnswerOptions
-                  options={question.options || []}
-                  selectedIndex={selectedMCIndex}
-                  onSelect={setSelectedMCIndex}
-                  isRevealed={true}
-                  correctIndex={question.correctIndex}
-                />
+                /* Open question: your answer + facit */
+                <div className="space-y-4">
+                  {/* Your answer */}
+                  {answerInput.trim() && (
+                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700">
+                      <p className="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-wide mb-2">Ditt svar</p>
+                      <p className="text-base text-slate-700 dark:text-zinc-300 leading-relaxed italic">
+                        {answerInput}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* FACIT – prominent */}
+                  <div className="p-5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-400 dark:border-emerald-600">
+                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-2">
+                      ✓ Facit – Rätt svar
+                    </p>
+                    <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100 leading-relaxed">
+                      {question.answer}
+                    </p>
+                  </div>
+
+                  {/* Optional details toggle */}
+                  {(question.why || question.example || assessment?.memoryRule) && (
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setShowDetails(!showDetails)}
+                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                      >
+                        {showDetails ? '▲ Dölj detaljer' : '▼ Visa fördjupning'}
+                      </button>
+
+                      {showDetails && (
+                        <div className="mt-3 space-y-3 text-sm text-slate-600 dark:text-zinc-400">
+                          {question.why && (
+                            <div className="p-3 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
+                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Varför viktigt?</p>
+                              <p className="leading-relaxed">{question.why}</p>
+                              {assessment?.memoryRule && (
+                                <p className="mt-2 text-blue-600 dark:text-blue-400 italic">
+                                  Kom ihåg: {assessment.memoryRule}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                          {question.example && (
+                            <div className="p-3 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
+                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Verkligt exempel</p>
+                              <p className="leading-relaxed">{question.example}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Rating buttons */}
+              {onRateAnswer && (
+                <div className="pt-2 border-t border-slate-100 dark:border-zinc-800">
+                  <p className="text-sm text-slate-500 dark:text-zinc-500 mb-3 text-center">
+                    Hur gick det?
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => onRateAnswer('again')}
+                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
+                        assessment?.suggestedRating === 'again'
+                          ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-400 dark:border-rose-500 text-rose-700 dark:text-rose-400 ring-2 ring-rose-300 dark:ring-rose-700'
+                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/10 hover:text-rose-600 dark:hover:text-rose-400'
+                      }`}
+                    >
+                      <span className="block text-lg mb-1">😓</span>
+                      <span>Igen</span>
+                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 3</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onRateAnswer('almost')}
+                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
+                        assessment?.suggestedRating === 'almost'
+                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-400 dark:border-amber-500 text-amber-700 dark:text-amber-400 ring-2 ring-amber-300 dark:ring-amber-700'
+                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/10 hover:text-amber-600 dark:hover:text-amber-400'
+                      }`}
+                    >
+                      <span className="block text-lg mb-1">🤔</span>
+                      <span>Nästan</span>
+                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 2</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onRateAnswer('known')}
+                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
+                        assessment?.suggestedRating === 'known'
+                          ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-400 dark:border-emerald-500 text-emerald-700 dark:text-emerald-400 ring-2 ring-emerald-300 dark:ring-emerald-700'
+                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 hover:text-emerald-600 dark:hover:text-emerald-400'
+                      }`}
+                    >
+                      <span className="block text-lg mb-1">✅</span>
+                      <span>Kan</span>
+                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 1</span>
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           )}
         </div>
 
-        {/* Primary Action Buttons */}
+        {/* Submit button (pre-reveal only) */}
         {!isRevealed && (
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-4">
+          <div className="px-6 pb-6 flex flex-col sm:flex-row gap-3">
             <button
               type="button"
               onClick={onRevealAnswer}
               disabled={isSubmitDisabled}
-              className={`flex-1 flex items-center justify-center py-3 px-6 rounded-none font-bold text-xs tracking-wide transition-all cursor-pointer font-mono ${
+              className={`flex-1 py-4 px-6 rounded-xl font-bold text-base transition-all cursor-pointer ${
                 isSubmitDisabled
-                  ? 'bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-400 dark:text-zinc-700 cursor-not-allowed'
-                  : 'bg-blue-500 hover:bg-blue-600 text-white border border-blue-500'
+                  ? 'bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-400 dark:text-zinc-600 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
               }`}
             >
-              {question.type === 'open' ? 'JÄMFÖR & VISA FACIT' : 'SVARA'}
-              <span className="ml-1.5 opacity-60">↵</span>
+              {question.type === 'open' ? 'Visa facit' : 'Svara'}
             </button>
-            
+
             <button
               type="button"
               onClick={onSkip}
-              className="py-3 px-6 rounded-none bg-transparent border border-slate-250 dark:border-zinc-800 text-slate-550 dark:text-zinc-400 hover:border-slate-450 dark:hover:border-zinc-700 hover:text-slate-800 dark:hover:text-zinc-200 text-xs font-mono font-bold transition-all cursor-pointer"
+              className="py-4 px-6 rounded-xl bg-transparent border border-slate-200 dark:border-zinc-700 text-slate-500 dark:text-zinc-400 hover:border-slate-400 dark:hover:border-zinc-500 text-base font-medium transition-all cursor-pointer"
             >
-              [ HOPPA ÖVER ]
+              Hoppa över
             </button>
           </div>
         )}
-
       </div>
     </div>
   );

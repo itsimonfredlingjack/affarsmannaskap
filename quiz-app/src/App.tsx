@@ -13,7 +13,6 @@ import { soundEngine } from './logic/sound';
 import { Sidebar } from './components/Sidebar';
 import { HeroLanding } from './components/HeroLanding';
 import { QuestionCard } from './components/QuestionCard';
-import { CoachFeedback } from './components/CoachFeedback';
 import { SessionSummary } from './components/SessionSummary';
 import { ProgressBar } from './components/ProgressBar';
 
@@ -364,6 +363,37 @@ export default function App() {
     }
   };
 
+  // Keyboard shortcut: Rate with 1, 2, 3 when revealed
+  useEffect(() => {
+    if (!isRevealed) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is focused on an input or textarea
+      if (
+        document.activeElement?.tagName === 'INPUT' ||
+        document.activeElement?.tagName === 'TEXTAREA'
+      ) {
+        return;
+      }
+
+      if (e.key === '1') {
+        e.preventDefault();
+        handleRateAnswer('known');
+      } else if (e.key === '2') {
+        e.preventDefault();
+        handleRateAnswer('almost');
+      } else if (e.key === '3') {
+        e.preventDefault();
+        handleRateAnswer('again');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isRevealed, handleRateAnswer]);
+
   // Jump to specific question (sidebar click)
   const handleSelectQuestion = (q: Question) => {
     if (session.active) {
@@ -462,7 +492,7 @@ export default function App() {
             >
               <Menu size={18} />
             </button>
-            <span className="font-mono text-xs font-bold text-slate-800 dark:text-zinc-200 uppercase">
+            <span className="text-sm font-bold text-slate-800 dark:text-zinc-200">
               Affärsmannaskap
             </span>
           </div>
@@ -524,30 +554,22 @@ export default function App() {
                   onSkip={handleNextQuestion}
                   currentQuestionIndex={session.questionsAnswered + 1}
                   totalQuestions={sessionTarget}
+                  assessment={isMC ? {
+                    hasRubric: false,
+                    verdict: selectedMCIndex === currentQuestion.correctIndex ? 'correct' : 'wrong',
+                    suggestedRating: selectedMCIndex === currentQuestion.correctIndex ? 'known' : 'again',
+                    scoreInternal: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
+                    score: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
+                    matched: [],
+                    missing: [],
+                    confusedWith: null,
+                    feedback: { title: '', body: '', memoryRule: '', contrast: '' },
+                    memoryRule: '',
+                    summary: '',
+                    signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
+                  } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
+                  onRateAnswer={handleRateAnswer}
                 />
-
-                {isRevealed && (
-                  <CoachFeedback
-                    question={currentQuestion}
-                    assessment={isMC ? {
-                      hasRubric: false,
-                      verdict: selectedMCIndex === currentQuestion.correctIndex ? 'correct' : 'wrong',
-                      suggestedRating: selectedMCIndex === currentQuestion.correctIndex ? 'known' : 'again',
-                      scoreInternal: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
-                      score: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
-                      matched: [],
-                      missing: [],
-                      confusedWith: null,
-                      feedback: { title: '', body: '', memoryRule: '', contrast: '' },
-                      memoryRule: '',
-                      summary: '',
-                      signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
-                    } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
-                    selectedMCIndex={selectedMCIndex}
-                    onRateAnswer={handleRateAnswer}
-                    onNextQuestion={handleNextQuestion}
-                  />
-                )}
               </div>
             ) : null
           ) : session.results.length > 0 ? (
@@ -573,30 +595,22 @@ export default function App() {
                 onSkip={handleNextQuestion}
                 currentQuestionIndex={1}
                 totalQuestions={1}
+                assessment={isMC ? {
+                  hasRubric: false,
+                  verdict: selectedMCIndex === currentQuestion.correctIndex ? 'correct' : 'wrong',
+                  suggestedRating: selectedMCIndex === currentQuestion.correctIndex ? 'known' : 'again',
+                  scoreInternal: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
+                  score: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
+                  matched: [],
+                  missing: [],
+                  confusedWith: null,
+                  feedback: { title: '', body: '', memoryRule: '', contrast: '' },
+                  memoryRule: '',
+                  summary: '',
+                  signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
+                } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
+                onRateAnswer={handleRateAnswer}
               />
-
-              {isRevealed && (
-                <CoachFeedback
-                  question={currentQuestion}
-                  assessment={isMC ? {
-                    hasRubric: false,
-                    verdict: selectedMCIndex === currentQuestion.correctIndex ? 'correct' : 'wrong',
-                    suggestedRating: selectedMCIndex === currentQuestion.correctIndex ? 'known' : 'again',
-                    scoreInternal: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
-                    score: selectedMCIndex === currentQuestion.correctIndex ? 100 : 0,
-                    matched: [],
-                    missing: [],
-                    confusedWith: null,
-                    feedback: { title: '', body: '', memoryRule: '', contrast: '' },
-                    memoryRule: '',
-                    summary: '',
-                    signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
-                  } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
-                  selectedMCIndex={selectedMCIndex}
-                  onRateAnswer={handleRateAnswer}
-                  onNextQuestion={handleNextQuestion}
-                />
-              )}
             </div>
           ) : (
             /* Landing Hero page */
@@ -610,16 +624,11 @@ export default function App() {
 
         {/* Footer shortcuts helper */}
         {currentQuestion && !session.results.length && (
-          <footer className="text-center py-4 text-[10px] text-slate-550 dark:text-zinc-550 font-mono tracking-wide">
+          <footer className="text-center py-3 text-xs text-slate-400 dark:text-zinc-600">
             {!isRevealed ? (
-              <span>
-                GENOMFÖR: [ ⌘ ENTER ] FÖR FACIT.
-                {isMC && <span> SNABBVAL: [ 1 - 4 ] TANGENTER.</span>}
-              </span>
+              <span>⌘ Enter för att visa facit{isMC && ' · Välj alternativ med 1–4'}</span>
             ) : (
-              <span>
-                BETYGSÄTT TANGENTER: [ 1 ] KAN, [ 2 ] NÄSTAN, [ 3 ] IGEN.
-              </span>
+              <span>Betygsätt med tangent: 1 = Kan · 2 = Nästan · 3 = Igen</span>
             )}
           </footer>
         )}

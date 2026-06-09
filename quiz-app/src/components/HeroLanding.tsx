@@ -10,76 +10,71 @@ export function HeroLanding({ dueCount, totalCount, onStartSession }: HeroLandin
   const [sessionSize, setSessionSize] = useState<number | 'all'>(20);
 
   return (
-    <div className="max-w-md mx-auto w-full my-auto px-4 py-8 flex flex-col justify-center font-mono">
-      
-      {/* Terminal Title */}
-      <div className="text-center mb-6">
-        <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white mb-2">
-          AFFÄRSMANNASKAP :: QUIZ_SYSTEM_v2.0
+    <div className="max-w-sm mx-auto w-full my-auto px-4 py-12 flex flex-col justify-center">
+
+      {/* Title */}
+      <div className="text-center mb-8">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+          Dags att studera 📚
         </h1>
-        <p className="text-[11px] text-slate-550 dark:text-zinc-500 leading-relaxed max-w-sm mx-auto font-sans">
-          Träning och självvärdering på ekonomiska modeller, case och begrepp baserat på Spaced Repetition (SM-2).
+        <p className="text-sm text-slate-500 dark:text-zinc-500 leading-relaxed">
+          Träna ekonomi, modeller och begrepp med Spaced Repetition.
         </p>
       </div>
 
-      {/* Due Info Box */}
-      <div className="mb-4 p-4 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs">
-        <span className="block text-[9px] font-bold text-slate-400 dark:text-zinc-550 uppercase mb-2">
-          :: STATUS_KOLL
-        </span>
-        <div className="space-y-1.5 font-mono text-[11px] text-slate-700 dark:text-zinc-350">
-          <div className="flex justify-between">
-            <span>TOTALA FRÅGOR I SYSTEMET:</span>
-            <span className="font-bold">{totalCount}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>DESSA BÖR REPETERAS IDAG:</span>
-            <span className={`font-bold ${dueCount > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-500'}`}>
-              {dueCount}
-            </span>
-          </div>
+      {/* Stats */}
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-center">
+          <p className="text-2xl font-bold text-slate-900 dark:text-zinc-100">{totalCount}</p>
+          <p className="text-xs text-slate-500 dark:text-zinc-500 mt-0.5">Totala frågor</p>
+        </div>
+        <div className={`p-4 rounded-xl border text-center ${
+          dueCount > 0
+            ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700'
+            : 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-700'
+        }`}>
+          <p className={`text-2xl font-bold ${dueCount > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+            {dueCount}
+          </p>
+          <p className={`text-xs mt-0.5 ${dueCount > 0 ? 'text-amber-600 dark:text-amber-500' : 'text-emerald-600 dark:text-emerald-500'}`}>
+            {dueCount > 0 ? 'Att repetera idag' : 'Allt repeterat! ✓'}
+          </p>
         </div>
       </div>
 
-      {/* Selection Control Panel */}
-      <div className="p-5 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800">
-        <h2 className="text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-550 mb-3 text-center">
-          VÄLJ STORLEK PÅ STUDIESESSION
-        </h2>
-        
-        {/* Buttons Group */}
-        <div className="grid grid-cols-3 gap-2.5 mb-5">
-          {[10, 20, 'all'].map((size) => {
+      {/* Session size picker */}
+      <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
+        <p className="text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-3 text-center">
+          Hur många frågor?
+        </p>
+
+        <div className="grid grid-cols-3 gap-2.5 mb-4">
+          {([10, 20, 'all'] as const).map((size) => {
             const isSelected = sessionSize === size;
             return (
               <button
                 key={size}
                 type="button"
-                onClick={() => setSessionSize(size as any)}
-                className={`py-2 rounded-none border text-xs font-bold transition-all cursor-pointer ${
+                onClick={() => setSessionSize(size)}
+                className={`py-3 rounded-xl border text-sm font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-500 text-white border-blue-500'
-                    : 'bg-slate-50 dark:bg-zinc-900/40 border-slate-200 dark:border-zinc-800 text-slate-550 dark:text-zinc-400 hover:border-slate-400 dark:hover:border-zinc-700 hover:text-slate-800 dark:hover:text-zinc-200'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+                    : 'bg-slate-50 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-400 hover:border-slate-400 dark:hover:border-zinc-500'
                 }`}
               >
-                {size === 'all' ? 'ALLA' : size}
+                {size === 'all' ? 'Alla' : size}
               </button>
             );
           })}
         </div>
 
-        {/* Start Button */}
         <button
           type="button"
           onClick={() => onStartSession(sessionSize)}
-          className="w-full py-3 rounded-none bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs uppercase cursor-pointer"
+          className="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-md hover:shadow-lg transition-all cursor-pointer"
         >
-          [ BÖRJA STUDERA ]
+          Börja studera →
         </button>
-        
-        <p className="text-[9px] text-slate-400 dark:text-zinc-600 text-center mt-3 uppercase">
-          Inlärningskort laddas och sorteras enligt SM-2.
-        </p>
       </div>
     </div>
   );

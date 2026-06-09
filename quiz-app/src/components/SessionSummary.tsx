@@ -28,219 +28,127 @@ export function SessionSummary({
 
   if (!results.length) return null as any;
 
-  // Calculate overall score
-  const totalScore = Math.round(results.reduce((sum, r) => sum + r.score, 0) / results.length);
-
-  // Group by category for breakdown
-  const categories: Record<string, { total: number; count: number }> = {};
-  results.forEach(r => {
-    if (!categories[r.category]) {
-      categories[r.category] = { total: 0, count: 0 };
-    }
-    categories[r.category].total += r.score;
-    categories[r.category].count++;
-  });
-
-  const categoryBreakdown = Object.entries(categories)
-    .map(([name, data]) => ({
-      name,
-      avg: Math.round(data.total / data.count),
-    }))
-    .sort((a, b) => b.avg - a.avg);
+  const knownCount = results.filter(r => r.rating === 'known').length;
+  const almostCount = results.filter(r => r.rating === 'almost').length;
+  const againCount = results.filter(r => r.rating === 'again').length;
 
   // Career rank title
   const getCareerTitle = (percent: number) => {
-    if (percent >= 100) return "PARTNER 👑";
-    if (percent >= 80) return "MANAGER 👔";
-    if (percent >= 60) return "SENIOR CONSULTANT";
-    if (percent >= 40) return "CONSULTANT";
-    if (percent >= 20) return "JUNIOR ASSOCIATE";
-    return "INTERN";
+    if (percent >= 100) return "Partner 👑";
+    if (percent >= 80) return "Manager 👔";
+    if (percent >= 60) return "Senior Consultant";
+    if (percent >= 40) return "Consultant";
+    if (percent >= 20) return "Junior Associate";
+    return "Intern";
   };
 
   const careerTitle = getCareerTitle(masteryPercent);
 
-  // List missed questions (score < 100)
-  const missedResults = results.filter(r => r.score < 100);
+  const missedResults = results.filter(r => r.rating === 'again' || r.rating === 'almost');
 
-  // Share message
-  const shareText = `Jag slutförde precis en studiesession i Affärsmannaquizet med ${totalScore}% rätt! Min nuvarande nivå är ${careerTitle}. 🚀 Slipa ditt affärsmannaskap du också!`;
+  const shareText = `Jag slutförde precis en studiesession i Affärsmannaquizet! Kan ${knownCount} av ${results.length} frågor perfekt. Nivå: ${careerTitle}. 🚀`;
 
-  const handleCopyShareText = () => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(shareText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleShareTwitter = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-    window.open(url, '_blank');
-  };
-
-  const handleShareLinkedIn = () => {
-    navigator.clipboard.writeText(shareText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    window.open('https://www.linkedin.com/sharing/share-offsite/', '_blank');
-  };
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-emerald-600 dark:text-emerald-400';
-    if (score >= 50) return 'text-amber-600 dark:text-amber-400';
-    return 'text-rose-600 dark:text-rose-400';
-  };
-
-  const scoreColor = getScoreColor(totalScore);
+  const sessionFeel = knownCount === results.length
+    ? { emoji: '🏆', label: 'Perfekt session!', color: 'text-emerald-600 dark:text-emerald-400' }
+    : knownCount >= results.length * 0.7
+    ? { emoji: '🎯', label: 'Bra jobbat!', color: 'text-blue-600 dark:text-blue-400' }
+    : { emoji: '💪', label: 'Fortsätt öva!', color: 'text-amber-600 dark:text-amber-400' };
 
   return (
-    <div className="max-w-2xl mx-auto w-full px-4 py-4 space-y-4">
-      
-      {/* Overall Summary block */}
-      <div className="p-5 sm:p-6 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-center">
-        
-        <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-500 mb-4">
-          :: SESSION_STATISTIK_ANALYS
-        </h2>
+    <div className="max-w-xl mx-auto w-full px-4 py-6 space-y-4">
 
-        {/* Flat Monospace Score Box */}
-        <div className="inline-block px-8 py-4 bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 mb-4 font-mono text-left min-w-[200px]">
-          <div className="flex justify-between items-center mb-1">
-            <span className="text-[10px] text-slate-500 uppercase font-bold">TOTAL SCORE:</span>
-            <span className={`text-xl font-bold ${scoreColor}`}>{totalScore}%</span>
+      {/* Score card */}
+      <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-center">
+        <p className="text-4xl mb-2">{sessionFeel.emoji}</p>
+        <h2 className={`text-xl font-bold mb-1 ${sessionFeel.color}`}>{sessionFeel.label}</h2>
+        <p className="text-sm text-slate-500 dark:text-zinc-500 mb-5">
+          Session klar · {careerTitle}
+        </p>
+
+        {/* Result breakdown */}
+        <div className="grid grid-cols-3 gap-3 mb-5">
+          <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700">
+            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{knownCount}</p>
+            <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">✅ Kan</p>
           </div>
-          <div className="w-full h-2 bg-slate-200 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-900 overflow-hidden mb-2">
-            <div className={`h-full ${totalScore >= 80 ? 'bg-emerald-500' : totalScore >= 50 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${totalScore}%` }} />
+          <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700">
+            <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">{almostCount}</p>
+            <p className="text-xs text-amber-600 dark:text-amber-500 mt-0.5">🤔 Nästan</p>
           </div>
-          <div className="flex justify-between items-center text-[9px] text-zinc-500">
-            <span>0%</span>
-            <span>100%</span>
+          <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700">
+            <p className="text-2xl font-bold text-rose-600 dark:text-rose-400">{againCount}</p>
+            <p className="text-xs text-rose-600 dark:text-rose-500 mt-0.5">😓 Igen</p>
           </div>
         </div>
 
-        <p className="text-sm font-bold text-slate-800 dark:text-zinc-200 mb-1 font-mono uppercase">
-          [ {totalScore >= 80 ? 'UTMÄRKT PRESTATION' : totalScore >= 50 ? 'BRA FRAMSTEG' : 'FORTSÄTT ÖVA'} ]
-        </p>
-        <p className="text-[11px] text-slate-550 dark:text-zinc-400 max-w-md mx-auto leading-relaxed font-mono">
-          Framsteg har uppdaterats enligt SM-2 Spaced Repetition.
-        </p>
-
-        {/* Share Section */}
-        <div className="mt-5 pt-4 border-t border-slate-200 dark:border-zinc-850/80 max-w-md mx-auto font-mono text-[10px]">
-          <span className="block text-slate-500 uppercase font-bold mb-3">
-            :: DELA DINA FRAMSTEG
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <button
-              onClick={handleShareLinkedIn}
-              type="button"
-              className="flex items-center px-3 py-1.5 rounded-none bg-slate-50 dark:bg-zinc-900 text-blue-600 dark:text-blue-400 border border-slate-250 dark:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-800 font-bold cursor-pointer"
-            >
-              [ LINKEDIN ]
-            </button>
-            <button
-              onClick={handleShareTwitter}
-              type="button"
-              className="flex items-center px-3 py-1.5 rounded-none bg-slate-50 dark:bg-zinc-900 text-slate-700 dark:text-slate-350 border border-slate-250 dark:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-800 font-bold cursor-pointer"
-            >
-              [ X / TWITTER ]
-            </button>
-            <button
-              onClick={handleCopyShareText}
-              type="button"
-              className={`flex items-center px-3 py-1.5 rounded-none border font-bold cursor-pointer ${
-                copied 
-                  ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400' 
-                  : 'bg-slate-50 dark:bg-zinc-900 text-slate-600 dark:text-slate-400 border border-slate-250 dark:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-800'
-              }`}
-            >
-              {copied ? <Check size={11} className="mr-1.5" /> : <Copy size={11} className="mr-1.5" />}
-              {copied ? '[ KOPIERAT! ]' : '[ KOPIERA TEXT ]'}
-            </button>
-          </div>
+        {/* Share */}
+        <div className="flex gap-2 justify-center">
+          <button
+            onClick={handleCopy}
+            type="button"
+            className={`flex items-center px-3 py-2 rounded-lg text-sm border cursor-pointer transition-colors ${
+              copied
+                ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-400 text-emerald-600 dark:text-emerald-400'
+                : 'bg-slate-50 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-700'
+            }`}
+          >
+            {copied ? <Check size={13} className="mr-1.5" /> : <Copy size={13} className="mr-1.5" />}
+            {copied ? 'Kopierat!' : 'Kopiera'}
+          </button>
+          <button
+            onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, '_blank')}
+            type="button"
+            className="px-3 py-2 rounded-lg text-sm border bg-slate-50 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-700 cursor-pointer transition-colors"
+          >
+            Dela på X
+          </button>
         </div>
       </div>
 
-      {/* Category breakdown & Missed questions row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        {/* Category Breakdown Card */}
-        <div className="p-4 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800">
-          <h3 className="text-[10px] font-bold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-4 font-mono">
-            :: RESULTAT PER KATEGORI
+      {/* Missed questions – only if any */}
+      {missedResults.length > 0 && (
+        <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-zinc-300 mb-3">
+            Repetera dessa ({missedResults.length} st)
           </h3>
-          <div className="space-y-3 font-mono text-[11px]">
-            {categoryBreakdown.map(cat => {
-              let barColor = 'bg-rose-505 dark:bg-rose-500';
-              if (cat.avg >= 80) barColor = 'bg-emerald-500';
-              else if (cat.avg >= 50) barColor = 'bg-amber-500';
-
+          <div className="space-y-1.5 max-h-52 overflow-y-auto">
+            {missedResults.map(res => {
+              const q = questions.find(item => item.id === res.questionId);
+              if (!q) return null;
+              const isAlmost = res.rating === 'almost';
               return (
-                <div key={cat.name} className="space-y-1">
-                  <div className="flex justify-between font-bold">
-                    <span className="text-slate-655 dark:text-zinc-350 capitalize font-sans">{cat.name}</span>
-                    <span>{cat.avg}%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-850 rounded-none overflow-hidden">
-                    <div 
-                      className={`h-full ${barColor} transition-all duration-300`}
-                      style={{ width: `${cat.avg}%` }}
-                    />
-                  </div>
-                </div>
+                <button
+                  key={res.questionId}
+                  type="button"
+                  onClick={() => onRetryQuestion(q)}
+                  className="flex items-center w-full p-2.5 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-left hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/10 cursor-pointer transition-colors"
+                >
+                  <span className={`text-sm shrink-0 mr-2.5 ${isAlmost ? 'text-amber-500' : 'text-rose-500'}`}>
+                    {isAlmost ? '🤔' : '😓'}
+                  </span>
+                  <span className="truncate flex-1 text-sm text-slate-700 dark:text-zinc-300">{q.question}</span>
+                  <ChevronRight size={13} className="text-slate-400 shrink-0 ml-1" />
+                </button>
               );
             })}
           </div>
         </div>
+      )}
 
-        {/* Missed Questions Card */}
-        <div className="p-4 rounded-none bg-white dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800">
-          <h3 className="text-[10px] font-bold text-slate-500 dark:text-zinc-500 uppercase tracking-wider mb-4 font-mono">
-            {missedResults.length === 0 ? ':: SYSTEM_PERFECT_RESULT' : `:: FRÅGOR ATT REPETERA (${missedResults.length})`}
-          </h3>
-          
-          {missedResults.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-6 text-center text-slate-450 dark:text-zinc-600 font-mono text-[11px] space-y-1.5">
-              <span>[✓] 100% ACCURACY IN SESSION.</span>
-              <span>Allt satt helt felfritt.</span>
-            </div>
-          ) : (
-            <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 font-mono text-[10px]">
-              {missedResults.map(res => {
-                const q = questions.find(item => item.id === res.questionId);
-                if (!q) return null;
-
-                const isAlmost = res.score >= 40;
-
-                return (
-                  <button
-                    key={res.questionId}
-                    type="button"
-                    onClick={() => onRetryQuestion(q)}
-                    className="flex items-center w-full p-2 bg-slate-50 dark:bg-zinc-900/40 border border-slate-200 dark:border-zinc-800 text-left text-slate-600 dark:text-zinc-400 hover:border-blue-500/50 hover:bg-slate-100 dark:hover:bg-zinc-900 cursor-pointer"
-                  >
-                    <span className={`font-bold shrink-0 mr-3 ${isAlmost ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600'}`}>
-                      [{res.score}%]
-                    </span>
-                    <span className="truncate flex-1 font-sans font-medium text-slate-700 dark:text-zinc-300">{q.question}</span>
-                    <ChevronRight size={10} className="text-slate-400 dark:text-zinc-650 shrink-0 ml-1" />
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-      </div>
-
-      {/* Control Buttons */}
+      {/* New session button */}
       <button
         onClick={onNewSession}
         type="button"
-        className="w-full flex items-center justify-center py-3.5 bg-blue-500 hover:bg-blue-600 text-white font-mono font-bold text-xs uppercase cursor-pointer"
+        className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-md hover:shadow-lg transition-all cursor-pointer"
       >
-        [ NY STUDIESESSION ]
+        Ny session →
       </button>
-
     </div>
   );
 }

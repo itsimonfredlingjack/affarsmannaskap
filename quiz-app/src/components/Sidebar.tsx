@@ -40,14 +40,13 @@ export function Sidebar({
 }: SidebarProps): JSX.Element {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
 
-  // Calculate career title
   const getCareerBadge = (percent: number) => {
-    if (percent >= 100) return { title: "PARTNER 👑", color: "border-yellow-600/35 bg-yellow-500/5 text-yellow-500 font-bold" };
-    if (percent >= 80) return { title: "MANAGER 👔", color: "border-blue-600/35 bg-blue-500/5 text-blue-400 font-bold" };
-    if (percent >= 60) return { title: "SENIOR CONSULTANT", color: "border-slate-500/30 bg-slate-500/5 text-slate-300" };
-    if (percent >= 40) return { title: "CONSULTANT", color: "border-emerald-600/35 bg-emerald-500/5 text-emerald-400" };
-    if (percent >= 20) return { title: "JUNIOR ASSOCIATE", color: "border-zinc-700/50 bg-zinc-800/10 text-zinc-400" };
-    return { title: "INTERN", color: "border-zinc-800 bg-zinc-900/30 text-zinc-500" };
+    if (percent >= 100) return { title: "Partner 👑", color: "bg-yellow-500/10 text-yellow-500 border-yellow-600/30" };
+    if (percent >= 80) return { title: "Manager 👔", color: "bg-blue-500/10 text-blue-400 border-blue-600/30" };
+    if (percent >= 60) return { title: "Senior Consultant", color: "bg-slate-500/10 text-slate-300 border-slate-500/30" };
+    if (percent >= 40) return { title: "Consultant", color: "bg-emerald-500/10 text-emerald-400 border-emerald-600/30" };
+    if (percent >= 20) return { title: "Junior Associate", color: "bg-zinc-800/30 text-zinc-400 border-zinc-700/50" };
+    return { title: "Intern", color: "bg-zinc-900/30 text-zinc-500 border-zinc-800" };
   };
 
   const badge = getCareerBadge(masteryPercent);
@@ -64,31 +63,24 @@ export function Sidebar({
     <>
       {/* Sidebar Overlay (Mobile) */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/60 lg:hidden transition-opacity duration-200"
+        <div
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar Panel */}
-      <aside 
-        className={`fixed top-0 bottom-0 left-0 z-50 flex flex-col w-80 bg-zinc-950 border-r border-slate-200 dark:border-zinc-850 transition-transform duration-200 lg:translate-x-0 lg:static lg:z-auto ${
+      <aside
+        className={`fixed top-0 bottom-0 left-0 z-50 flex flex-col w-72 bg-zinc-950 border-r border-zinc-800 transition-transform duration-200 lg:translate-x-0 lg:static lg:z-auto ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4.5 border-b border-slate-200 dark:border-zinc-850">
-          <div className="flex items-center space-x-2">
-            <span className="font-mono text-xs font-bold text-blue-500">
-              [AM_CORE_v2.0]
-            </span>
-            <span className="font-mono text-[11px] font-bold text-slate-700 dark:text-zinc-500">
-              TERMINAL
-            </span>
-          </div>
-          <button 
-            onClick={onClose} 
-            className="p-1 rounded-none text-slate-500 hover:text-slate-300 lg:hidden cursor-pointer"
+        <div className="flex items-center justify-between px-4 py-4 border-b border-zinc-800">
+          <span className="text-sm font-bold text-zinc-200">Affärsmannaskap</span>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 lg:hidden cursor-pointer transition-colors"
             aria-label="Stäng sidopanel"
           >
             <X size={16} />
@@ -96,38 +88,34 @@ export function Sidebar({
         </div>
 
         {/* Progress block */}
-        <div className="p-4 border-b border-slate-200 dark:border-zinc-850">
-          <div className="p-3 bg-slate-50 dark:bg-zinc-900/40 border border-slate-250 dark:border-zinc-800 font-mono text-[10px]">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-bold text-slate-500 dark:text-zinc-500">BEMÄSTRAT:</span>
-              <span className="font-extrabold text-blue-600 dark:text-blue-400">{masteryPercent}%</span>
+        <div className="px-4 py-4 border-b border-zinc-800">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-zinc-500">Bemästrade</span>
+              <span className="text-xs font-bold text-blue-400">{masteredCount} / {totalCount}</span>
             </div>
-            
+
             {/* Progress bar */}
-            <div className="h-1.5 w-full bg-slate-200 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-900 rounded-none overflow-hidden mb-2">
-              <div 
-                className="h-full bg-blue-500 dark:bg-blue-600 rounded-none"
+            <div className="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-blue-500 rounded-full transition-all duration-500"
                 style={{ width: `${masteryPercent}%` }}
               />
             </div>
 
-            <div className="flex items-center justify-between text-slate-550 dark:text-zinc-500">
-              <span>{masteredCount}/{totalCount} KLARA</span>
-              <span>[{dueCount} REPETITIONER]</span>
-            </div>
-
-            {/* Career badge */}
-            <div className="mt-3 pt-2.5 border-t border-slate-200 dark:border-zinc-800/80 flex items-center justify-between">
-              <span className="font-bold text-slate-500 dark:text-zinc-500">KARRIÄRNIVÅ:</span>
-              <div className={`px-2 py-0.5 text-[9px] border font-mono rounded-none ${badge.color}`}>
+            <div className="flex items-center justify-between">
+              <span className={`text-xs px-2 py-0.5 rounded-full border text-center ${badge.color}`}>
                 {badge.title}
-              </div>
+              </span>
+              {dueCount > 0 && (
+                <span className="text-xs text-amber-400">{dueCount} att repetera</span>
+              )}
             </div>
           </div>
         </div>
 
         {/* Mode Navigation */}
-        <nav className="p-3 space-y-1 font-mono text-[11px]" aria-label="Studielägen">
+        <nav className="px-3 py-3 space-y-0.5 border-b border-zinc-800" aria-label="Studielägen">
           {modeButtons.map(button => {
             const Icon = button.icon;
             const isActive = activeMode === button.id;
@@ -138,16 +126,16 @@ export function Sidebar({
                   setActiveMode(button.id);
                   if (window.innerWidth < 1024) onClose();
                 }}
-                className={`flex items-center w-full px-3 py-2 rounded-none transition-all cursor-pointer ${
-                  isActive 
-                    ? 'bg-slate-100 dark:bg-zinc-900 text-slate-900 dark:text-white border-l-2 border-blue-500 font-bold' 
-                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900/30'
+                className={`flex items-center w-full px-3 py-2 rounded-lg text-sm transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-zinc-800 text-white font-semibold'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
-                <Icon size={12} className={`mr-2.5 ${isActive ? 'text-blue-500' : 'text-slate-500'}`} />
-                <span className="flex-1 text-left">{button.label.toUpperCase()}</span>
+                <Icon size={14} className={`mr-2.5 shrink-0 ${isActive ? 'text-blue-400' : 'text-zinc-500'}`} />
+                <span className="flex-1 text-left">{button.label}</span>
                 {button.id === 'repetition' && dueCount > 0 && (
-                  <span className="px-1.5 py-0.2 text-[9px] font-bold rounded-none bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20">
+                  <span className="px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-400">
                     {dueCount}
                   </span>
                 )}
@@ -157,42 +145,41 @@ export function Sidebar({
         </nav>
 
         {/* Search */}
-        <div className="px-3 py-1.5 border-b border-slate-200 dark:border-zinc-850 pb-3">
+        <div className="px-3 py-3 border-b border-zinc-800">
           <div className="relative">
-            <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
             <input
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="SÖK FRÅGOR..."
-              className="w-full pl-7 pr-3 py-2 text-[10px] font-mono rounded-none bg-slate-50 dark:bg-zinc-950 border border-slate-250 dark:border-zinc-800 text-slate-800 dark:text-zinc-350 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-0"
+              placeholder="Sök frågor..."
+              className="w-full pl-8 pr-3 py-2 text-sm rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500 transition-colors"
             />
           </div>
         </div>
 
         {/* Question List */}
-        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2 mt-1">
-          <div className="px-1.5 mb-1.5">
-            <span className="text-[9px] font-bold tracking-wider text-slate-500 uppercase font-mono">:: FRÅGELISTA ({filteredQuestions.length})</span>
-          </div>
-          <ul className="space-y-0.5 pb-4 font-mono text-[10px]">
+        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2">
+          <p className="px-1 mb-2 text-xs text-zinc-600">
+            {filteredQuestions.length} frågor
+          </p>
+          <ul className="space-y-0.5 pb-4">
             {filteredQuestions.map((q) => {
               const progress = cardProgresses[q.id];
               const rating = progress?.rating;
-              
-              // Status text indicators
-              let statusTag = '[ ]';
-              let statusColor = 'text-zinc-600 dark:text-zinc-550';
-              
+
+              let dot = '○';
+              let dotColor = 'text-zinc-700';
+
               if (rating === 'known') {
-                statusTag = '[K]';
-                statusColor = 'text-emerald-600 dark:text-emerald-400 font-bold';
+                dot = '●';
+                dotColor = 'text-emerald-500';
               } else if (rating === 'almost') {
-                statusTag = '[A]';
-                statusColor = 'text-amber-600 dark:text-amber-400 font-bold';
+                dot = '●';
+                dotColor = 'text-amber-500';
               } else if (rating === 'again') {
-                statusTag = '[I]';
-                statusColor = 'text-rose-600 dark:text-rose-450 font-bold';
+                dot = '●';
+                dotColor = 'text-rose-500';
               }
 
               const isActive = activeQuestionId === q.id;
@@ -204,17 +191,15 @@ export function Sidebar({
                       onSelectQuestion(q);
                       if (window.innerWidth < 1024) onClose();
                     }}
-                    className={`flex items-center w-full px-2 py-1.5 rounded-none text-left transition-all cursor-pointer ${
-                      isActive 
-                        ? 'bg-slate-100 dark:bg-zinc-900 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-zinc-800' 
-                        : 'text-slate-500 hover:text-slate-800 dark:hover:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-900/20'
+                    className={`flex items-center w-full px-2 py-1.5 rounded-lg text-left text-sm transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-zinc-800 text-white font-semibold'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                     }`}
                   >
-                    <span className={`mr-2 shrink-0 ${statusColor}`}>
-                      {statusTag}
-                    </span>
-                    <span className="truncate flex-1 font-sans text-[11px] font-medium text-slate-700 dark:text-zinc-300">{q.question}</span>
-                    <ChevronRight size={10} className="text-slate-400 shrink-0 ml-1" />
+                    <span className={`mr-2 shrink-0 text-xs ${dotColor}`}>{dot}</span>
+                    <span className="truncate flex-1">{q.question}</span>
+                    <ChevronRight size={12} className="text-zinc-600 shrink-0 ml-1" />
                   </button>
                 </li>
               );
@@ -223,33 +208,33 @@ export function Sidebar({
         </div>
 
         {/* Footer / Reset */}
-        <div className="p-3 border-t border-slate-200 dark:border-zinc-850 bg-slate-50 dark:bg-zinc-950/40">
+        <div className="px-3 py-3 border-t border-zinc-800">
           {!showConfirmReset ? (
             <button
               onClick={() => setShowConfirmReset(true)}
-              className="flex items-center justify-center w-full px-3 py-1.5 text-[9px] font-mono font-bold rounded-none text-slate-500 hover:text-slate-800 dark:hover:text-zinc-350 hover:bg-slate-100 dark:hover:bg-zinc-900 border border-slate-250 dark:border-zinc-800 cursor-pointer"
+              className="flex items-center justify-center w-full px-3 py-2 text-xs rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900 border border-zinc-800 cursor-pointer transition-colors"
             >
-              <RotateCcw size={10} className="mr-1.5" />
-              NOLLSTÄLL FRAMSTEG
+              <RotateCcw size={12} className="mr-2" />
+              Nollställ framsteg
             </button>
           ) : (
-            <div className="space-y-1.5 p-1 bg-rose-500/5 border border-rose-500/10 rounded-none">
-              <span className="block text-[9px] text-center text-rose-500 dark:text-rose-450 font-bold uppercase tracking-wider font-mono">BEKRÄFTA NOLLSTÄLLNING</span>
-              <div className="flex space-x-1.5">
+            <div className="space-y-2 p-2 bg-rose-500/5 border border-rose-500/20 rounded-lg">
+              <p className="text-xs text-center text-rose-400 font-semibold">Nollställ allt?</p>
+              <div className="flex gap-2">
                 <button
                   onClick={() => {
                     onResetProgress();
                     setShowConfirmReset(false);
                   }}
-                  className="flex-1 px-2 py-1 text-[9px] font-mono font-bold rounded-none bg-rose-600 hover:bg-rose-500 text-white cursor-pointer"
+                  className="flex-1 py-1.5 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white cursor-pointer transition-colors"
                 >
-                  JA
+                  Ja
                 </button>
                 <button
                   onClick={() => setShowConfirmReset(false)}
-                  className="flex-1 px-2 py-1 text-[9px] font-mono font-bold rounded-none bg-slate-800 hover:bg-slate-700 text-slate-350 dark:text-zinc-400 cursor-pointer"
+                  className="flex-1 py-1.5 text-xs font-bold rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 cursor-pointer transition-colors"
                 >
-                  NEJ
+                  Avbryt
                 </button>
               </div>
             </div>
