@@ -1,10 +1,16 @@
+type AudioContextConstructor = typeof AudioContext;
+
+interface WebKitAudioWindow extends Window {
+  webkitAudioContext?: AudioContextConstructor;
+}
+
 class SoundService {
   private audioCtx: AudioContext | null = null;
   public enabled: boolean = true;
 
   private init() {
     if (!this.audioCtx) {
-      const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtxClass = window.AudioContext || (window as WebKitAudioWindow).webkitAudioContext;
       if (AudioCtxClass) {
         this.audioCtx = new AudioCtxClass();
       }

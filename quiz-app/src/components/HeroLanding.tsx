@@ -7,7 +7,7 @@ interface HeroLandingProps {
 }
 
 export function HeroLanding({ dueCount, totalCount, onStartSession }: HeroLandingProps): JSX.Element {
-  const [sessionSize, setSessionSize] = useState<number | 'all'>(20);
+  const [sessionSize, setSessionSize] = useState<number | 'all'>(10);
 
   return (
     <div className="max-w-sm mx-auto w-full my-auto px-4 py-12 flex flex-col justify-center">
@@ -18,7 +18,7 @@ export function HeroLanding({ dueCount, totalCount, onStartSession }: HeroLandin
           Dags att studera 📚
         </h1>
         <p className="text-sm text-slate-500 dark:text-zinc-500 leading-relaxed">
-          Träna ekonomi, modeller och begrepp med Spaced Repetition.
+          Träna korta essäsvar med modeller, ekonomi och affärsbeslut.
         </p>
       </div>
 
@@ -49,7 +49,7 @@ export function HeroLanding({ dueCount, totalCount, onStartSession }: HeroLandin
         </p>
 
         <div className="grid grid-cols-3 gap-2.5 mb-4">
-          {([10, 20, 'all'] as const).map((size) => {
+          {([5, 10, 'all'] as const).map((size) => {
             const isSelected = sessionSize === size;
             return (
               <button

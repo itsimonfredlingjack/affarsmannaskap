@@ -33,7 +33,11 @@ export function QuestionCard({
   onRateAnswer,
 }: QuestionCardProps): JSX.Element {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [showDetails, setShowDetails] = useState(false);
+  const [detailsState, setDetailsState] = useState({ questionId: question.id, show: false });
+  const showDetails = detailsState.questionId === question.id ? detailsState.show : false;
+  const setShowDetails = (show: boolean) => {
+    setDetailsState({ questionId: question.id, show });
+  };
 
   // Auto-focus textarea on open questions when question changes
   useEffect(() => {
@@ -41,11 +45,6 @@ export function QuestionCard({
       textareaRef.current.focus();
     }
   }, [question.id, isRevealed, question.type]);
-
-  // Reset details collapse on question change
-  useEffect(() => {
-    setShowDetails(false);
-  }, [question.id]);
 
   // Keyboard shortcut: Ctrl + Enter / Cmd + Enter to reveal answer
   useEffect(() => {
@@ -85,6 +84,7 @@ export function QuestionCard({
     return assessment.verdict;
   };
   const verdict = getVerdict();
+  const isAlmostVerdict = verdict === 'almost' || verdict === 'too_vague';
 
   return (
     <div className="max-w-2xl mx-auto w-full px-4 py-4">
@@ -97,11 +97,11 @@ export function QuestionCard({
           <span className={`text-sm font-bold px-3 py-1 rounded-full ${
             verdict === 'correct'
               ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400'
-              : verdict === 'partial'
+              : isAlmostVerdict
               ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400'
               : 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-400'
           }`}>
-            {verdict === 'correct' ? '✓ Rätt' : verdict === 'partial' ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
+            {verdict === 'correct' ? '✓ Rätt' : isAlmostVerdict ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
           </span>
         )}
       </div>
@@ -128,8 +128,8 @@ export function QuestionCard({
                     ref={textareaRef}
                     value={answerInput}
                     onChange={(e) => setAnswerInput(e.target.value)}
-                    placeholder="Skriv ditt svar här..."
-                    rows={4}
+                    placeholder="Skriv ett kort resonemang här..."
+                    rows={6}
                     className="w-full p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base leading-relaxed resize-none transition-all"
                   />
                   <p className="mt-2 text-xs text-slate-400 dark:text-zinc-600 text-right">
@@ -184,7 +184,7 @@ export function QuestionCard({
                   {/* FACIT – prominent */}
                   <div className="p-5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-400 dark:border-emerald-600">
                     <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-2">
-                      ✓ Facit – Rätt svar
+                      ✓ Facit – Modellssvar
                     </p>
                     <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100 leading-relaxed">
                       {question.answer}
@@ -217,7 +217,7 @@ export function QuestionCard({
                           )}
                           {question.example && (
                             <div className="p-3 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
-                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Verkligt exempel</p>
+                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Exempel</p>
                               <p className="leading-relaxed">{question.example}</p>
                             </div>
                           )}

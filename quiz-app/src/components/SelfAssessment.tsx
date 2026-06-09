@@ -55,7 +55,7 @@ export function SelfAssessment({
               </span>
             )}
           </span>
-          <span className="text-[10px] text-slate-500 dark:text-zinc-550">Missade nyckelbegrepp</span>
+          <span className="text-[10px] text-slate-500 dark:text-zinc-550">Missade nyckeldelar</span>
         </button>
 
         {/* Known / Kan Button */}

@@ -89,12 +89,12 @@ export default function App() {
   const getFilteredList = () => {
     let list = studyQuestions;
 
-    if (mode === 'begrepp') {
-      list = studyQuestions.filter(q => q.mode === 'begrepp');
-    } else if (mode === 'samband') {
-      list = studyQuestions.filter(q => q.mode === 'samband');
+    if (mode === 'resonemang') {
+      list = studyQuestions.filter(q => q.mode === 'resonemang');
     } else if (mode === 'case') {
       list = studyQuestions.filter(q => q.mode === 'case');
+    } else if (mode === 'examinatorrisk') {
+      list = studyQuestions.filter(q => q.mode === 'examinatorrisk');
     } else if (mode === 'repetition') {
       list = studyQuestions.filter(q => {
         const rating = cardProgresses[q.id]?.rating;
@@ -276,7 +276,7 @@ export default function App() {
     if (!currentQ) return;
 
     // Calculate score
-    let score = 0;
+    let score: number;
     if (currentQ.type === 'mc') {
       score = selectedMCIndex === currentQ.correctIndex ? 100 : 0;
     } else {

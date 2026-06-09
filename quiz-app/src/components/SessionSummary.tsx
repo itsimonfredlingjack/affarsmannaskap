@@ -23,10 +23,10 @@ export function SessionSummary({
   masteryPercent,
   onRetryQuestion,
   onNewSession,
-}: SessionSummaryProps): JSX.Element {
+}: SessionSummaryProps): JSX.Element | null {
   const [copied, setCopied] = useState(false);
 
-  if (!results.length) return null as any;
+  if (!results.length) return null;
 
   const knownCount = results.filter(r => r.rating === 'known').length;
   const almostCount = results.filter(r => r.rating === 'almost').length;

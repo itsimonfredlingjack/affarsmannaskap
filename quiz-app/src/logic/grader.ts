@@ -51,7 +51,7 @@ const VERDICTS = {
   },
   confused_with: {
     title: "Jämför med facit",
-    body: "Det här låter som ett annat begrepp. Rätt svar står i facit nedan.",
+    body: "Det här låter som en annan kursdel. Rätt svar står i facit nedan.",
     suggestedRating: "again" as const,
     scoreInternal: 20
   },
@@ -75,7 +75,6 @@ const VERDICTS = {
   }
 };
 
-const NEGATION_WORDS = new Set(["inte", "ej", "aldrig", "utan"]);
 const OBVIOUS_NOISE = new Set(["gris", "banan", "stol", "asdf", "qwerty", "test"]);
 
 function normalize(value: string): string {
@@ -212,10 +211,6 @@ function evaluateMisconceptions(rubric: Rubric, normalizedAnswer: string): Misco
   });
 }
 
-function hasNegation(normalizedAnswer: string): boolean {
-  return words(normalizedAnswer).some(word => NEGATION_WORDS.has(word));
-}
-
 function isNonsense(normalizedAnswer: string, conceptHitsCount: number, misconceptionHitsCount: number): boolean {
   const answerWords = words(normalizedAnswer);
   if (!answerWords.length) return true;
@@ -265,7 +260,7 @@ function buildAssessment(
     : unique([...missingRequiredLabels, ...missingSupportingLabels]).slice(0, 4);
   const matched = conceptResult?.matched?.length
     ? conceptResult.matched
-    : ["Inget tydligt kursbegrepp fångat."];
+    : ["Ingen tydlig kursdel fångad."];
 
   const core = question?.answer || "facit";
   const missingText = missing.length ? missing.join(", ") : "den centrala kopplingen";
@@ -345,7 +340,6 @@ export function gradeAnswer(question: Question, rawAnswer: string, rubric: Rubri
   const misconceptions = evaluateMisconceptions(rubric, normalizedAnswer);
   const conceptHits = Array.from(conceptResult.hits);
   const misconceptionHits = misconceptions.map(item => item.id);
-  const answerHasNegation = hasNegation(normalizedAnswer);
 
   if (isNonsense(normalizedAnswer, conceptHits.length, misconceptionHits.length)) {
     return buildAssessment(question, rawAnswer, rubric, "nonsense", conceptResult, misconceptions);
@@ -369,11 +363,6 @@ export function gradeAnswer(question: Question, rawAnswer: string, rubric: Rubri
   }
 
   if (requiredComplete) {
-    if (answerHasNegation) {
-      return buildAssessment(question, rawAnswer, rubric, "almost", conceptResult, misconceptions, {
-        scoreInternal: 70
-      });
-    }
     return buildAssessment(question, rawAnswer, rubric, "correct", conceptResult, misconceptions);
   }
 

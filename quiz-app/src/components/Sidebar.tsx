@@ -1,5 +1,5 @@
 import { useState, type JSX } from 'react';
-import { Search, RotateCcw, X, ChevronRight, BookOpen, Layers, GitMerge, Briefcase, RefreshCw } from 'lucide-react';
+import { Search, RotateCcw, X, ChevronRight, BookOpen, GitMerge, Briefcase, RefreshCw, Target } from 'lucide-react';
 import type { Question } from '../logic/questions';
 import type { CardProgress } from '../logic/sm2';
 
@@ -53,9 +53,9 @@ export function Sidebar({
 
   const modeButtons = [
     { id: 'all', label: 'Alla frågor', icon: BookOpen },
-    { id: 'begrepp', label: 'Begrepp', icon: Layers },
-    { id: 'samband', label: 'Samband', icon: GitMerge },
-    { id: 'case', label: 'Case', icon: Briefcase },
+    { id: 'resonemang', label: 'Resonemang', icon: GitMerge },
+    { id: 'case', label: 'Case/essä', icon: Briefcase },
+    { id: 'examinatorrisk', label: 'Examinator', icon: Target },
     { id: 'repetition', label: 'Repetition', icon: RefreshCw },
   ];
 
