@@ -74,9 +74,9 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Analys & strategi",
     source: "AM3",
-    question: "Redogör för skillnaden mellan direkta konkurrenter och substitut. Förklara hur ett bolag kan använda denna insikt för att positionera sig på marknaden.",
+    question: "Ett mindre IT-konsultbolag ska positionera sig mot en kund som jämför både andra byråer och interna alternativ. Redogör för skillnaden mellan direkta konkurrenter och substitut och landa i hur bolaget bör positionera sig.",
     tags: ["Konkurrenter", "Substitut", "Positionering", "Differentiering"],
-    answer: "Direkta konkurrenter erbjuder liknande lösningar, medan substitut löser samma problem på ett helt annat sätt (t.ex. 'göra själv'). Positioneringen ska bygga på unik kundnytta och bevisbar differentiering.",
+    answer: "Direkta konkurrenter erbjuder liknande lösningar, medan substitut löser samma problem på ett annat sätt, till exempel att kunden gör jobbet internt eller köper en standardiserad SaaS-tjänst. Positioneringen ska därför visa varför bolagets lösning är mer relevant för just kundens problem och kunna styrkas med bevis.",
     why: "Positionering handlar om att förstå vad kunden faktiskt väljer mellan.",
     example: "Ett konsultbolag tävlar inte bara mot andra byråer utan också mot kundens möjlighet att anställa egen personal eller köpa in en färdig SaaS-tjänst.",
     related: ["Direkta konkurrenter", "Substitut", "Differentiering", "Trovärdighet"]
@@ -100,11 +100,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Företagsform",
     source: "AM4/AM6",
-    question: "Varför är valet av företagsform mer än bara en juridisk fråga för ett nystartat konsultbolag? Koppla valet till ansvar, trovärdighet och kundens upplevda risk.",
+    question: "Ett nystartat konsultbolag ska välja företagsform inför sina första större kunddialoger. Varför är valet mer än en juridisk fråga? Koppla valet till ansvar, trovärdighet och kundens upplevda risk.",
     tags: ["Företagsform", "Ansvar", "Trovärdighet", "Risk"],
-    answer: "Ett Aktiebolag (AB) begränsar det personliga ansvaret men signalerar också seriositet och ekonomisk stabilitet till kunden, vilket sänker deras upplevda risk vid stora upphandlingar.",
+    answer: "Valet av företagsform påverkar både juridiskt ansvar och hur kunden bedömer leverantörens seriositet. Ett aktiebolag kan stärka bilden av struktur, ansvarsfördelning och långsiktighet, men det är inte automatiskt ett krav i varje affär. Vid upphandling måste leverantörskraven läsas i det aktuella underlaget.",
     why: "Företagsformen är en del av bolagets 'förpackning' och affärsstrategi.",
-    example: "En stor myndighet kräver ofta att leverantören är ett AB för att säkerställa att det finns en viss struktur och ansvarsfördelning bakom avtalet.",
+    example: "Om en kommun granskar leverantörer kan AB-formen upplevas som mer professionell än en enskild firma, men avgörande är vilka krav upphandlingsdokumenten faktiskt ställer på ekonomisk och teknisk kapacitet.",
     related: ["Aktiebolag", "Enskild firma", "Handelsbolag", "Personligt ansvar"]
   },
   {
@@ -126,11 +126,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Styrning",
     source: "AM4",
-    question: "Hur hjälper Balanced Scorecard (det balanserade styrkortet) ett företag att styra mot sina mål? Föreslå relevanta KPI:er från minst två olika perspektiv.",
+    question: "Ett konsultbolag vill växa utan att tappa leveranskvalitet. Hur kan Balanced Scorecard hjälpa bolaget att styra mot målet? Föreslå KPI:er från minst två olika perspektiv och förklara varför de behövs tillsammans.",
     tags: ["Balanced Scorecard", "KPI", "Mål", "Styrning"],
-    answer: "BSC balanserar hårda ekonomiska mått med mjuka mått som kundnöjdhet, interna processer och medarbetarnas lärande. Detta ger en mer komplett bild av bolagets hälsa och framtida potential.",
+    answer: "BSC balanserar ekonomiska mått med kund-, process- och lärandeperspektiv. Ett starkt svar visar varför minst två perspektiv behövs samtidigt: tillväxt kan se bra ut ekonomiskt men ändå vara ohållbar om kundnöjdhet, leveransprecision eller kompetensutveckling faller.",
     why: "Ensidigt fokus på ekonomi kan dölja problem i leverans eller kundrelationer.",
-    example: "Ekonomiskt perspektiv: Täckningsbidrag. Kundperspektiv: Net Promoter Score (NPS) eller återköpsfrekvens.",
+    example: "Ekonomiskt perspektiv: täckningsbidrag per projekt. Kundperspektiv: återköpsfrekvens. Processperspektiv: leverans i tid. Tillsammans visar de om tillväxten är lönsam och levererbar.",
     related: ["Ekonomi", "Kund", "Process", "Lärande"]
   },
   {
@@ -165,7 +165,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Årsredovisning",
     source: "AM5",
-    question: "Vid en jämförelse av två bolags årsredovisningar, varför är det viktigt att även läsa förvaltningsberättelsen och inte bara stirra på nyckeltalen?",
+    question: "Du jämför två IT-konsultbolag inför ett samarbete. Varför räcker det inte att stirra på nyckeltalen, och hur använder du förvaltningsberättelsen för att dra en försiktig slutsats?",
     tags: ["Årsredovisning", "Förvaltningsberättelse", "Jämförelse", "Ekonomi"],
     answer: "Nyckeltal visar *vad* som hänt, men förvaltningsberättelsen förklarar *varför*. Den ger kontext om marknadsläge, framtidsutsikter och engångshändelser som kan ha påverkat siffrorna temporärt.",
     why: "Kvalitativ analys är minst lika viktig som kvantitativ analys för att förstå risker.",
@@ -178,7 +178,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Budget",
     source: "AM6",
-    question: "Resonera kring vikten av att arbeta med olika scenarier (t.ex. optimistiskt vs. försiktigt) i en budget. Hur påverkar debiteringsgraden bolagets känslighet?",
+    question: "Ett konsultbolag budgeterar för nästa kvartal med osäker beläggning. Resonera kring varför bolaget bör arbeta med ett optimistiskt och ett försiktigt scenario, och förklara hur debiteringsgraden påverkar känsligheten.",
     tags: ["Budget", "Prognos", "Scenario", "Likviditet"],
     answer: "Svaret ska visa att budgeten är ett styrmedel baserat på antaganden. Genom att testa vad som händer om debiteringsgraden sjunker med 10 % kan bolaget förbereda åtgärder i god tid.",
     why: "I konsultbranschen är debiteringsgraden den mest kritiska variabeln för lönsamhet.",
@@ -217,11 +217,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Affärsmodell",
     source: "AM6",
-    question: "Välj en lämplig intäktsmodell för en ny IT-tjänst (t.ex. abonnemang, fastpris eller löpande räkning). Motivera valet utifrån kundnytta och bolagets risk.",
+    question: "Ett konsultbolag ska lansera en ny IT-tjänst med både införande och löpande support. Välj en lämplig intäktsmodell, till exempel abonnemang, fastpris eller löpande räkning, och motivera valet utifrån kundnytta och bolagets risk.",
     tags: ["Affärsmodell", "Intäktsmodell", "Kundnytta", "BMC"],
-    answer: "Svaret ska väga kundens önskan om förutsägbarhet mot bolagets risk för 'scope creep'. Abonnemang ger stabila intäkter, medan fastpris kräver extremt god ordning på vad som ingår.",
+    answer: "Svaret ska väga kundens önskan om förutsägbarhet mot bolagets leveransrisk och risk för scope creep. En kombination kan vara rimlig, till exempel fast pris för en avgränsad förstudie och abonnemang eller supportavtal för återkommande nytta.",
     why: "Intäktsmodellen är en strategisk del av affärsmodellen.",
-    example: "Ett abonnemang (SaaS) är bra för kunden då tröskeln att börja är låg, och bra för oss då vi får återkommande intäkter.",
+    example: "Ett fast startpaket gör införandet tryggt för kunden, medan ett månadsabonnemang för support ger återkommande intäkter. Modellen kräver tydligt scope så att supporten inte blir gratis vidareutveckling.",
     related: ["Timpris", "Fastpris", "Abonnemang", "Supportavtal"]
   },
   {
@@ -243,11 +243,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Avtal & affär",
     source: "AM6",
-    question: "Rita upp en 'avtalskarta' för ett IT-projekt. Vilka olika avtalstyper (t.ex. NDA, DPA, SLA) bör ingå och vilken funktion fyller de för att minska affärsrisken?",
+    question: "Rita upp en 'avtalskarta' för ett IT-projekt där leverantören får insyn i kundens processer, kan hantera personuppgifter och ska ge support efter leverans. Vilka avtalstyper kan behövas och vilken affärsrisk minskar de?",
     tags: ["Avtal", "Kundavtal", "NDA", "DPA", "SLA"],
-    answer: "Svaret ska visa förståelse för att avtal skyddar båda parter. NDA skyddar hemligheter, DPA reglerar personuppgifter (GDPR) och SLA garanterar en viss servicenivå efter leverans.",
+    answer: "Svaret ska visa att avtal skyddar båda parter och ska kopplas till faktisk risk. Huvudavtal eller uppdragsavtal reglerar scope, pris och ansvar. NDA kan skydda konfidentiell information. DPA behövs när leverantören är personuppgiftsbiträde och behandlar personuppgifter för kundens räkning. SLA reglerar servicenivå, ansvar och uppföljning efter leverans.",
     why: "Rätt avtalsstruktur är en förutsättning för en trygg och professionell affär.",
-    example: "Huvudavtalet reglerar vad vi ska göra, medan SLA:et garanterar att vi svarar inom 4 timmar om systemet går ner.",
+    example: "Huvudavtalet reglerar vad som ingår. NDA skyddar kundens processinformation. Om leverantören hanterar HR-data för kunden behövs DPA. SLA anger svarstid, eskalering och vad som händer om supportlöftet inte hålls.",
     related: ["Scope", "Ansvar", "Sekretess", "Personuppgifter"]
   },
   {
@@ -258,9 +258,9 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Resonera kring GDPR som en affärsrisk. Vad innebär det att vara personuppgiftsbiträde i ett konsultuppdrag och hur påverkar det avtalsskrivandet?",
     tags: ["GDPR", "Personuppgifter", "DPA", "Risk"],
-    answer: "Svaret ska förklara att biträdet hanterar data åt kunden (ansvarig). Ett Personuppgiftsbiträdesavtal (DPA) är ett lagkrav och en trygghet som visar att vi hanterar data säkert och enligt instruktion.",
+    answer: "Svaret ska först reda ut rollerna. Om konsultbolaget behandlar personuppgifter för kundens räkning är det personuppgiftsbiträde och kunden är personuppgiftsansvarig. Då ska behandlingen regleras i ett personuppgiftsbiträdesavtal, och avtalet behöver täcka instruktioner, säkerhet, åtkomst, incidenter och ansvar. Om konsulten inte behandlar personuppgifter för kundens räkning är DPA inte automatiskt rätt lösning.",
     why: "Dataansvar är en central del av moderna IT-leveranser.",
-    example: "Om vi bygger ett HR-system hanterar vi känsliga data. Utan ett korrekt DPA riskerar både kunden och vi stora böter och skadat förtroende.",
+    example: "Om vi driftar ett HR-system och behandlar medarbetardata på kundens instruktion behövs DPA, tydlig åtkomststyrning och incidentrutiner. Om vi bara ger allmän strategirådgivning utan åtkomst till personuppgifter är risken en annan.",
     related: ["Personuppgiftsansvarig", "Personuppgiftsbiträde", "Säkerhet", "Avtal"]
   },
   {
@@ -269,11 +269,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Avtal & affär",
     source: "AM6",
-    question: "Hur kan välformulerade supportavtal och SLA (Service Level Agreements) skapa långsiktiga värden för både kunden och konsultbolaget?",
+    question: "Hur kan välformulerade supportavtal och SLA skapa långsiktigt värde för både kunden och konsultbolaget, och vilken risk uppstår om leverantören lovar mer service än den kan bemanna och följa upp?",
     tags: ["SLA", "Support", "Efterleverans", "Intäkter"],
-    answer: "Kunden får trygghet och garanterad hjälp, medan konsultbolaget bygger en närmare kundrelation och får förutsägbara, återkommande intäkter.",
+    answer: "Kunden får trygghet, tydliga svarstider och en ansvarig väg in när något händer. Konsultbolaget får en närmare kundrelation och mer förutsägbara intäkter. Men SLA skapar bara värde om svarstider, bemanning, eskalering, uppföljning och kostnad är realistiska.",
     why: "Efterleverans är ofta där den verkliga lönsamheten och kundlojaliteten byggs.",
-    example: "Genom att ha ett SLA på plats vet kunden att de prioriteras vid problem, vilket gör att de vågar satsa mer på vår lösning.",
+    example: "Ett SLA kan lova svar inom 4 timmar för kritiska incidenter, men då måste bolaget ha bemanning, prioriteringsregler och uppföljning som gör löftet möjligt att hålla.",
     related: ["Kundtrygghet", "Återkommande intäkt", "Avtal", "Ansvar"]
   },
   {
@@ -295,11 +295,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Tentarisk",
     source: "Tentarisk/AM3",
-    question: "Hur bör ett konsultbolag justera sin paketering och sina säljargument under en lågkonjunktur? Vilken typ av kundnytta blir extra viktig då?",
+    question: "En kund skär ned på nya initiativ under lågkonjunktur. Hur bör ett konsultbolag justera sin paketering och sina säljargument, och hur undviker bolaget att lova besparingar utan underlag?",
     tags: ["Lågkonjunktur", "Paketering", "Kundnytta", "Risk"],
-    answer: "Fokus flyttas från tillväxt och innovation till effektivisering, kostnadsbesparing och riskminimering. Argumenten måste vara 'need to have' snarare än 'nice to have'.",
+    answer: "I en pressad ekonomi blir effektivisering, riskminskning, kassaflöde och snabbare payback ofta viktigare än bred innovationsretorik. Ett starkt svar visar hur erbjudandet avgränsas, hur nyttan mäts mot kundens nuläge och varför påstådda besparingar behöver baseline, pilot eller kunddata.",
     why: "Affärsmannaskap innebär att anpassa erbjudandet efter kundens aktuella verklighet.",
-    example: "Istället för att sälja 'Digital Transformation' säljer vi 'Automatisering som sänker personalkostnaden med 20 % på sex månader'.",
+    example: "Istället för att sälja 'digital transformation' säljer vi en avgränsad automationspilot. Först mäts dagens manuella tid, sedan visar piloten om besparingen räcker för att motivera nästa steg.",
     related: ["Kostnadsbesparing", "Riskminskning", "ROI", "Prioritering"]
   },
   {
@@ -336,9 +336,9 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM2",
     question: "Kunden tvekar och vill vänta med beslutet till nästa kvartal. Hur resonerar du kring 'alternativkostnad' för att motivera ett köp här och nu?",
     tags: ["Köpbeslut", "Risk", "Alternativkostnad", "Kundnytta"],
-    answer: "Svaret ska visa på vad det *kostar att inte göra något*. Varje månad utan den nya lösningen innebär fortsatta förluster, högre risker eller missade intäkter som ofta överstiger kostnaden för att agera direkt.",
+    answer: "Svaret ska visa vad det kan kosta att inte göra något, men utan hårdsälj. Resonemanget bör bygga på kundens egna data: fortsatt manuell tid, risker, fel, väntade intäkter eller flaskhalsar. Slutsatsen ska vara att agera nu om kostnaden eller risken med att vänta är större än ett avgränsat första steg.",
     why: "Att förstå kundens passivitet som en kostnad är ett starkt säljargument.",
-    example: "Att vänta tre månader på automationen innebär 300 timmar extra manuellt arbete. Det är en kostnad som kunden aldrig får tillbaka.",
+    example: "Om nulägesmätningen visar 100 timmar manuellt arbete per månad kan tre månaders väntan bli 300 timmar extra. Då kan en liten förstudie eller pilot vara mer affärsmässig än att skjuta upp beslutet.",
     related: ["Alternativkostnad", "Brådska", "Risk", "Beslutsargument"]
   },
   {
@@ -386,11 +386,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Tentarisk",
     source: "Grupparbete",
-    question: "Hur strukturerar du en affärspresentation för att skapa en tydlig 'röd tråd' från kundens problem till den ekonomiska slutkalkylen och avtalet?",
+    question: "Du ska presentera ett automationsförslag för en ekonomichef som främst bryr sig om kostnad, risk och effekt. Hur strukturerar du presentationen så att den får en tydlig röd tråd från kundproblem till kalkyl och avtal?",
     tags: ["Presentation", "Röd tråd", "Grupparbete", "Helhet"],
-    answer: "Börja i kundens verklighet (problemet), visa lösningen (nyttan), motivera varför vi är rätt val (analys/bevis), presentera kalkylen (ROI) och avsluta med hur vi tryggar leveransen (avtal/risk).",
+    answer: "Börja i kundens verklighet och kostnad för problemet, visa den avgränsade lösningen och nyttan, styrk med analys eller bevis, presentera kalkyl och mätmetod, och avsluta med hur scope, ansvar, data och support säkras i avtal.",
     why: "En sammanhängande argumentation är avgörande för att få med sig beslutsfattare.",
-    example: "Presentationens struktur: Problem -> Lösning -> Marknadskontext -> Pris & Nytta -> Riskhantering -> Nästa steg.",
+    example: "Struktur: dagens manuella kostnad -> automationslösning -> mätbar effekt -> pris och payback -> scope, DPA/SLA vid behov -> beslut om pilot.",
     related: ["Kundproblem", "Affärsmodell", "Ekonomi", "Avtal"]
   },
   {
@@ -399,11 +399,11 @@ export const FOKUS_QUESTIONS: Question[] = [
     type: "open",
     category: "Tentarisk",
     source: "AM1-AM6",
-    question: "Miniessä: Beskriv ett fiktivt IT-konsultbolags resa från att identifiera ett kundproblem till att leverera en mätbar effekt. Inkludera analys, affärsmodell, ekonomi och avtalstänk.",
+    question: "Miniessä: Ett litet M365-konsultbolag vill sälja en onboardinglösning till en medelstor kund men har begränsade referenser. Beskriv vägen från kundproblem till mätbar effekt. Inkludera analys, affärsmodell, ekonomi, avtal och en risk du väljer att hantera först.",
     tags: ["Helhetscase", "Kundnytta", "Analys", "Ekonomi", "Avtal"],
-    answer: "Svaret ska väva ihop kursens alla delar. Det ska framgå hur omvärldsanalysen motiverade valet, hur BMC-modellen ser ut, hur budgeten bär sig och hur avtalet skyddar affären så att kunden slutligen får sin utlovade nytta.",
+    answer: "Svaret ska väva ihop kursens delar i ett avgränsat beslutsläge. Det ska framgå vilket kundproblem som valts, hur analysen motiverar erbjudandet, hur BMC och intäktsmodell hänger ihop, hur kalkylen bär sig, vilka avtalsrisker som behöver säkras och hur effekten ska mätas.",
     why: "Detta är den ultimata prövningen av om studenten kan tillämpa kursens alla delar i ett sammanhang.",
-    example: "Ett bolag ser ett behov av GDPR-efterlevnad (Analys), skapar en paketerad tjänst (BMC), prissätter den för att täcka overhead (Ekonomi), säkrar upp med DPA (Avtal) och mäter minskad risk för kunden (Effekt).",
+    example: "Bolaget ser att kunden tappar tid i onboarding, väljer en avgränsad M365-pilot, säljer fast förstudie plus support, räknar på debiteringsgrad och overhead, säkrar scope och dataroller i avtal och mäter kortare ledtid före/efter.",
     related: ["BMC", "SWOT", "Budget", "Avtal", "KPI"]
   }
 ];
