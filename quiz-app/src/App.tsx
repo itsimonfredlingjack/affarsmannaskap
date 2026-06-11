@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, Sun, Moon, Volume2, VolumeX, Flame } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -363,6 +363,12 @@ export default function App() {
     }
   };
 
+  const handleRateAnswerRef = useRef(handleRateAnswer);
+
+  useEffect(() => {
+    handleRateAnswerRef.current = handleRateAnswer;
+  });
+
   // Keyboard shortcut: Rate with 1, 2, 3 when revealed
   useEffect(() => {
     if (!isRevealed) return;
@@ -378,13 +384,13 @@ export default function App() {
 
       if (e.key === '1') {
         e.preventDefault();
-        handleRateAnswer('known');
+        handleRateAnswerRef.current('known');
       } else if (e.key === '2') {
         e.preventDefault();
-        handleRateAnswer('almost');
+        handleRateAnswerRef.current('almost');
       } else if (e.key === '3') {
         e.preventDefault();
-        handleRateAnswer('again');
+        handleRateAnswerRef.current('again');
       }
     };
 
@@ -392,7 +398,7 @@ export default function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isRevealed, handleRateAnswer]);
+  }, [isRevealed]);
 
   // Jump to specific question (sidebar click)
   const handleSelectQuestion = (q: Question) => {
