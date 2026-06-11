@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef, type JSX } from 'react';
+import { Check, Minus, RotateCcw } from 'lucide-react';
 import type { Question } from '../logic/questions';
 import type { Assessment } from '../logic/grader';
 import { AnswerOptions } from './AnswerOptions';
+import { QuestionPrompt } from './QuestionPrompt';
+import { Card } from './ui/Card';
+import { Button } from './ui/Button';
+import { Badge } from './ui/Badge';
+import { Panel } from './ui/Panel';
 
 interface QuestionCardProps {
   question: Question;
@@ -39,14 +45,12 @@ export function QuestionCard({
     setDetailsState({ questionId: question.id, show });
   };
 
-  // Auto-focus textarea on open questions when question changes
   useEffect(() => {
     if (question.type === 'open' && textareaRef.current && !isRevealed) {
       textareaRef.current.focus();
     }
   }, [question.id, isRevealed, question.type]);
 
-  // Keyboard shortcut: Ctrl + Enter / Cmd + Enter to reveal answer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -56,7 +60,6 @@ export function QuestionCard({
         }
       }
 
-      // MC options shortcuts (1, 2, 3, 4...)
       if (question.type === 'mc' && !isRevealed && !isNaN(Number(e.key))) {
         const optionIndex = Number(e.key) - 1;
         if (question.options && optionIndex >= 0 && optionIndex < question.options.length) {
@@ -77,7 +80,6 @@ export function QuestionCard({
   const isMC = question.type === 'mc';
   const isCorrectMC = isMC && selectedMCIndex === question.correctIndex;
 
-  // Verdict for open questions
   const getVerdict = () => {
     if (!assessment) return null;
     if (isMC) return isCorrectMC ? 'correct' : 'wrong';
@@ -88,64 +90,54 @@ export function QuestionCard({
   const coachMissing = assessment?.missing
     .filter(item => item && item !== 'Inga centrala delar saknas.')
     .slice(0, 3) ?? [];
-  const coachTone = verdict === 'correct'
-    ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100'
+
+  const verdictBadge = verdict && (
+    <Badge
+      variant={verdict === 'correct' ? 'success' : isAlmostVerdict ? 'warning' : 'danger'}
+      className="text-sm font-semibold px-3 py-1"
+    >
+      {verdict === 'correct' ? '✓ Rätt' : isAlmostVerdict ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
+    </Badge>
+  );
+
+  const coachTone: 'success' | 'warning' | 'danger' = verdict === 'correct'
+    ? 'success'
     : isAlmostVerdict
-    ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100'
-    : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100';
-  const coachMetaTone = verdict === 'correct'
-    ? 'text-emerald-700 dark:text-emerald-300'
-    : isAlmostVerdict
-    ? 'text-amber-700 dark:text-amber-300'
-    : 'text-rose-700 dark:text-rose-300';
+    ? 'warning'
+    : 'danger';
 
   return (
-    <div className="max-w-2xl mx-auto w-full px-4 py-4">
-      {/* Progress indicator */}
+    <div className="max-w-3xl mx-auto w-full px-4 py-4 card-enter" key={question.id}>
       <div className="flex items-center justify-between mb-4">
-        <span className="text-sm text-slate-500 dark:text-zinc-500">
+        <span className="text-sm text-text-muted">
           Fråga {currentQuestionIndex} av {totalQuestions}
         </span>
-        {isRevealed && verdict && (
-          <span className={`text-sm font-bold px-3 py-1 rounded-full ${
-            verdict === 'correct'
-              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400'
-              : isAlmostVerdict
-              ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400'
-              : 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-400'
-          }`}>
-            {verdict === 'correct' ? '✓ Rätt' : isAlmostVerdict ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
-          </span>
-        )}
+        {isRevealed && verdictBadge}
       </div>
 
-      {/* Main Card */}
-      <div className="rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-sm overflow-hidden">
-
-        {/* Question */}
-        <div className="px-6 pt-6 pb-5">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-zinc-100 leading-snug">
-            {question.question}
-          </h2>
+      <Card padding="none" className="overflow-hidden">
+        <div className="p-5 sm:p-6">
+          <QuestionPrompt question={question} />
         </div>
 
-        {/* Input or Revealed content */}
-        <div className="px-6 pb-6 space-y-5">
+        <div className="px-5 sm:px-6 pb-6 space-y-5">
           {!isRevealed ? (
-            /* PRE-REVEAL: Answer input */
             <div>
               {question.type === 'open' ? (
                 <div>
+                  <label htmlFor="answer-input" className="block text-sm font-semibold text-text-secondary mb-2">
+                    Ditt resonemang
+                  </label>
                   <textarea
                     id="answer-input"
                     ref={textareaRef}
                     value={answerInput}
                     onChange={(e) => setAnswerInput(e.target.value)}
-                    placeholder="Skriv ett kort resonemang här..."
-                    rows={6}
-                    className="w-full p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base leading-relaxed resize-none transition-all"
+                    placeholder="Skriv ditt svar här..."
+                    rows={7}
+                    className="w-full p-4 rounded-xl bg-surface border border-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 text-[17px] leading-relaxed resize-none transition-all min-h-[180px]"
                   />
-                  <p className="mt-2 text-xs text-slate-400 dark:text-zinc-600 text-right">
+                  <p className="mt-2 text-xs text-text-muted text-right">
                     ⌘ Enter för att visa facit
                   </p>
                 </div>
@@ -159,11 +151,8 @@ export function QuestionCard({
               )}
             </div>
           ) : (
-            /* POST-REVEAL: Show answer comparison */
             <div className="space-y-5">
-
               {isMC ? (
-                /* MC Revealed */
                 <div className="space-y-4">
                   <AnswerOptions
                     options={question.options || []}
@@ -173,104 +162,86 @@ export function QuestionCard({
                     correctIndex={question.correctIndex}
                   />
                   {question.explanation && (
-                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
-                      <p className="text-sm font-semibold text-slate-600 dark:text-zinc-400 mb-1">Förklaring</p>
-                      <p className="text-base text-slate-800 dark:text-zinc-200 leading-relaxed">
+                    <Panel title="Förklaring" tone="default">
+                      <p className="text-base text-text-secondary leading-relaxed">
                         {question.explanation}
                       </p>
-                    </div>
+                    </Panel>
                   )}
                 </div>
               ) : (
-                /* Open question: your answer + facit */
                 <div className="space-y-4">
-                  {/* Your answer */}
                   {answerInput.trim() && (
-                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700">
-                      <p className="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-wide mb-2">Ditt svar</p>
-                      <p className="text-base text-slate-700 dark:text-zinc-300 leading-relaxed italic">
+                    <Panel title="Ditt svar" tone="default">
+                      <p className="text-base text-text-secondary leading-relaxed italic">
                         {answerInput}
                       </p>
-                    </div>
+                    </Panel>
                   )}
 
                   {assessment && !isMC && (
-                    <div className={`p-4 rounded-xl border ${coachTone}`}>
-                      <p className={`text-xs font-bold uppercase tracking-wide mb-2 ${coachMetaTone}`}>
-                        Coachens bedömning
-                      </p>
+                    <Panel title="Coachens bedömning" tone={coachTone}>
                       <p className="text-base font-semibold leading-relaxed">
                         {assessment.feedback.title}
                       </p>
                       {assessment.feedback.body && (
-                        <p className="mt-1 text-sm leading-relaxed opacity-90">
+                        <p className="mt-1 text-sm leading-relaxed text-text-secondary">
                           {assessment.feedback.body}
                         </p>
                       )}
                       {assessment.confusedWith && (
-                        <p className="mt-3 text-sm leading-relaxed">
-                          <span className="font-semibold">Tentarisk:</span> {assessment.confusedWith.label}. {assessment.confusedWith.explanation}
+                        <p className="mt-3 text-sm leading-relaxed text-text-secondary">
+                          <span className="font-semibold text-text-primary">Tentarisk:</span>{' '}
+                          {assessment.confusedWith.label}. {assessment.confusedWith.explanation}
                         </p>
                       )}
                       {coachMissing.length > 0 && (
                         <div className="mt-3">
-                          <p className="text-xs font-semibold uppercase tracking-wide opacity-70 mb-2">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">
                             Fyll på
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {coachMissing.map(item => (
-                              <span
-                                key={item}
-                                className="px-2.5 py-1 rounded-full bg-white/70 dark:bg-zinc-950/30 border border-current/15 text-xs font-semibold"
-                              >
-                                {item}
-                              </span>
+                              <Badge key={item} variant="muted">{item}</Badge>
                             ))}
                           </div>
                         </div>
                       )}
-                    </div>
+                    </Panel>
                   )}
 
-                  {/* FACIT – prominent */}
-                  <div className="p-5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-400 dark:border-emerald-600">
-                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-2">
-                      ✓ Facit – Modellssvar
-                    </p>
-                    <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100 leading-relaxed">
+                  <Panel title="Facit — Modellssvar" tone="success" accentBar>
+                    <p className="font-serif text-lg leading-relaxed text-text-primary">
                       {question.answer}
                     </p>
-                  </div>
+                  </Panel>
 
-                  {/* Optional details toggle */}
                   {(question.why || question.example || assessment?.memoryRule) && (
                     <div>
                       <button
                         type="button"
                         onClick={() => setShowDetails(!showDetails)}
-                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                        className="text-sm text-accent hover:underline cursor-pointer"
                       >
                         {showDetails ? '▲ Dölj detaljer' : '▼ Visa fördjupning'}
                       </button>
 
                       {showDetails && (
-                        <div className="mt-3 space-y-3 text-sm text-slate-600 dark:text-zinc-400">
+                        <div className="mt-3 space-y-3">
                           {question.why && (
-                            <div className="p-3 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
-                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Varför viktigt?</p>
-                              <p className="leading-relaxed">{question.why}</p>
+                            <Panel title="Varför viktigt?" tone="default">
+                              <p className="text-sm leading-relaxed text-text-secondary">{question.why}</p>
                               {assessment?.memoryRule && (
-                                <p className="mt-2 text-blue-600 dark:text-blue-400 italic">
+                                <p className="mt-2 text-sm text-accent italic">
                                   Kom ihåg: {assessment.memoryRule}
                                 </p>
                               )}
-                            </div>
+                            </Panel>
                           )}
                           {question.example && (
-                            <div className="p-3 rounded-lg bg-slate-50 dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700">
-                              <p className="font-semibold text-slate-700 dark:text-zinc-300 mb-1">Exempel</p>
-                              <p className="leading-relaxed">{question.example}</p>
-                            </div>
+                            <Panel title="Exempel" tone="default">
+                              <p className="text-sm leading-relaxed text-text-secondary">{question.example}</p>
+                            </Panel>
                           )}
                         </div>
                       )}
@@ -279,54 +250,40 @@ export function QuestionCard({
                 </div>
               )}
 
-              {/* Rating buttons */}
               {onRateAnswer && (
-                <div className="pt-2 border-t border-slate-100 dark:border-zinc-800">
-                  <p className="text-sm text-slate-500 dark:text-zinc-500 mb-3 text-center">
+                <div className="pt-4 border-t border-border-subtle">
+                  <p className="text-sm text-text-muted mb-3 text-center">
                     Hur gick det?
                   </p>
                   <div className="grid grid-cols-3 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => onRateAnswer('again')}
-                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
-                        assessment?.suggestedRating === 'again'
-                          ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-400 dark:border-rose-500 text-rose-700 dark:text-rose-400 ring-2 ring-rose-300 dark:ring-rose-700'
-                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/10 hover:text-rose-600 dark:hover:text-rose-400'
-                      }`}
-                    >
-                      <span className="block text-lg mb-1">😓</span>
-                      <span>Igen</span>
-                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 3</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => onRateAnswer('almost')}
-                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
-                        assessment?.suggestedRating === 'almost'
-                          ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-400 dark:border-amber-500 text-amber-700 dark:text-amber-400 ring-2 ring-amber-300 dark:ring-amber-700'
-                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/10 hover:text-amber-600 dark:hover:text-amber-400'
-                      }`}
-                    >
-                      <span className="block text-lg mb-1">🤔</span>
-                      <span>Nästan</span>
-                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 2</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => onRateAnswer('known')}
-                      className={`py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm ${
-                        assessment?.suggestedRating === 'known'
-                          ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-400 dark:border-emerald-500 text-emerald-700 dark:text-emerald-400 ring-2 ring-emerald-300 dark:ring-emerald-700'
-                          : 'bg-white dark:bg-zinc-800 border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300 hover:border-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 hover:text-emerald-600 dark:hover:text-emerald-400'
-                      }`}
-                    >
-                      <span className="block text-lg mb-1">✅</span>
-                      <span>Kan</span>
-                      <span className="block text-xs text-current opacity-60 mt-0.5 font-normal">Tangent 1</span>
-                    </button>
+                    {([
+                      { rating: 'again' as const, icon: RotateCcw, label: 'Igen', key: '3', tone: 'danger' as const },
+                      { rating: 'almost' as const, icon: Minus, label: 'Nästan', key: '2', tone: 'warning' as const },
+                      { rating: 'known' as const, icon: Check, label: 'Kan', key: '1', tone: 'success' as const },
+                    ]).map(({ rating, icon: Icon, label, key, tone }) => {
+                      const isSuggested = assessment?.suggestedRating === rating;
+                      return (
+                        <button
+                          key={rating}
+                          type="button"
+                          onClick={() => onRateAnswer(rating)}
+                          className={[
+                            'py-4 px-3 rounded-xl border-2 text-center cursor-pointer transition-all font-semibold text-sm',
+                            isSuggested
+                              ? tone === 'success'
+                                ? 'bg-success-muted/30 border-success text-success ring-2 ring-success/30'
+                                : tone === 'warning'
+                                ? 'bg-warning-muted/30 border-warning text-warning ring-2 ring-warning/30'
+                                : 'bg-danger-muted/30 border-danger text-danger ring-2 ring-danger/30'
+                              : 'bg-panel border-border text-text-secondary hover:border-accent/40 hover:bg-accent-subtle',
+                          ].join(' ')}
+                        >
+                          <Icon size={20} className="mx-auto mb-2 opacity-80" />
+                          <span>{label}</span>
+                          <span className="block text-xs opacity-60 mt-0.5 font-normal">Tangent {key}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -334,32 +291,23 @@ export function QuestionCard({
           )}
         </div>
 
-        {/* Submit button (pre-reveal only) */}
         {!isRevealed && (
-          <div className="px-6 pb-6 flex flex-col sm:flex-row gap-3">
-            <button
-              type="button"
+          <div className="px-5 sm:px-6 pb-6 flex flex-col sm:flex-row gap-3">
+            <Button
               onClick={onRevealAnswer}
               disabled={isSubmitDisabled}
-              className={`flex-1 py-4 px-6 rounded-xl font-bold text-base transition-all cursor-pointer ${
-                isSubmitDisabled
-                  ? 'bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 text-slate-400 dark:text-zinc-600 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
-              }`}
+              size="lg"
+              fullWidth
+              className="flex-1"
             >
               {question.type === 'open' ? 'Visa facit' : 'Svara'}
-            </button>
-
-            <button
-              type="button"
-              onClick={onSkip}
-              className="py-4 px-6 rounded-xl bg-transparent border border-slate-200 dark:border-zinc-700 text-slate-500 dark:text-zinc-400 hover:border-slate-400 dark:hover:border-zinc-500 text-base font-medium transition-all cursor-pointer"
-            >
+            </Button>
+            <Button onClick={onSkip} variant="secondary" size="lg">
               Hoppa över
-            </button>
+            </Button>
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

@@ -8,6 +8,8 @@ interface AnswerOptionsProps {
   correctIndex?: number;
 }
 
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
 export function AnswerOptions({
   options,
   selectedIndex,
@@ -16,31 +18,30 @@ export function AnswerOptions({
   correctIndex,
 }: AnswerOptionsProps): JSX.Element {
   return (
-    <div className="grid grid-cols-1 gap-2.5 mb-6">
+    <div className="grid grid-cols-1 gap-2.5">
       {options.map((option, index) => {
         const isSelected = selectedIndex === index;
         const isCorrect = correctIndex === index;
         const isWrongSelection = isSelected && !isCorrect;
 
-        let cardStyle = "bg-white dark:bg-zinc-950 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-slate-400 dark:hover:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-900/50 hover:text-slate-900 dark:hover:text-white";
-        let labelStyle = "text-slate-400 dark:text-zinc-650 font-mono";
+        let cardStyle = 'bg-panel border-border text-text-primary hover:border-accent/40 hover:bg-accent-subtle';
+        let letterStyle = 'bg-border-subtle text-text-muted border-border';
 
         if (!isRevealed) {
           if (isSelected) {
-            cardStyle = "bg-blue-50/20 dark:bg-blue-500/5 border-blue-500 text-blue-700 dark:text-blue-400 font-medium";
-            labelStyle = "text-blue-500 dark:text-blue-400 font-mono font-bold";
+            cardStyle = 'bg-accent-subtle border-accent text-text-primary font-medium';
+            letterStyle = 'bg-accent text-white border-accent';
           }
         } else {
-          // Revealed / Grading state
           if (isCorrect) {
-            cardStyle = "bg-emerald-50/20 dark:bg-emerald-500/10 border-emerald-500 text-emerald-800 dark:text-emerald-400 font-bold";
-            labelStyle = "text-emerald-500 dark:text-emerald-400 font-mono font-bold";
+            cardStyle = 'bg-success-muted/25 border-success text-text-primary font-semibold';
+            letterStyle = 'bg-success text-white border-success';
           } else if (isWrongSelection) {
-            cardStyle = "bg-rose-50/20 dark:bg-rose-500/10 border-rose-500 text-rose-800 dark:text-rose-450";
-            labelStyle = "text-rose-500 dark:text-rose-400 font-mono font-bold";
+            cardStyle = 'bg-danger-muted/25 border-danger text-text-primary';
+            letterStyle = 'bg-danger text-white border-danger';
           } else {
-            cardStyle = "opacity-40 bg-slate-50 dark:bg-zinc-900/20 border-slate-200 dark:border-zinc-900 text-slate-400 dark:text-zinc-600 cursor-not-allowed";
-            labelStyle = "text-slate-300 dark:text-zinc-800 font-mono";
+            cardStyle = 'opacity-50 bg-panel border-border-subtle text-text-muted cursor-not-allowed';
+            letterStyle = 'bg-border-subtle text-text-muted border-border-subtle';
           }
         }
 
@@ -50,13 +51,17 @@ export function AnswerOptions({
             type="button"
             disabled={isRevealed}
             onClick={() => onSelect(index)}
-            className={`flex items-start w-full p-3.5 rounded-none border text-left text-sm leading-relaxed transition-all cursor-pointer ${cardStyle}`}
+            className={`flex items-start w-full p-4 rounded-xl border text-left text-sm leading-relaxed transition-all cursor-pointer ${cardStyle}`}
           >
-            {/* Keyboard label indicator */}
-            <span className={`shrink-0 mr-3.5 transition-all text-xs ${labelStyle}`}>
-              [{index + 1}]
+            <span className={`shrink-0 mr-3.5 w-7 h-7 rounded-lg border flex items-center justify-center text-xs font-bold transition-all ${letterStyle}`}>
+              {LETTERS[index] ?? index + 1}
             </span>
-            <span className="flex-1">{option}</span>
+            <span className="flex-1 pt-0.5">{option}</span>
+            {!isRevealed && (
+              <span className="shrink-0 ml-2 text-[10px] text-text-muted font-mono pt-1">
+                {index + 1}
+              </span>
+            )}
           </button>
         );
       })}
