@@ -24,7 +24,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM1/AM2",
     question: "Utgå från ett specifikt kundproblem inom IT-sektorn. Formulera ett värdeerbjudande och förklara hur det skapar konkret nytta för kunden.",
     tags: ["Kund", "Värdeerbjudande", "BMC", "FAB"],
-    answer: "Ett starkt svar utgår från kundens utmaning (t.ex. ineffektiv administration), inte tekniken. Värdeerbjudandet ska visa på konkret nytta som mindre tidsåtgång, lägre risk eller bättre beslutsunderlag, och motivera varför detta är värdefullt för just det kundsegmentet.",
+    answer: "Ett starkt svar börjar i kundens problem – inte i tekniken. Beskriv först vad kunden kämpar med (t.ex. manuell administration, långa ledtider, hög risk). Formulera sedan värdeerbjudandet som en lösning med konkret nytta: sparad tid, lägre kostnad, färre fel eller bättre beslutsunderlag. Avsluta med varför detta är värdefullt för just det kundsegmentet – inte för alla företag.",
     why: "Detta testar förmågan att koppla ihop kundens behov med den faktiska nyttan av en lösning, snarare än att bara lista funktioner.",
     example: "En kommun har långa ledtider i ärendehantering. Värdeerbjudandet är en automatiserad flödeslösning som frigör tid för personalen och ger medborgarna snabbare svar.",
     related: ["Kundsegment", "Värdeerbjudande", "FAB", "Kundnytta"]
@@ -37,8 +37,8 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM2",
     question: "Beskriv en teknisk egenskap (Feature) hos en tjänst och använd FAB-modellen för att omvandla den till ett affärsmässigt säljargument (Benefit).",
     tags: ["FAB", "Erbjudande", "Sälj"],
-    answer: "Svaret ska tydligt visa kedjan: Egenskap (vad det är), Fördel (vad den gör bättre) och Nytta (varför kunden tjänar på det). Fokus ska ligga på 'Benefit' – den faktiska kundnyttan.",
-    why: "FAB är ett kritiskt verktyg för att översätta teknik till affärsvärde.",
+    answer: "FAB står för Feature–Advantage–Benefit (egenskap–fördel–kundnytta). Svaret ska visa hela kedjan: Feature = vad tekniken är, Advantage = vad den gör bättre jämfört med nuläget, Benefit = varför kunden tjänar på det i affären. Fokus ska ligga på Benefit – den faktiska kundnyttan, inte bara funktionslistan.",
+    why: "FAB är ett kritiskt verktyg för att översätta teknik till affärsvärde. Utan modellen fastnar säljargumentet i funktioner som kunden inte förstår.",
     example: "Feature: Molnbaserad lagring. Advantage: Åtkomst från alla enheter. Benefit: Ökad flexibilitet och samarbetsförmåga för ett distribuerat team.",
     related: ["Features", "Advantages", "Benefits", "Kundnytta"]
   },
@@ -50,8 +50,8 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM1/BMC",
     question: "Beskriv den 'röda tråden' i en Business Model Canvas för ett konsultbolag. Visa specifikt hur värdeerbjudandet hänger ihop med kundsegment och intäktsströmmar.",
     tags: ["BMC", "Affärsmodell", "Kundsegment", "Intäkter"],
-    answer: "Ett bra svar visar hur de olika rutorna i BMC stödjer varandra. Det ska framgå hur bolaget skapar värde för ett specifikt segment, hur de når dem och hur detta resulterar i en hållbar intäktsmodell.",
-    why: "BMC är inte nio isolerade rutor; styrkan ligger i hur de samverkar för att skapa en lönsam helhet.",
+    answer: "Ett bra svar visar den röda tråden mellan minst tre BMC-rutor: (1) Kundsegment – vem bolaget hjälper och vilket problem de har, (2) Värdeerbjudande – vilken lösning som skapar värde för just det segmentet, (3) Intäktsströmmar – hur bolaget får betalt för värdet (t.ex. timpris, fastpris, abonnemang). Svaret ska också visa hur nyckelresurser och kanaler gör att erbjudandet faktiskt når kunden – annars blir intäktsmodellen ohållbar.",
+    why: "BMC är inte nio isolerade rutor; tentan testar om du kan förklara hur kund, värde och betalning hänger ihop.",
     example: "Nischade IT-konsulter (Nyckelresurs) löser komplex säkerhet (Värdeerbjudande) för banker (Kundsegment), vilket motiverar ett högt timpris eller retainer-avtal (Intäktsström).",
     related: ["Kundsegment", "Värdeerbjudande", "Intäktsströmmar", "Kostnadsstruktur"]
   },
@@ -63,8 +63,8 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM2/AM3",
     question: "Hur kan PESTELID användas som underlag för en SWOT-analys? Ge ett exempel på hur en extern omvärldsfaktor kan leda till ett konkret affärsbeslut.",
     tags: ["PESTELID", "SWOT", "Beslut", "Omvärld"],
-    answer: "PESTELID identifierar externa faktorer (möjligheter/hot) i omvärlden. Dessa förs in i SWOT-analysen. Svaret ska avslutas med ett logiskt beslut baserat på denna analys, t.ex. en nysatsning eller en riskreducering.",
-    why: "Testar förmågan att gå från observation av omvärlden till strategisk handling.",
+    answer: "PESTELID kartlägger externa faktorer i omvärlden (politik, ekonomi, socialt, teknologi, legal, internationellt, demografi). I SWOT-analysen sorteras dessa till Styrkor, Svagheter (interna) och Möjligheter, Hot (externa). PESTELID fyller främst M- och H-delarna. Svaret ska visa denna kedja och avsluta med ett konkret affärsbeslut – t.ex. ny tjänst, prisjustering eller riskreducering – som följer logiskt av analysen.",
+    why: "Testar förmågan att gå från omvärldsobservation via SWOT till strategisk handling.",
     example: "Ny lagstiftning (Legal i PESTELID) skapar ett behov av efterlevnad. Detta blir en 'Möjlighet' i SWOT. Beslutet blir att paketera en ny rådgivningstjänst inom just detta område.",
     related: ["Extern analys", "Intern analys", "Möjligheter", "Hot"]
   },
@@ -76,8 +76,8 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM3",
     question: "Ett mindre IT-konsultbolag ska positionera sig mot en kund som jämför både andra byråer och interna alternativ. Redogör för skillnaden mellan direkta konkurrenter och substitut och landa i hur bolaget bör positionera sig.",
     tags: ["Konkurrenter", "Substitut", "Positionering", "Differentiering"],
-    answer: "Direkta konkurrenter erbjuder liknande lösningar, medan substitut löser samma problem på ett annat sätt, till exempel att kunden gör jobbet internt eller köper en standardiserad SaaS-tjänst. Positioneringen ska därför visa varför bolagets lösning är mer relevant för just kundens problem och kunna styrkas med bevis.",
-    why: "Positionering handlar om att förstå vad kunden faktiskt väljer mellan.",
+    answer: "Direkta konkurrenter erbjuder liknande konsulttjänster eller lösningar – andra byråer som kunden redan jämför. Substitut löser samma behov på annat sätt: kunden anställer egen personal, bygger internt eller köper en färdig SaaS-tjänst. Positioneringen ska visa varför bolagets erbjudande passar bättre för kundens specifika problem än både byråer och substitut, och styrkas med konkret bevis – pilot, referens eller mätbar effekt.",
+    why: "Kunden väljer sällan bara mellan leverantörer; de väljer mellan köpa, bygga själv eller avstå.",
     example: "Ett konsultbolag tävlar inte bara mot andra byråer utan också mot kundens möjlighet att anställa egen personal eller köpa in en färdig SaaS-tjänst.",
     related: ["Direkta konkurrenter", "Substitut", "Differentiering", "Trovärdighet"]
   },
@@ -89,8 +89,8 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM3",
     question: "Använd Ansoff-matrisen för att jämföra två olika tillväxtstrategier (t.ex. marknadspenetration vs. diversifiering). Resonera kring riskerna i de båda valen.",
     tags: ["Ansoff", "Produktmarknad", "Risk", "Tillväxt"],
-    answer: "Svaret ska visa förståelse för att riskerna ökar när man rör sig mot nya produkter eller nya marknader. Marknadspenetration är lägst risk, medan diversifiering innebär högst osäkerhet.",
-    why: "Det är viktigt att kunna värdera risk i förhållande till potentiell tillväxt.",
+    answer: "Ansoff-matrisen har fyra strategier utifrån produkt och marknad: marknadspenetration (befintlig produkt, befintlig marknad – lägst risk), produktutveckling (ny produkt, befintlig marknad), marknadsutveckling (befintlig produkt, ny marknad) och diversifiering (ny produkt, ny marknad – högst risk). Ett starkt svar jämför två strategier och förklarar varför risken stiger: bolaget känner varken kunden, marknaden eller leveransen tillräckligt väl.",
+    why: "Ansoff hjälper dig resonera om tillväxt inte bara som 'mer försäljning' utan som en riskfråga.",
     example: "Att sälja befintliga M365-tjänster till befintliga kunder (penetration) är tryggt. Att starta en helt ny AI-avdelning för en ny industri (diversifiering) kräver stora investeringar och ny kompetens.",
     related: ["Marknadspenetration", "Produktutveckling", "Diversifiering", "Risk"]
   },
@@ -102,7 +102,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM4/AM6",
     question: "Ett nystartat konsultbolag ska välja företagsform inför sina första större kunddialoger. Varför är valet mer än en juridisk fråga? Koppla valet till ansvar, trovärdighet och kundens upplevda risk.",
     tags: ["Företagsform", "Ansvar", "Trovärdighet", "Risk"],
-    answer: "Valet av företagsform påverkar både juridiskt ansvar och hur kunden bedömer leverantörens seriositet. Ett aktiebolag kan stärka bilden av struktur, ansvarsfördelning och långsiktighet, men det är inte automatiskt ett krav i varje affär. Vid upphandling måste leverantörskraven läsas i det aktuella underlaget.",
+    answer: "Företagsform påverkar tre saker kunden bryr sig om: (1) Ansvar – i enskild firma eller handelsbolag kan ägaren ha personligt ansvar, i AB är det i regel begränsat till aktiekapitalet. (2) Trovärdighet – AB kan signalera struktur och långsiktighet, men är inte automatiskt ett krav. (3) Kundens upplevda risk – en skeptisk kund kan känna sig tryggare med tydlig ansvarsfördelning och formell organisation. Svaret ska koppla valet till affärssituationen och läsa faktiska krav i upphandlingsunderlag eller kundavtal.",
     why: "Företagsformen är en del av bolagets 'förpackning' och affärsstrategi.",
     example: "Om en kommun granskar leverantörer kan AB-formen upplevas som mer professionell än en enskild firma, men avgörande är vilka krav upphandlingsdokumenten faktiskt ställer på ekonomisk och teknisk kapacitet.",
     related: ["Aktiebolag", "Enskild firma", "Handelsbolag", "Personligt ansvar"]
@@ -115,7 +115,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM1/AM4",
     question: "Förklara sambandet mellan vision, mission och värderingar. Ge ett konkret exempel på hur en kärnvärdering kan styra ett beslut i den dagliga affärsverksamheten.",
     tags: ["Vision", "Mission", "Värderingar", "Kultur"],
-    answer: "Visionen är målet, missionen är vägen dit, och värderingarna är kompassen för hur vi agerar. Ett bra svar visar hur en värdering (t.ex. 'Långsiktighet') leder till att man tackar nej till en kortsiktig vinst som skadar kundrelationen.",
+    answer: "Visionen beskriver vart bolaget vill – framtidsbilden. Missionen beskriver vad bolaget gör och för vem – dess uppdrag idag. Värderingarna styr hur bolaget agerar i vardagen – kompassen bakom beslut. Ett starkt svar förklarar sambandet och ger ett konkret beslut som styrs av en värdering, t.ex. att tacka nej till en kortsiktig order som skadar kundrelationen eller att vara transparent om risker trots att det saktar ner affären.",
     why: "Företagsplattformen ska vara ett praktiskt styrverktyg, inte bara vackra ord.",
     example: "Om värderingen är 'Transparens' så innebär det att vi öppet redovisar risker i projektet för kunden, även om det kan göra dem tveksamma i början.",
     related: ["Vision", "Mission", "Värderingar", "Kundrelation"]
@@ -128,7 +128,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM4",
     question: "Ett konsultbolag vill växa utan att tappa leveranskvalitet. Hur kan Balanced Scorecard hjälpa bolaget att styra mot målet? Föreslå KPI:er från minst två olika perspektiv och förklara varför de behövs tillsammans.",
     tags: ["Balanced Scorecard", "KPI", "Mål", "Styrning"],
-    answer: "BSC balanserar ekonomiska mått med kund-, process- och lärandeperspektiv. Ett starkt svar visar varför minst två perspektiv behövs samtidigt: tillväxt kan se bra ut ekonomiskt men ändå vara ohållbar om kundnöjdhet, leveransprecision eller kompetensutveckling faller.",
+    answer: "Balanced Scorecard (BSC) styr bolaget genom fyra perspektiv: ekonomi, kund, interna processer och lärande/tillväxt. Ett starkt svar föreslår KPI:er från minst två perspektiv och förklarar varför de behövs tillsammans – t.ex. högre omsättning (ekonomi) betyder inget om leverans i tid (process) eller kundnöjdhet (kund) faller, eller om kompetensen (lärande) inte hinner med tillväxten.",
     why: "Ensidigt fokus på ekonomi kan dölja problem i leverans eller kundrelationer.",
     example: "Ekonomiskt perspektiv: täckningsbidrag per projekt. Kundperspektiv: återköpsfrekvens. Processperspektiv: leverans i tid. Tillsammans visar de om tillväxten är lönsam och levererbar.",
     related: ["Ekonomi", "Kund", "Process", "Lärande"]
@@ -141,7 +141,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM5",
     question: "Du ska göra en ekonomisk 'hälsokoll' på ett bolag. Vilka nyckeltal (t.ex. soliditet, likviditet, resultat) tittar du på och hur läser du dem tillsammans för att förstå helheten?",
     tags: ["Resultaträkning", "Balansräkning", "Likviditet", "Soliditet", "Kassaflöde"],
-    answer: "Resultatet visar lönsamhet, soliditeten visar långsiktig styrka och likviditeten visar förmågan att betala räkningar idag. Svaret ska betona att en enskild siffra inte säger allt – man måste se hur de påverkar varandra.",
+    answer: "En ekonomisk hälsokoll läser flera nyckeltal tillsammans: resultat (lönsamhet – tjänar bolaget pengar?), soliditet (långsiktig styrka – hur stor andel eget kapital finns?), likviditet (kortsiktig betalningsförmåga – räcker kassan till löner och leverantörer?) och gärna kassaflöde (faktiska pengar in och ut). En enskild siffra räcker inte – hög vinst med låg likviditet eller svag soliditet kan ändå vara en varningssignal.",
     why: "Affärsmannaskap innebär att kunna tolka ekonomiska signaler som en helhetsbild.",
     example: "Ett bolag med hög vinst (resultat) men mycket låg likviditet riskerar ändå konkurs om de inte kan betala sina skulder i tid.",
     related: ["Lönsamhet", "Likviditet", "Soliditet", "Kassaflöde"]
@@ -154,7 +154,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM5",
     question: "Förklara logiken bakom att ett företag kan visa en stabil vinst i resultaträkningen men samtidigt lida av akuta likviditetsproblem.",
     tags: ["Resultat", "Kassaflöde", "Likviditet", "Kundfordringar"],
-    answer: "Vinst är bokföringsmässig (intäkt uppstår vid fakturering), medan likviditet handlar om faktiska pengar på kontot. Om kunder betalar sent (långa kredittider) eller om kapital binds i lager, saknas pengar för löner och hyra trots att affären går med vinst.",
+    answer: "Resultaträkningen visar vinst när intäkten bokförs – ofta vid fakturering. Likviditet handlar om när pengarna faktiskt kommer in på kontot. Gapet uppstår när kunder betalar sent (långa kredittider), kapital binds i kundfordringar eller lager, eller stora kostnader (lön, hyra) betalas före inbetalning. Bolaget kan alltså visa stabil vinst men ändå sakna pengar att betala räkningar med – det är därför kassaflödesanalys och likviditetsbudget är avgörande.",
     why: "Detta är en av de viktigaste insikterna i ekonomisk styrning.",
     example: "Vi fakturerar 1 miljon i december men kunden har 90 dagars betalning. Resultatet ser bra ut för året, men kassan är tom i januari.",
     related: ["Resultat", "Kundfordringar", "Kassaflöde", "Kassalikviditet"]
@@ -167,7 +167,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM5",
     question: "Du jämför två IT-konsultbolag inför ett samarbete. Varför räcker det inte att stirra på nyckeltalen, och hur använder du förvaltningsberättelsen för att dra en försiktig slutsats?",
     tags: ["Årsredovisning", "Förvaltningsberättelse", "Jämförelse", "Ekonomi"],
-    answer: "Nyckeltal visar *vad* som hänt, men förvaltningsberättelsen förklarar *varför*. Den ger kontext om marknadsläge, framtidsutsikter och engångshändelser som kan ha påverkat siffrorna temporärt.",
+    answer: "Nyckeltal (soliditet, likviditet, marginal) visar vad som hänt men inte varför. Förvaltningsberättelsen ger kontext: marknadsläge, strategiska satsningar, engångshändelser, personalförändringar och framtidsutsikter. Vid jämförelse av två bolag ska du läsa siffrorna ihop med berättelsen och dra en försiktig slutsats – en lägre marginal kan bero på en investering som ger avkastning senare, inte på dålig styrning.",
     why: "Kvalitativ analys är minst lika viktig som kvantitativ analys för att förstå risker.",
     example: "Ett bolag kan ha lägre marginal på grund av en stor strategisk investering som förväntas ge avkastning först nästa år.",
     related: ["Soliditet", "Likviditet", "Förvaltningsberättelse", "Bransch"]
@@ -180,7 +180,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Ett konsultbolag budgeterar för nästa kvartal med osäker beläggning. Resonera kring varför bolaget bör arbeta med ett optimistiskt och ett försiktigt scenario, och förklara hur debiteringsgraden påverkar känsligheten.",
     tags: ["Budget", "Prognos", "Scenario", "Likviditet"],
-    answer: "Svaret ska visa att budgeten är ett styrmedel baserat på antaganden. Genom att testa vad som händer om debiteringsgraden sjunker med 10 % kan bolaget förbereda åtgärder i god tid.",
+    answer: "Budgeten bygger på antaganden – t.ex. hur många timmar som kan debiteras, vilket timpris som håller och när kunder betalar. Ett optimistiskt och ett försiktigt scenario testar vad som händer om antagandena slår fel. Debiteringsgraden är extra känslig: om 70 % av arbetstiden debiteras istället för 80 % sjunker intäkterna kraftigt utan att lönekostnaderna minskar. Då kan bolaget i förväg planera åtgärder – sänka kostnader, öka sälj eller justera pris – innan likviditeten blir akut.",
     why: "I konsultbranschen är debiteringsgraden den mest kritiska variabeln för lönsamhet.",
     example: "Ett optimistiskt scenario räknar med 85 % beläggning. Ett försiktigt scenario visar att bolaget fortfarande överlever vid 65 % beläggning, vilket ger trygghet.",
     related: ["Debiteringsgrad", "Prognos", "Likviditet", "Beläggning"]
@@ -193,7 +193,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "En konsult har en månadslön på 45 000 kr. Redogör för vilka ytterligare kostnader som tillkommer för företaget och varför timpriset mot kunden måste vara betydligt högre än timlönen.",
     tags: ["Medarbetarkostnad", "Overhead", "Pris", "Lönsamhet"],
-    answer: "Svaret ska inkludera sociala avgifter, semesterlön, pension, försäkringar, utbildning, kontor, IT och säljkostnader. Dessutom måste debiterbara timmar täcka även den tid som inte kan faktureras.",
+    answer: "Utöver månadslönen tillkommer sociala avgifter, semester, pension, försäkringar, utbildning samt overhead som kontor, IT och säljtid. En konsult arbetar sällan 100 % debiterbart – möten, administration och ledighet går inte att fakturera. Timpriset mot kunden måste därför vara betydligt högre än timlönen: det ska täcka alla arbetsgivarkostnader plus den oddebiterbara tiden, och dessutom lämna utrymme för bolagets lönsamhet.",
     why: "Förståelse för 'total cost of employment' och prissättningens logik.",
     example: "En medarbetare kostar ofta 1,5 till 2 gånger sin bruttolön när alla overhead-kostnader räknas in.",
     related: ["Sociala avgifter", "Overhead", "Debiteringsgrad", "Täckningsbidrag"]
@@ -206,7 +206,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Förklara hur debiteringsgrad, timpris och täckningsbidrag samverkar för att skapa lönsamhet i ett specifikt konsultprojekt.",
     tags: ["Debiteringsgrad", "Pris", "Täckningsbidrag", "Lönsamhet"],
-    answer: "Täckningsbidraget är vad som blir kvar när projektets rörliga kostnader är betalda. För att täcka bolagets fasta kostnader krävs både ett rätt prissatt projekt och att konsulterna faktiskt har tid att utföra det (debiteringsgrad).",
+    answer: "De tre begreppen hänger ihop: Timpris × debiterbara timmar ger projektintäkt. Minus projektets rörliga kostnader ger täckningsbidrag (TB). TB ska täcka bolagets fasta kostnader (kontor, ledning, sälj) och lämna vinst. Debiteringsgraden avgör hur många timmar som faktiskt faktureras – låg beläggning gör att samma timpris inte räcker. Ett starkt svar visar att alla tre måste fungera samtidigt för lönsamhet.",
     why: "Kopplingen mellan projektstyrning och bolagets totala ekonomi.",
     example: "Om vi sänker priset för att vinna en affär måste vi öka debiteringsgraden eller sänka kostnaderna för att behålla samma täckningsbidrag.",
     related: ["Beläggning", "Timpris", "Direkta kostnader", "Scope"]
@@ -219,7 +219,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Ett konsultbolag ska lansera en ny IT-tjänst med både införande och löpande support. Välj en lämplig intäktsmodell, till exempel abonnemang, fastpris eller löpande räkning, och motivera valet utifrån kundnytta och bolagets risk.",
     tags: ["Affärsmodell", "Intäktsmodell", "Kundnytta", "BMC"],
-    answer: "Svaret ska väga kundens önskan om förutsägbarhet mot bolagets leveransrisk och risk för scope creep. En kombination kan vara rimlig, till exempel fast pris för en avgränsad förstudie och abonnemang eller supportavtal för återkommande nytta.",
+    answer: "Valet av intäktsmodell ska balansera kundnytta och bolagsrisk. Fast pris ger kunden förutsägbarhet vid tydligt scope (t.ex. införande). Abonnemang eller supportavtal passar löpande nytta och ger bolaget återkommande intäkter. Löpande räkning passar osäker omfattning. Ett starkt svar motiverar valet: varför passar modellen kundens köpbeslut, och hur hanterar bolaget risken att support eller scope växer utan ersättning?",
     why: "Intäktsmodellen är en strategisk del av affärsmodellen.",
     example: "Ett fast startpaket gör införandet tryggt för kunden, medan ett månadsabonnemang för support ger återkommande intäkter. Modellen kräver tydligt scope så att supporten inte blir gratis vidareutveckling.",
     related: ["Timpris", "Fastpris", "Abonnemang", "Supportavtal"]
@@ -232,7 +232,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "När är det affärsmässigt motiverat att erbjuda kunden ett fastpris istället för löpande räkning? Vilken är den största risken för leverantören och hur hanteras den?",
     tags: ["Fastpris", "Timpris", "Risk", "Scope"],
-    answer: "Fastpris motiveras när kunden kräver budgetkontroll och scope är tydligt definierat. Den största risken är att projektet tar längre tid än beräknat (scope creep), vilket hanteras genom strikt ändringshantering i avtalet.",
+    answer: "Fastpris är affärsmässigt motiverat när kunden behöver förutsägbar total kostnad – t.ex. vid budgetprocess, upphandling eller intern godkännande – och när scope, leverabler och antaganden är tydligt avgränsade. Löpande räkning passar bättre vid osäker omfattning. Den största risken för leverantören är scope creep: projektet växer utan extra ersättning. Det hanteras med tydlig scope i avtalet, ändringshantering och separat prissättning för tilläggsarbete.",
     why: "Prismodellen styr incitament och riskfördelning mellan parterna.",
     example: "Vi säljer en förstudie till fast pris eftersom vi vet exakt vad som ska levereras, men utvecklingen sker på löpande räkning då behoven kan ändras.",
     related: ["Scope", "Ändringshantering", "Kundrisk", "Lönsamhet"]
@@ -245,7 +245,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Rita upp en 'avtalskarta' för ett IT-projekt där leverantören får insyn i kundens processer, kan hantera personuppgifter och ska ge support efter leverans. Vilka avtalstyper kan behövas och vilken affärsrisk minskar de?",
     tags: ["Avtal", "Kundavtal", "NDA", "DPA", "SLA"],
-    answer: "Svaret ska visa att avtal skyddar båda parter och ska kopplas till faktisk risk. Huvudavtal eller uppdragsavtal reglerar scope, pris och ansvar. NDA kan skydda konfidentiell information. DPA behövs när leverantören är personuppgiftsbiträde och behandlar personuppgifter för kundens räkning. SLA reglerar servicenivå, ansvar och uppföljning efter leverans.",
+    answer: "En avtalskarta kopplar avtalstyp till affärsrisk: Uppdragsavtal/huvudavtal reglerar scope, pris och ansvar – minskar oklarhet om vad som ingår. NDA (sekretessavtal) skyddar kundens processinformation vid insyn – minskar läckagerisk. DPA (personuppgiftsbiträdesavtal) behövs när leverantören behandlar personuppgifter för kundens räkning – minskar GDPR-risk. SLA (Service Level Agreement) reglerar support, svarstider och eskalering efter leverans – minskar tvist om servicenivå. Svaret ska visa vilka som behövs i just detta scenario och vilken risk varje avtal adresserar.",
     why: "Rätt avtalsstruktur är en förutsättning för en trygg och professionell affär.",
     example: "Huvudavtalet reglerar vad som ingår. NDA skyddar kundens processinformation. Om leverantören hanterar HR-data för kunden behövs DPA. SLA anger svarstid, eskalering och vad som händer om supportlöftet inte hålls.",
     related: ["Scope", "Ansvar", "Sekretess", "Personuppgifter"]
@@ -258,7 +258,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Resonera kring GDPR som en affärsrisk. Vad innebär det att vara personuppgiftsbiträde i ett konsultuppdrag och hur påverkar det avtalsskrivandet?",
     tags: ["GDPR", "Personuppgifter", "DPA", "Risk"],
-    answer: "Svaret ska först reda ut rollerna. Om konsultbolaget behandlar personuppgifter för kundens räkning är det personuppgiftsbiträde och kunden är personuppgiftsansvarig. Då ska behandlingen regleras i ett personuppgiftsbiträdesavtal, och avtalet behöver täcka instruktioner, säkerhet, åtkomst, incidenter och ansvar. Om konsulten inte behandlar personuppgifter för kundens räkning är DPA inte automatiskt rätt lösning.",
+    answer: "GDPR är en affärsrisk – böter, skadat förtroende och avtalskrav. Först avgör du rollerna: personuppgiftsansvarig (kunden) bestämmer varför och hur data behandlas; personuppgiftsbiträde (konsulten) behandlar data på kundens instruktion. Är konsulten biträde krävs DPA som reglerar instruktioner, säkerhet, åtkomst, underbiträden, incidenter och ansvar. Behandlar konsulten inte personuppgifter för kundens räkning behövs inte DPA – men andra risker (t.ex. sekretess) kan gälla.",
     why: "Dataansvar är en central del av moderna IT-leveranser.",
     example: "Om vi driftar ett HR-system och behandlar medarbetardata på kundens instruktion behövs DPA, tydlig åtkomststyrning och incidentrutiner. Om vi bara ger allmän strategirådgivning utan åtkomst till personuppgifter är risken en annan.",
     related: ["Personuppgiftsansvarig", "Personuppgiftsbiträde", "Säkerhet", "Avtal"]
@@ -271,7 +271,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM6",
     question: "Hur kan välformulerade supportavtal och SLA skapa långsiktigt värde för både kunden och konsultbolaget, och vilken risk uppstår om leverantören lovar mer service än den kan bemanna och följa upp?",
     tags: ["SLA", "Support", "Efterleverans", "Intäkter"],
-    answer: "Kunden får trygghet, tydliga svarstider och en ansvarig väg in när något händer. Konsultbolaget får en närmare kundrelation och mer förutsägbara intäkter. Men SLA skapar bara värde om svarstider, bemanning, eskalering, uppföljning och kostnad är realistiska.",
+    answer: "SLA (Service Level Agreement) definierar servicenivå – t.ex. svarstid, prioritering och eskalering. För kunden ger det trygghet och en tydlig väg in vid incidenter. För konsultbolaget ger det närmare kundrelation och förutsägbara intäkter via supportavtal. Risken uppstår när leverantören lovar mer än den kan leverera – t.ex. svar inom 2 timmar utan bemanning eller uppföljning. Då skapas missnöje, vite och förlorad marginal. SLA ska alltid kopplas till realistisk kapacitet och kostnad.",
     why: "Efterleverans är ofta där den verkliga lönsamheten och kundlojaliteten byggs.",
     example: "Ett SLA kan lova svar inom 4 timmar för kritiska incidenter, men då måste bolaget ha bemanning, prioriteringsregler och uppföljning som gör löftet möjligt att hålla.",
     related: ["Kundtrygghet", "Återkommande intäkt", "Avtal", "Ansvar"]
@@ -284,7 +284,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM3/REBR",
     question: "När du använder externa källor (t.ex. marknadsrapporter som Randstads REBR) som underlag för ett beslut, hur bör du resonera källkritiskt för att inte övertolka resultaten?",
     tags: ["REBR", "Källkritik", "Beslut", "Omvärld"],
-    answer: "Ett affärsmässigt svar visar på källkritik: Vem har skrivit rapporten? Är urvalet representativt för vår bransch? Data stödjer en hypotes men är sällan en absolut sanning för just vår specifika affär.",
+    answer: "Källkritiskt resonemang innan beslut: Vem publicerat rapporten och med vilket syfte? Är urvalet representativt för vår bransch, storlek och marknad? Vad mäter rapporten – och vad mäter den inte? Data stödjer hypoteser men bevisar sällan att just vår affär kommer lyckas. Ett starkt svar visar hur du använder källan som underlag – t.ex. för att motivera en pilot – utan att övertolka eller generalisera.",
     why: "Att kunna värdera information är en nyckelkompetens i beslutsfattande.",
     example: "En rapport säger att 'alla' vill ha distansarbete, men det betyder inte att just våra seniora säkerhetskonsulter fungerar bäst hemifrån i alla projekt.",
     related: ["Omvärldsanalys", "Antaganden", "Källkritik", "Beslut"]
@@ -297,7 +297,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM3",
     question: "En kund skär ned på nya initiativ under lågkonjunktur. Hur bör ett konsultbolag justera sin paketering och sina säljargument, och hur undviker bolaget att lova besparingar utan underlag?",
     tags: ["Lågkonjunktur", "Paketering", "Kundnytta", "Risk"],
-    answer: "I en pressad ekonomi blir effektivisering, riskminskning, kassaflöde och snabbare payback ofta viktigare än bred innovationsretorik. Ett starkt svar visar hur erbjudandet avgränsas, hur nyttan mäts mot kundens nuläge och varför påstådda besparingar behöver baseline, pilot eller kunddata.",
+    answer: "I lågkonjunktur vill kunden ofta effektivisera, minska risk och förbättra kassaflöde – inte köpa bred 'digital transformation'. Bolaget bör paketera mindre, avgränsade erbjudanden med tydlig payback och anpassa säljargumenten. För att undvika att lova besparingar utan underlag krävs baseline (mätning av nuläge), pilot eller kunddata innan procentsiffror används. Ett starkt svar visar både paketering och hur påståenden hålls trovärdiga.",
     why: "Affärsmannaskap innebär att anpassa erbjudandet efter kundens aktuella verklighet.",
     example: "Istället för att sälja 'digital transformation' säljer vi en avgränsad automationspilot. Först mäts dagens manuella tid, sedan visar piloten om besparingen räcker för att motivera nästa steg.",
     related: ["Kostnadsbesparing", "Riskminskning", "ROI", "Prioritering"]
@@ -310,7 +310,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM2",
     question: "Många bolag hävdar att de är 'bäst' eller 'mest innovativa'. Hur kan ett mindre bolag sticka ut genom att använda konkreta bevis istället för tomma superlativ?",
     tags: ["Differentiering", "Trovärdighet", "Bevis", "Kundnytta"],
-    answer: "Svaret ska betona vikten av bevis: Referenscase med mätbara resultat, certifieringar, nischkompetens eller erbjudande om en pilot. Trovärdighet byggs genom vad man *gjort*, inte vad man *säger*.",
+    answer: "Tomma superlativ ('bäst', 'mest innovativa') säger inget till en skeptisk kund. Ett mindre bolag sticker ut med konkreta bevis: referenscase med mätbara resultat (t.ex. 'sparade 400 timmar/år'), certifieringar, tydlig nischkompetens, eller erbjudande om en avgränsad pilot. Trovärdighet byggs på vad bolaget gjort och kan visa – inte på adjektiv.",
     why: "Differentiering bygger på substans, inte på adjektiv.",
     example: "Istället för att säga 'Vi är experter på AI' säger vi 'Vi har implementerat tre AI-flöden som minskat manuellt arbete med 400 timmar/år för kund X'.",
     related: ["Differentiering", "Nisch", "Referenser", "Mätbar effekt"]
@@ -323,7 +323,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM4",
     question: "Varför är det viktigt att definiera hur effekten av en leverans ska mätas redan *innan* projektet startar? Ge exempel på hur du gör en nytta mätbar.",
     tags: ["Mätbar effekt", "KPI", "ROI", "Före/efter"],
-    answer: "Genom att mäta nuläget (baseline) kan man efteråt bevisa värdet. Det gör det lättare att få betalt, få referenser och motivera framtida investeringar för kunden.",
+    answer: "Om effekten inte definieras innan projektet startar blir det svårt att bevisa nytta i efterhand – och lätt att tvista om resultatet. Baseline (nulägesmätning) före start gör nyttan mätbar: t.ex. antal manuella fel, handläggningstid eller kostnad per ärende. Efter leverans jämför du före/efter. Det underlättar fakturering, referenser, intern uppföljning och kundens beslut om fortsatt investering.",
     why: "Mätbarhet är grunden för att kunna visa ROI (Return on Investment).",
     example: "Mät antal manuella fel i faktureringen under en månad före systembyte, och jämför med antalet fel en månad efteråt.",
     related: ["KPI", "Före/efter", "ROI", "Kundnytta"]
@@ -336,7 +336,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM2",
     question: "Kunden tvekar och vill vänta med beslutet till nästa kvartal. Hur resonerar du kring 'alternativkostnad' för att motivera ett köp här och nu?",
     tags: ["Köpbeslut", "Risk", "Alternativkostnad", "Kundnytta"],
-    answer: "Svaret ska visa vad det kan kosta att inte göra något, men utan hårdsälj. Resonemanget bör bygga på kundens egna data: fortsatt manuell tid, risker, fel, väntade intäkter eller flaskhalsar. Slutsatsen ska vara att agera nu om kostnaden eller risken med att vänta är större än ett avgränsat första steg.",
+    answer: "Alternativkostnad = vad kunden förlorar genom att vänta – fortsatt manuell tid, kvarvarande risker, missade intäkter eller flaskhalsar. Ett affärsmässigt resonemang bygger på kundens egna siffror, inte hårdsälj: 'Om ni väntar tre månader till och nuläget är 100 timmar/månad blir det 300 timmar extra.' Slutsatsen ska vara att ett avgränsat första steg (pilot, förstudie) kan vara rimligare än att skjuta upp beslutet helt.",
     why: "Att förstå kundens passivitet som en kostnad är ett starkt säljargument.",
     example: "Om nulägesmätningen visar 100 timmar manuellt arbete per månad kan tre månaders väntan bli 300 timmar extra. Då kan en liten förstudie eller pilot vara mer affärsmässig än att skjuta upp beslutet.",
     related: ["Alternativkostnad", "Brådska", "Risk", "Beslutsargument"]
@@ -349,7 +349,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM6",
     question: "Hur kan ett nystartat bolag utan tunga referenser bygga tillräcklig trovärdighet för att vinna en affär hos en skeptisk kund?",
     tags: ["Trovärdighet", "Referenser", "Pilot", "Risk"],
-    answer: "Genom att minimera kundens risk: Erbjud en tidsbegränsad pilot, var extremt transparent med arbetssätt, visa på individuell expertkompetens (CV) och ha fläckfria avtal.",
+    answer: "Utan referenser måste bolaget aktivt minska kundens upplevda risk: erbjud en tidsbegränsad pilot eller förstudie till fast pris, var transparent om arbetssätt och begränsningar, visa individuell kompetens (CV, certifieringar), och ha tydliga avtal med scope, ansvar och dataroller. Målet är att kunden ska känna att risken är hanterbar – inte att bolaget är 'stort', utan att första steget är tryggt och avgränsat.",
     why: "Riskreducering är nyckeln när historik saknas.",
     example: "Erbjud kunden att köpa en 'förstudie' till ett lågt fast pris för att visa vad vi går för innan det stora avtalet tecknas.",
     related: ["Pilot", "Referenser", "Scope", "Riskreducering"]
@@ -362,7 +362,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM6",
     question: "Sätt dig i kundens stol inför en stor IT-investering. Vilka är de tre mest kritiska 'riskfrågorna' du bör ställa till leverantören, och vad förväntar du dig för typ av svar?",
     tags: ["Kundfrågor", "Risk", "Avtal", "Ekonomi"],
-    answer: "Frågorna bör röra: 1. Vad händer om tidsplanen spricker (ansvar/vite)? 2. Hur hanteras vår data (säkerhet/GDPR)? 3. Hur vet vi att lösningen faktiskt ger den effekt ni lovar (KPI/uppföljning)? Svaren ska vara konkreta och avtalsbundna.",
+    answer: "Tre kritiska riskfrågor från kundens stol: (1) Leverans och ansvar – 'Vad händer om tidsplanen spricker, konsulten slutar eller scope ändras?' Förväntat svar: tydligt avtal med ansvar, vite, överlämning eller ändringshantering. (2) Data och säkerhet – 'Hur hanteras vår data, vem är ansvarig och vad händer vid incident?' Förväntat svar: roller, DPA vid behov, säkerhetsrutiner. (3) Effekt – 'Hur vet vi att lösningen ger den nytta ni lovar?' Förväntat svar: KPI:er, baseline och uppföljningsplan – gärna avtalsbundet.",
     why: "Förmågan att se affären ur köparens perspektiv är kärnan i affärsmannaskap.",
     example: "Kund: 'Vad händer om er konsult slutar mitt i projektet?' Leverantör: 'Vi har en dokumenterad överlämningsprocess och en resursgaranti i avtalet.'",
     related: ["Kundrisk", "Avtal", "Mätbar effekt", "Efterleverans"]
@@ -375,7 +375,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Tentarisk/AM1-AM6",
     question: "Resonera kring begreppet 'en hållbar affär'. Varför är det dåligt affärsmannaskap att sälja något som kunden inte behöver, även om det ger en hög vinst kortsiktigt?",
     tags: ["Hållbar affär", "Kundnytta", "Lönsamhet", "Långsiktighet"],
-    answer: "En hållbar affär bygger på förtroende och återköp. Att lura på kunden något skadar bolagets varumärke, leder till konflikter och förstör möjligheten till framtida affärer och referenser.",
+    answer: "En hållbar affär fungerar för både kund och leverantör på längre sikt – den bygger på förtroende, rätt lösning och återköp. Att sälja något kunden inte behöver ger kortsiktig vinst men dåligt affärsmannaskap: det skadar varumärke, skapar konflikter, förstör referenser och framtida affärer. Hållbarhet handlar om långsiktigt värdeskapande, inte maximal fakturering i ett projekt.",
     why: "Affärsmannaskap handlar om långsiktig värdeskapande, inte bara nästa månads vinst.",
     example: "Ett konsultbolag som säljer in 1000 timmar för ett problem som kunde lösas på 100 timmar kommer aldrig få komma tillbaka till den kunden.",
     related: ["Kundnytta", "Lönsamhet", "Etik", "Långsiktighet"]
@@ -388,7 +388,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "Grupparbete",
     question: "Du ska presentera ett automationsförslag för en ekonomichef som främst bryr sig om kostnad, risk och effekt. Hur strukturerar du presentationen så att den får en tydlig röd tråd från kundproblem till kalkyl och avtal?",
     tags: ["Presentation", "Röd tråd", "Grupparbete", "Helhet"],
-    answer: "Börja i kundens verklighet och kostnad för problemet, visa den avgränsade lösningen och nyttan, styrk med analys eller bevis, presentera kalkyl och mätmetod, och avsluta med hur scope, ansvar, data och support säkras i avtal.",
+    answer: "En presentation med röd tråd för en ekonomichef följer en tydlig kedja: (1) Kundproblem och dagens kostnad/risk, (2) Avgränsad lösning och förväntad nytta, (3) Bevis eller analys som stödjer förslaget, (4) Kalkyl med pris, payback och mätmetod, (5) Avtal – scope, ansvar, data (DPA vid behov) och support (SLA). Varje steg ska leda logiskt till nästa så att chefen ser kostnad, risk och effekt i samma berättelse.",
     why: "En sammanhängande argumentation är avgörande för att få med sig beslutsfattare.",
     example: "Struktur: dagens manuella kostnad -> automationslösning -> mätbar effekt -> pris och payback -> scope, DPA/SLA vid behov -> beslut om pilot.",
     related: ["Kundproblem", "Affärsmodell", "Ekonomi", "Avtal"]
@@ -401,7 +401,7 @@ export const FOKUS_QUESTIONS: Question[] = [
     source: "AM1-AM6",
     question: "Miniessä: Ett litet M365-konsultbolag vill sälja en onboardinglösning till en medelstor kund men har begränsade referenser. Beskriv vägen från kundproblem till mätbar effekt. Inkludera analys, affärsmodell, ekonomi, avtal och en risk du väljer att hantera först.",
     tags: ["Helhetscase", "Kundnytta", "Analys", "Ekonomi", "Avtal"],
-    answer: "Svaret ska väva ihop kursens delar i ett avgränsat beslutsläge. Det ska framgå vilket kundproblem som valts, hur analysen motiverar erbjudandet, hur BMC och intäktsmodell hänger ihop, hur kalkylen bär sig, vilka avtalsrisker som behöver säkras och hur effekten ska mätas.",
+    answer: "Miniessäet ska väva ihop kursen i en sammanhängande berättelse: (1) Kundproblem – vad kunden kämpar med, (2) Analys – t.ex. SWOT/PESTELID eller konkurrent/positionering som motiverar erbjudandet, (3) Affärsmodell – BMC med kundsegment, värdeerbjudande och intäktsmodell, (4) Ekonomi – timpris, debiteringsgrad, overhead och lönsamhet, (5) Avtal – scope, DPA/NDA/SLA beroende på risk, (6) Mätbar effekt – baseline och KPI före start, (7) En risk du hanterar först – t.ex. trovärdighet via pilot eller GDPR via DPA. Allt ska hänga ihop i ett avgränsat beslut, inte som lösa delar.",
     why: "Detta är den ultimata prövningen av om studenten kan tillämpa kursens alla delar i ett sammanhang.",
     example: "Bolaget ser att kunden tappar tid i onboarding, väljer en avgränsad M365-pilot, säljer fast förstudie plus support, räknar på debiteringsgrad och overhead, säkrar scope och dataroller i avtal och mäter kortare ledtid före/efter.",
     related: ["BMC", "SWOT", "Budget", "Avtal", "KPI"]
