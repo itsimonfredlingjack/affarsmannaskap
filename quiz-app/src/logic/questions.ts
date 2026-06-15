@@ -1,6 +1,6 @@
 export interface Question {
   id: string;
-  mode: 'resonemang' | 'case' | 'examinatorrisk' | 'repetition';
+  mode: 'resonemang' | 'case' | 'examinatorrisk' | 'repetition' | 'begrepp' | 'samband';
   type: 'open' | 'mc';
   category: string;
   source: string;

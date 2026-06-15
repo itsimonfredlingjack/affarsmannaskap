@@ -6,9 +6,13 @@ Guide för att förbättra frågor, facit och coach-feedback.
 
 | Fil | Innehåll |
 |-----|----------|
-| `src/logic/questions.ts` | Frågor + facit (`answer`, `why`, `example`) |
-| `src/logic/rubrics.ts` | Coach-bedömning: nyckelord, misconceptions, memoryRule |
+| `src/logic/questions.ts` | Essäfrågor + facit (`answer`, `why`, `example`) |
+| `src/logic/rubrics.ts` | Coach-bedömning för essäer: nyckelord, misconceptions, memoryRule |
+| `src/logic/economy-terms.ts` | Ekonomibegrepp — öppna definitioner, samband och flerval (MC) |
+| `src/logic/term-rubrics.ts` | Coach-bedömning för öppna ekonomibegrepp |
 | `feedback and questions.md` | Arbetslogg — klistra in problem innan du fixar |
+
+Appen har två studielägen: **Essäträning** (`FOKUS_QUESTIONS`) och **Ekonomibegrepp** (`ECONOMY_TERM_QUESTIONS`). Varje läge har egen progress i localStorage.
 
 ## Facit-fält i appen
 
@@ -84,3 +88,28 @@ npm run build              # TypeScript + produktionsbygge
 De första 30 öppna frågorna i `FOKUS_QUESTIONS` (före sälj/affärsplan-tilläggen) är tentamens kärna. Prioritera dessa vid innehållsgranskning.
 
 Kör `npm run validate:content` för lista med status per fråga.
+
+## Ekonomibegrepp (AM5)
+
+Korten i `economy-terms.ts` täcker kurslitteraturens företagsekonomi — inte IT-begrepp.
+
+| Typ | `mode` | `type` | Facit-fält |
+|-----|--------|--------|------------|
+| Definition | `begrepp` | `open` | `answer`, `why`, `example` + rubric i `term-rubrics.ts` |
+| Samband | `samband` | `open` | Samma som öppna definitioner |
+| Flerval | `begrepp` eller `samband` | `mc` | `options`, `correctIndex`, `explanation` (ingen rubric) |
+
+### Arbetsflöde för begreppskort
+
+1. Lägg till eller redigera kort i `economy-terms.ts` med unikt `id` (prefix `term-` för öppna, `mc-` för flerval).
+2. För **öppna** kort: skapa matchande rubric i `term-rubrics.ts` med samma `id`.
+3. För **MC**: minst två alternativ, giltigt `correctIndex`, och kort `explanation` som förklarar rätt svar.
+4. Kör `npm run validate:content` — scriptet kontrollerar båda spåren.
+
+### Checklista för bra begreppskort
+
+- [ ] Definitionen är kort men komplett (formel om relevant)
+- [ ] `why` förklarar varför begreppet spelar roll i bedömning
+- [ ] `example` använder Essiq AB / Hälsö Fisk AB där det passar
+- [ ] Öppna kort har rubric i `TERM_RUBRICS`
+- [ ] MC-alternativ är tydligt åtskilda (inga dubbeltydiga svar)
