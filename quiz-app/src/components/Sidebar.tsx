@@ -1,11 +1,13 @@
 import { useState, type JSX } from 'react';
-import { Search, RotateCcw, X, ChevronRight, BookOpen, GitMerge, Briefcase, RefreshCw, Target } from 'lucide-react';
+import { Search, RotateCcw, X, ChevronRight, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2 } from 'lucide-react';
 import type { Question } from '../logic/questions';
+import type { StudyTrack } from './HeroLanding';
 import type { CardProgress } from '../logic/sm2';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
 
 interface SidebarProps {
+  studyTrack: StudyTrack | null;
   masteryPercent: number;
   masteredCount: number;
   totalCount: number;
@@ -36,6 +38,7 @@ function getQuestionLabel(question: Question): string {
 }
 
 export function Sidebar({
+  studyTrack,
   masteryPercent,
   masteredCount,
   totalCount,
@@ -66,13 +69,23 @@ export function Sidebar({
 
   const badge = getCareerBadge(masteryPercent);
 
-  const modeButtons = [
+  const essayModeButtons = [
     { id: 'all', label: 'Alla frågor', icon: BookOpen },
     { id: 'resonemang', label: 'Resonemang', icon: GitMerge },
     { id: 'case', label: 'Case/essä', icon: Briefcase },
     { id: 'examinatorrisk', label: 'Examinator', icon: Target },
     { id: 'repetition', label: 'Repetition', icon: RefreshCw },
   ];
+
+  const termsModeButtons = [
+    { id: 'all', label: 'Alla begrepp', icon: Calculator },
+    { id: 'begrepp', label: 'Öppna', icon: BookOpen },
+    { id: 'mc', label: 'Flerval', icon: ListChecks },
+    { id: 'samband', label: 'Samband', icon: Link2 },
+    { id: 'repetition', label: 'Repetition', icon: RefreshCw },
+  ];
+
+  const modeButtons = studyTrack === 'terms' ? termsModeButtons : essayModeButtons;
 
   if (collapsed) {
     return <></>;
@@ -93,7 +106,9 @@ export function Sidebar({
         }`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-border">
-          <span className="text-sm font-display font-bold text-text-primary">Affärsmannaskap</span>
+          <span className="text-sm font-display font-bold text-text-primary">
+            {studyTrack === 'terms' ? 'Ekonomibegrepp' : studyTrack === 'essay' ? 'Essäträning' : 'Affärsmannaskap'}
+          </span>
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel lg:hidden cursor-pointer transition-colors"

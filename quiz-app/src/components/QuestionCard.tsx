@@ -78,6 +78,8 @@ export function QuestionCard({
     : selectedMCIndex === -1;
 
   const isMC = question.type === 'mc';
+  const isTermCard = question.mode === 'begrepp' || question.mode === 'samband';
+  const facitTitle = isTermCard && !isMC ? 'Facit — Definition' : 'Facit — Modellssvar';
   const isCorrectMC = isMC && selectedMCIndex === question.correctIndex;
 
   const getVerdict = () => {
@@ -210,7 +212,7 @@ export function QuestionCard({
                     </Panel>
                   )}
 
-                  <Panel title="Facit — Modellssvar" tone="success" accentBar>
+                  <Panel title={facitTitle} tone="success" accentBar>
                     <p className="font-serif text-lg leading-relaxed text-text-primary">
                       {question.answer}
                     </p>

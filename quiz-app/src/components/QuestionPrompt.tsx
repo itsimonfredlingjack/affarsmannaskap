@@ -7,6 +7,8 @@ const MODE_LABELS: Record<Question['mode'], string> = {
   case: 'Case/essä',
   examinatorrisk: 'Examinator',
   repetition: 'Repetition',
+  begrepp: 'Begrepp',
+  samband: 'Samband',
 };
 
 interface QuestionPromptProps {
@@ -42,7 +44,9 @@ export function QuestionPrompt({ question }: QuestionPromptProps): JSX.Element {
         <>
           <div className="my-6 border-t border-border-subtle" />
           <p className="text-sm text-text-muted text-center">
-            Skriv ett kort resonemang innan du visar facit
+            {question.mode === 'begrepp' || question.mode === 'samband'
+              ? 'Skriv definitionen med egna ord innan du visar facit'
+              : 'Skriv ett kort resonemang innan du visar facit'}
           </p>
         </>
       )}

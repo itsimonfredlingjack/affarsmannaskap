@@ -4,14 +4,16 @@ import confetti from 'canvas-confetti';
 
 // Logic & Data
 import { FOKUS_QUESTIONS, type Question } from './logic/questions';
+import { ECONOMY_TERM_QUESTIONS } from './logic/economy-terms';
 import { FOKUS_RUBRICS } from './logic/rubrics';
+import { TERM_RUBRICS } from './logic/term-rubrics';
 import { gradeAnswer } from './logic/grader';
 import { calculateSM2, isDue, type CardProgress } from './logic/sm2';
 import { soundEngine } from './logic/sound';
 
 // Components
 import { Sidebar } from './components/Sidebar';
-import { HeroLanding } from './components/HeroLanding';
+import { HeroLanding, type StudyTrack } from './components/HeroLanding';
 import { QuestionCard } from './components/QuestionCard';
 import { SessionSummary } from './components/SessionSummary';
 import { ProgressBar } from './components/ProgressBar';
@@ -37,15 +39,28 @@ interface SessionState {
 
 export default function App() {
   // Persistence States
-  const [cardProgresses, setCardProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-progress-v2', {});
+  const [essayProgresses, setEssayProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-progress-v2', {});
+  const [termsProgresses, setTermsProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-terms-progress-v1', {});
   const [streak, setStreak] = useLocalStorage<number>('fokusbladet-streak', 0);
   const [soundEnabled, setSoundEnabled] = useLocalStorage<boolean>('fokusbladet-sound', true);
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>('fokusbladet-theme-dark', true);
 
   // App Navigation States
+  const [studyTrack, setStudyTrack] = useState<StudyTrack | null>(null);
+  const [browseMode, setBrowseMode] = useState<boolean>(false);
   const [mode, setMode] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const essayQuestions = FOKUS_QUESTIONS.filter(q => q.mode !== 'repetition');
+  const termQuestions = ECONOMY_TERM_QUESTIONS;
+  const studyQuestions = studyTrack === 'terms' ? termQuestions : essayQuestions;
+  const cardProgresses = studyTrack === 'terms' ? termsProgresses : essayProgresses;
+  const setCardProgresses = studyTrack === 'terms' ? setTermsProgresses : setEssayProgresses;
+
+  const getRubric = (question: Question) => (
+    studyTrack === 'terms' ? TERM_RUBRICS[question.id] : FOKUS_RUBRICS[question.id]
+  );
   
   // Active Question Card State
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
@@ -81,23 +96,36 @@ export default function App() {
     }
   }, [isDarkTheme]);
 
-  // List of questions based on active mode
-  const studyQuestions = FOKUS_QUESTIONS.filter(q => q.mode !== 'repetition');
-
   const getFilteredList = () => {
+    if (studyTrack === null) return [];
     let list = studyQuestions;
 
-    if (mode === 'resonemang') {
-      list = studyQuestions.filter(q => q.mode === 'resonemang');
-    } else if (mode === 'case') {
-      list = studyQuestions.filter(q => q.mode === 'case');
-    } else if (mode === 'examinatorrisk') {
-      list = studyQuestions.filter(q => q.mode === 'examinatorrisk');
-    } else if (mode === 'repetition') {
-      list = studyQuestions.filter(q => {
-        const rating = cardProgresses[q.id]?.rating;
-        return rating === 'again' || rating === 'almost';
-      });
+    if (studyTrack === 'essay') {
+      if (mode === 'resonemang') {
+        list = studyQuestions.filter(q => q.mode === 'resonemang');
+      } else if (mode === 'case') {
+        list = studyQuestions.filter(q => q.mode === 'case');
+      } else if (mode === 'examinatorrisk') {
+        list = studyQuestions.filter(q => q.mode === 'examinatorrisk');
+      } else if (mode === 'repetition') {
+        list = studyQuestions.filter(q => {
+          const rating = cardProgresses[q.id]?.rating;
+          return rating === 'again' || rating === 'almost';
+        });
+      }
+    } else if (studyTrack === 'terms') {
+      if (mode === 'begrepp') {
+        list = studyQuestions.filter(q => q.type === 'open' && q.mode === 'begrepp');
+      } else if (mode === 'mc') {
+        list = studyQuestions.filter(q => q.type === 'mc');
+      } else if (mode === 'samband') {
+        list = studyQuestions.filter(q => q.mode === 'samband');
+      } else if (mode === 'repetition') {
+        list = studyQuestions.filter(q => {
+          const rating = cardProgresses[q.id]?.rating;
+          return rating === 'again' || rating === 'almost';
+        });
+      }
     }
 
     if (searchQuery.trim().length > 0) {
@@ -131,8 +159,8 @@ export default function App() {
 
   const currentQuestion = getActiveQuestion();
 
-  // Get due count for spaced repetition
   const getDueCount = () => {
+    if (studyTrack === null) return 0;
     return studyQuestions.filter(q => {
       const progress = cardProgresses[q.id];
       if (!progress || !progress.nextReview) return true; // Unseen is due
@@ -144,6 +172,9 @@ export default function App() {
 
   // Mastered stats
   const getMasteryStats = () => {
+    if (studyTrack === null) {
+      return { masteredCount: 0, totalCount: 0, masteryPercent: 0 };
+    }
     const totalCount = studyQuestions.length;
     const mastered = studyQuestions.filter(q => {
       const progress = cardProgresses[q.id];
@@ -189,6 +220,7 @@ export default function App() {
     const queue = getSmartQueue(size);
     if (!queue.length) return;
 
+    setBrowseMode(false);
     setSession({
       active: true,
       targetCount: size,
@@ -222,7 +254,7 @@ export default function App() {
     if (isRevealed) {
       const defaultRating = isMC
         ? (selectedMCIndex === currentQ.correctIndex ? 'known' as const : 'again' as const)
-        : (gradeAnswer(currentQ, answerInput, FOKUS_RUBRICS[currentQ.id]).suggestedRating || 'again' as const);
+        : (gradeAnswer(currentQ, answerInput, getRubric(currentQ)).suggestedRating || 'again' as const);
 
       handleRateAnswer(defaultRating);
       return;
@@ -278,7 +310,7 @@ export default function App() {
     if (currentQ.type === 'mc') {
       score = selectedMCIndex === currentQ.correctIndex ? 100 : 0;
     } else {
-      const assessment = gradeAnswer(currentQ, answerInput, FOKUS_RUBRICS[currentQ.id]);
+      const assessment = gradeAnswer(currentQ, answerInput, getRubric(currentQ));
       if (assessment.verdict === 'uncertain') {
         const scores = { known: 100, almost: 60, again: 0 };
         score = scores[rating];
@@ -401,11 +433,10 @@ export default function App() {
   // Jump to specific question (sidebar click)
   const handleSelectQuestion = (q: Question) => {
     if (session.active) {
-      // Exits session when clicking sidebar items
       setSession(prev => ({ ...prev, active: false }));
     }
-    
-    // Find index in filtered list
+
+    setBrowseMode(true);
     const idx = filteredQuestions.findIndex(item => item.id === q.id);
     if (idx !== -1) {
       setCurrentIndex(idx);
@@ -413,9 +444,63 @@ export default function App() {
     }
   };
 
-  // Reset entire card progresses
+  const handleSelectTrack = (track: StudyTrack) => {
+    setStudyTrack(track);
+    setMode('all');
+    setBrowseMode(false);
+    setCurrentIndex(0);
+    setSearchQuery('');
+    resetQuestionState();
+    setSession({
+      active: false,
+      targetCount: 20,
+      questionsAnswered: 0,
+      queue: [],
+      currentIndex: 0,
+      results: [],
+    });
+  };
+
+  const handleBackToTracks = () => {
+    setStudyTrack(null);
+    setBrowseMode(false);
+    setMode('all');
+    setCurrentIndex(0);
+    resetQuestionState();
+    setSession({
+      active: false,
+      targetCount: 20,
+      questionsAnswered: 0,
+      queue: [],
+      currentIndex: 0,
+      results: [],
+    });
+  };
+
+  const handleBrowse = () => {
+    setBrowseMode(true);
+    setCurrentIndex(0);
+    resetQuestionState();
+  };
+
+  const getDueCountFor = (questions: Question[], progresses: Record<string, CardProgress>) => (
+    questions.filter(q => {
+      const progress = progresses[q.id];
+      if (!progress || !progress.nextReview) return true;
+      return isDue(progress);
+    }).length
+  );
+
+  const essayDueCount = getDueCountFor(essayQuestions, essayProgresses);
+  const termsDueCount = getDueCountFor(termQuestions, termsProgresses);
+
+  // Reset progress for active track only
   const handleResetProgress = () => {
-    setCardProgresses({});
+    if (studyTrack === 'terms') {
+      setTermsProgresses({});
+    } else {
+      setEssayProgresses({});
+    }
     setStreak(0);
     setCurrentIndex(0);
     resetQuestionState();
@@ -444,6 +529,7 @@ export default function App() {
   };
 
   const handleNewSession = () => {
+    setBrowseMode(false);
     setSession({
       active: false,
       targetCount: 20,
@@ -460,13 +546,14 @@ export default function App() {
   const sessionProgressPercent = session.active 
     ? Math.round((session.questionsAnswered / sessionTarget) * 100) 
     : 0;
-  const sidebarCollapsed = session.active;
+  const sidebarCollapsed = session.active || studyTrack === null;
 
   return (
     <div className={`min-h-screen flex ambient-bg ${isDarkTheme ? 'dark' : ''}`}>
       
       {/* Sidebar Component */}
       <Sidebar
+        studyTrack={studyTrack}
         masteryPercent={masteryPercent}
         masteredCount={masteredCount}
         totalCount={totalCount}
@@ -505,7 +592,9 @@ export default function App() {
                 Affärsmannaskap
               </span>
               {session.active && (
-                <p className="text-[10px] text-text-muted uppercase tracking-wider">Fokusläge</p>
+                <p className="text-[10px] text-text-muted uppercase tracking-wider">
+                  {studyTrack === 'terms' ? 'Begreppsläge' : 'Fokusläge'}
+                </p>
               )}
             </div>
           </div>
@@ -576,7 +665,7 @@ export default function App() {
                     memoryRule: '',
                     summary: '',
                     signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
-                  } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
+                  } : gradeAnswer(currentQuestion, answerInput, getRubric(currentQuestion))}
                   onRateAnswer={handleRateAnswer}
                 />
               </div>
@@ -590,8 +679,19 @@ export default function App() {
               onRetryQuestion={handleRetryQuestion}
               onNewSession={handleNewSession}
             />
+          ) : studyTrack === null || (!browseMode && !session.active) ? (
+            <HeroLanding
+              studyTrack={studyTrack}
+              essayCount={essayQuestions.length}
+              termsCount={termQuestions.length}
+              essayDueCount={essayDueCount}
+              termsDueCount={termsDueCount}
+              onSelectTrack={handleSelectTrack}
+              onBackToTracks={handleBackToTracks}
+              onBrowse={handleBrowse}
+              onStartSession={handleStartSession}
+            />
           ) : currentQuestion ? (
-            /* Default Direct study card mode */
             <div className={shakeCard ? 'animate-shake' : ''}>
               <QuestionCard
                 question={currentQuestion}
@@ -602,8 +702,8 @@ export default function App() {
                 isRevealed={isRevealed}
                 onRevealAnswer={handleRevealAnswer}
                 onSkip={handleNextQuestion}
-                currentQuestionIndex={1}
-                totalQuestions={1}
+                currentQuestionIndex={currentIndex + 1}
+                totalQuestions={filteredQuestions.length}
                 assessment={isMC ? {
                   hasRubric: false,
                   verdict: selectedMCIndex === currentQuestion.correctIndex ? 'correct' : 'wrong',
@@ -617,15 +717,20 @@ export default function App() {
                   memoryRule: '',
                   summary: '',
                   signals: { conceptHits: [], missingConcepts: [], misconceptionHits: [], answerLength: 0 }
-                } : gradeAnswer(currentQuestion, answerInput, FOKUS_RUBRICS[currentQuestion.id])}
+                } : gradeAnswer(currentQuestion, answerInput, getRubric(currentQuestion))}
                 onRateAnswer={handleRateAnswer}
               />
             </div>
           ) : (
-            /* Landing Hero page */
             <HeroLanding
-              dueCount={dueCount}
-              totalCount={totalCount}
+              studyTrack={studyTrack}
+              essayCount={essayQuestions.length}
+              termsCount={termQuestions.length}
+              essayDueCount={essayDueCount}
+              termsDueCount={termsDueCount}
+              onSelectTrack={handleSelectTrack}
+              onBackToTracks={handleBackToTracks}
+              onBrowse={handleBrowse}
               onStartSession={handleStartSession}
             />
           )}
