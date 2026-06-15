@@ -2,35 +2,103 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer utilities {
-  .terminal-grid {
-    background-color: var(--color-exec-panel);
-    border: 1px solid var(--color-exec-border);
-  }
-  
-  .terminal-input {
-    background-color: var(--color-exec-bg);
-    border: 1px solid var(--color-exec-border);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  }
-  
-  .terminal-input:focus {
-    border-color: var(--color-exec-blue);
-    outline: none;
-  }
-}
-
 @theme {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  
-  --color-exec-bg: #0A0A0C;
-  --color-exec-panel: #111115;
-  --color-exec-border: #1F1F24;
-  --color-exec-blue: #3B82F6;
-  --color-exec-green: #10B981;
-  --color-exec-amber: #F59E0B;
-  --color-exec-red: #EF4444;
+  --font-display: "Outfit", var(--font-sans);
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-surface: #FAF8F5;
+  --color-panel: #FFFFFF;
+  --color-elevated: #FFFFFF;
+  --color-border: #E8E2D9;
+  --color-border-subtle: #F0EBE3;
+
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #57534E;
+  --color-text-muted: #A8A29E;
+
+  --color-accent: #B45309;
+  --color-accent-hover: #92400E;
+  --color-accent-muted: #FEF3C7;
+  --color-accent-subtle: #FFFBEB;
+
+  --color-success: #059669;
+  --color-success-muted: #D1FAE5;
+  --color-warning: #D97706;
+  --color-warning-muted: #FEF3C7;
+  --color-danger: #DC2626;
+  --color-danger-muted: #FEE2E2;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 3px rgba(28, 25, 23, 0.06), 0 8px 24px rgba(28, 25, 23, 0.04);
+  --shadow-elevated: 0 4px 16px rgba(28, 25, 23, 0.08), 0 12px 40px rgba(28, 25, 23, 0.06);
+}
+
+.dark {
+  --color-surface: #141210;
+  --color-panel: #1C1917;
+  --color-elevated: #231F1C;
+  --color-border: #3D3832;
+  --color-border-subtle: #2A2622;
+
+  --color-text-primary: #FAF8F5;
+  --color-text-secondary: #D6D0C8;
+  --color-text-muted: #8C857C;
+
+  --color-accent: #C17F4A;
+  --color-accent-hover: #D4956A;
+  --color-accent-muted: #3D2E1F;
+  --color-accent-subtle: #2A2218;
+
+  --color-success: #34D399;
+  --color-success-muted: #064E3B;
+  --color-warning: #FBBF24;
+  --color-warning-muted: #451A03;
+  --color-danger: #F87171;
+  --color-danger-muted: #450A0A;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.25), 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .reading-panel {
+    background: linear-gradient(180deg, var(--color-panel) 0%, color-mix(in srgb, var(--color-panel) 96%, var(--color-accent)) 100%);
+    border: 1px solid var(--color-border);
+  }
+
+  .ambient-bg {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent),
+      var(--color-surface);
+  }
+
+  .glass-header {
+    background: color-mix(in srgb, var(--color-elevated) 82%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .card-enter {
+    animation: cardEnter 0.22s ease-out both;
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
 }
 
 @keyframes shake {
@@ -39,14 +107,24 @@
   75% { transform: translateX(4px); }
 }
 
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-shake {
   animation: shake 0.15s ease-in-out 2;
 }
 
-/* Custom Scrollbars - strictly functional */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,16 +132,18 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-exec-border);
+  background: var(--color-border);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B82F6;
+  background: var(--color-accent);
 }
 
-/* Reset / transitions */
 body {
-  background-color: var(--color-exec-bg);
-  color: #E4E4E7;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

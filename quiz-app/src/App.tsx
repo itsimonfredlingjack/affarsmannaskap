@@ -76,10 +76,8 @@ export default function App() {
     const root = window.document.documentElement;
     if (isDarkTheme) {
       root.classList.add('dark');
-      root.style.backgroundColor = '#0A0A0C';
     } else {
       root.classList.remove('dark');
-      root.style.backgroundColor = '#F3F4F6';
     }
   }, [isDarkTheme]);
 
@@ -462,9 +460,10 @@ export default function App() {
   const sessionProgressPercent = session.active 
     ? Math.round((session.questionsAnswered / sessionTarget) * 100) 
     : 0;
+  const sidebarCollapsed = session.active;
 
   return (
-    <div className={`min-h-screen flex ${isDarkTheme ? 'dark text-zinc-300 bg-[#0A0A0C]' : 'text-slate-800 bg-[#F3F4F6]'}`}>
+    <div className={`min-h-screen flex ambient-bg ${isDarkTheme ? 'dark' : ''}`}>
       
       {/* Sidebar Component */}
       <Sidebar
@@ -483,53 +482,57 @@ export default function App() {
         onResetProgress={handleResetProgress}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        collapsed={sidebarCollapsed}
       />
 
       {/* Main Workspace */}
       <main className="flex-1 flex flex-col min-h-screen">
         
         {/* Workspace Topbar */}
-        <header className="flex items-center justify-between px-6 py-3 border-b border-slate-250 dark:border-zinc-800 sticky top-0 z-30 bg-white dark:bg-zinc-950">
-          <div className="flex items-center space-x-3">
+        <header className="flex items-center justify-between px-5 sm:px-6 py-3 border-b border-border sticky top-0 z-30 glass-header">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-1 rounded-none text-slate-500 hover:text-slate-300 hover:bg-zinc-900 lg:hidden cursor-pointer"
+              className={`p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer ${
+                sidebarCollapsed ? '' : 'lg:hidden'
+              }`}
               aria-label="Öppna sidopanel"
             >
               <Menu size={18} />
             </button>
-            <span className="text-sm font-bold text-slate-800 dark:text-zinc-200">
-              Affärsmannaskap
-            </span>
+            <div>
+              <span className="text-sm font-display font-bold text-text-primary">
+                Affärsmannaskap
+              </span>
+              {session.active && (
+                <p className="text-[10px] text-text-muted uppercase tracking-wider">Fokusläge</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            
-            {/* Streak Counter 🔥 */}
+          <div className="flex items-center gap-2 sm:gap-3">
             {streak > 1 && (
-              <div 
-                className="flex items-center space-x-1.5 px-2 py-0.5 rounded-none bg-amber-500/5 text-amber-600 dark:text-amber-400 border border-amber-500/25 text-xs font-bold font-mono"
+              <div
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-warning-muted/30 text-warning border border-warning/25 text-xs font-semibold"
                 title={`${streak} i rad!`}
               >
                 <Flame size={12} className="fill-current" />
-                <span>STREAK: {streak}</span>
+                <span>{streak} i rad</span>
               </div>
             )}
 
-            {/* Sound Toggle Button */}
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
-              className="p-1.5 rounded-none text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-900 border border-transparent dark:hover:border-zinc-800 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer"
               title={soundEnabled ? 'Stäng av ljud' : 'Sätt på ljud'}
               aria-label="Ljud av/på"
             >
               {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
             </button>
 
-            {/* Theme Toggle Button */}
             <button
               onClick={() => setIsDarkTheme(!isDarkTheme)}
-              className="p-1.5 rounded-none text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-900 border border-transparent dark:hover:border-zinc-800 transition-colors cursor-pointer"
+              className="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer"
               title={isDarkTheme ? 'Växla till ljust tema' : 'Växla till mörkt tema'}
               aria-label="Växla färgtema"
             >
@@ -630,7 +633,7 @@ export default function App() {
 
         {/* Footer shortcuts helper */}
         {currentQuestion && !session.results.length && (
-          <footer className="text-center py-3 text-xs text-slate-400 dark:text-zinc-600">
+          <footer className="text-center py-3 text-xs text-text-muted">
             {!isRevealed ? (
               <span>⌘ Enter för att visa facit{isMC && ' · Välj alternativ med 1–4'}</span>
             ) : (

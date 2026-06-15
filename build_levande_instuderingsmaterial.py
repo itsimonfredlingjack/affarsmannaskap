@@ -333,6 +333,17 @@ CONCEPTS = [
     ("SLA", "Service Level Agreement: överenskommelse om servicenivå, tillgänglighet, svarstid eller åtgärdstid.", "Gör drift- och supportförväntningar mätbara.", "Support svarar inom viss tid och kritiska incidenter prioriteras enligt avtal.", "Att lova servicenivåer utan kapacitet eller uppföljning."),
     ("MSA", "Master Service Agreement: huvudavtal som reglerar grundvillkor för flera uppdrag.", "Minskar behovet att förhandla allt från början varje gång.", "Ett konsultbolag har ett MSA med kunden och separata uppdragsbilagor för projekt.", "Att blanda ihop huvudavtal med konkret uppdragsbeskrivning."),
     ("GDPR/personuppgifter", "Regler för behandling av personuppgifter.", "IT-lösningar, drift, support och analys kan innebära personuppgiftsbehandling.", "Kunden och leverantören behöver reda ut roller, dataflöden och säkerhet.", "Att se GDPR som en juridisk bilaga utan påverkan på lösningen."),
+    ("Offentlig upphandling", "När offentlig sektor köper varor eller tjänster genom en reglerad process.", "IT-konsulter kan behöva förstå krav, kriterier, tidslinje, offentlighet och överprövningsrisk innan de räknar på affären.", "Ett konsultbolag analyserar en kommunal upphandling och avgör om kraven, villkoren och utvärderingsmodellen passar bolaget.", "Att behandla offentlig upphandling som en vanlig privat offertdialog."),
+    ("LOU", "Lag (2016:1145) om offentlig upphandling. I kursen används den som ram för hur offentliga köp styrs.", "Den påverkar hur krav får ställas, hur anbud jämförs och hur processen kan överprövas.", "En kommun måste beskriva uppdrag och utvärderingskriterier så att leverantörer kan lämna jämförbara anbud.", "Att plugga lagnumret utan att förstå vad det betyder för affären."),
+    ("Upphandlande myndighet/offentligt styrt organ", "Aktörer som omfattas av upphandlingsregler, till exempel statliga och kommunala myndigheter samt vissa offentligt styrda organ.", "Det avgör om kunden måste följa offentlig upphandlingsprocess.", "En region, kommun eller offentligt styrt bolag kan behöva upphandla IT-tjänster enligt reglerade former.", "Att bara titta på kundens namn och missa vilken juridisk roll kunden har."),
+    ("Tröskelvärde", "Beloppsgräns som påverkar vilka upphandlingsregler och processkrav som gäller.", "Tröskelvärden varierar med kundtyp och tjänst, så de ska kontrolleras i det konkreta fallet.", "Föreläsning 7 varnar för att tröskelvärden och direktupphandlingsgränser varierar beroende på tjänst, kund och tidpunkt.", "Att memorera ett gammalt belopp som om det alltid gäller."),
+    ("Direktupphandling", "En enklare inköpsform som kan användas under vissa beloppsgränser eller förutsättningar.", "Kan ge snabbare affär, men kunden måste fortfarande följa relevanta regler och dokumentera processen.", "Föreläsningen tar upp direktupphandlingsgränsen som ett exempel och markerar att beloppet kan variera.", "Att tro att direktupphandling betyder helt fri beställning utan krav."),
+    ("RFI/RFP/RFQ", "Tre olika förfrågningar: information, förslag/offert och pris på tydligt definierat behov.", "De visar hur mogen kundens köpprocess är och hur leverantören bör svara.", "RFI samlar marknadsinformation, RFP ber leverantörer föreslå lösning och RFQ används när kunden vet exakt vad som ska köpas.", "Att svara med pris när kunden egentligen söker information, eller tvärtom."),
+    ("Avtalsspärr/överprövning", "En period efter tilldelning då avtal normalt inte får tecknas och leverantörer kan begära överprövning.", "Otydliga krav, orimliga krav eller otydlig värderingsmodell kan skapa processrisk.", "Föreläsning 7 nämner att överprövning ofta rör otydliga krav, orimliga krav eller oklar utvärdering.", "Att bara räkna på leverans och glömma risken att processen drar ut på tiden."),
+    ("Offentlig handling och sekretess", "Material i offentlig upphandling kan bli offentlig handling, men vissa delar kan sekretessbeläggas.", "Leverantören måste skriva anbud så att affärshemligheter hanteras medvetet.", "Ett anbud kan behöva markera känslig information, men allt kan inte förutsättas bli hemligt.", "Att skriva hela anbudet som om ingen annan någonsin kan läsa det."),
+    ("Affärsplan", "Ett samlat dokument som beskriver idé, kunder, mål, resurser, budget och aktiviteter.", "Den visar om affären hänger ihop från kundproblem till intäkter, leverans och uppföljning.", "Affärsplanen för gruppen bör visa differentiering, affärsmodell, SWOT och hur gruppen har arbetat fram riktning och mål.", "Att göra affärsplanen till en textlista utan beslut och röd tråd."),
+    ("Roadmap", "En förenklad version av affärsplanen som visar riktning, prioriteringar och steg över tid.", "Den används ofta internt för att kommunicera vad som ska göras när.", "Roadmapen kan visa när bolaget ska göra förstudiepaket, första säljinsats, första pilotkund och återkommande supportmodell.", "Att blanda ihop roadmap med full affärsplan eller detaljerad projektplan."),
+    ("Marknadsplan/marknadsbearbetning", "Plan för hur bolaget når, attraherar och bearbetar kunder.", "Kopplar målgrupp, kanal, budskap, säljaktivitet och prioritering till affären.", "LinkedIn, seminarier, partnerskap, referenser och direktkontakt kan prioriteras olika beroende på kundsegment.", "Att säga sociala medier utan att veta vilken kund som ska nås och varför."),
     ("Årsredovisning", "Paket med förvaltningsberättelse, resultaträkning, balansräkning, noter och ofta revisionsberättelse.", "Den ger flera vinklar på hur bolaget mår.", "AM5 använder Hälsö Fisk AB och Essiq AB som läsexempel.", "Att bara läsa en siffra utan att läsa sammanhanget."),
 ]
 
@@ -352,6 +363,8 @@ MODELS = [
     ("Årsredovisningsläsning", "Läsa förvaltningsberättelse, resultaträkning, balansräkning, kassaflöde, noter och revisionsberättelse i rätt ordning.", "När ni ska förstå varför två bolag med helt olika verksamheter ser olika ut ekonomiskt.", "Vilka delar av årsredovisningen stödjer samma berättelse om bolagets hälsa?", "Hälsö Fisk AB:s förvaltningsberättelse förklarar pressad försäljning med förändringar i Kungälv; Essiq AB beskriver hög efterfrågan och hög beläggning.", ["Resultaträkningen läses utan förvaltningsberättelsen.", "Jämförelseperioder jämförs rakt av trots olika längd.", "Rapporterad soliditet ersätts med egen förenklad kvot utan notering."], ["Vad säger bolaget själv har hänt?", "Vilka siffror stödjer berättelsen?", "Finns osäkerheter i perioden eller nyckeltalen?"]),
     ("Budget/prognos i konsultbolag", "Bygga en realistisk framåtblick över intäkter, kostnader, beläggning och scenarier.", "När gruppen ska visa om affären kan bära löner, pensioner, försäkringar, licenser, sälj och intern tid.", "Vilken intäkt krävs för att bolaget ska vara lönsamt i olika scenarier?", "Ett konsultbolag räknar på lön, sociala avgifter, pension, utbildning, licenser och debiteringsgrad innan pris sätts.", ["Blanda ihop budget och prognos.", "Glömma personalkringkostnader.", "Räkna med 100 procent fakturerbar tid."], ["Vilka kostnader finns även när inga nya projekt säljs?", "Vad händer om debiteringsgraden sjunker?", "När behöver prognosen revideras?"]),
     ("Avtalskarta för IT-projekt", "Identifiera vilka avtal, nivåer och riskfrågor som styr ett IT-uppdrag.", "När gruppen ska visa affärsmässig kontroll över leverans, ansvar, data, drift och ersättning.", "Vad måste vara reglerat innan kunden och leverantören bör starta?", "Ramavtal kan sätta ramen, avropet beskriver uppdraget och konsultavtalet reglerar omfattning, ansvar, ersättning och sekretess.", ["Tro att muntlig samsyn räcker.", "Glömma ägande, hosting, underhåll och personuppgifter.", "Lova SLA utan leveransförmåga."], ["Vem äger lösningen?", "Vem hostar och underhåller?", "Hur regleras ändringar, ansvar och data?"]),
+    ("Upphandlingsanalys", "Läsa en offentlig upphandling som affärsbeslut: krav, villkor, volym, kriterier, risk och leveransförmåga.", "När kunden är offentlig eller när gruppen diskuterar hur ett konsultbolag kan sälja till kommun, region eller myndighet.", "Ska vi lämna anbud, avstå eller ställa frågor innan vi går vidare?", "I Mölndals Stad-övningen behöver gruppen reda ut vad kunden vill ha levererat, villkor, antal användare, tidigare data och vilka kriterier som avgör.", ["Svara innan kraven förståtts.", "Missa avtalsspärr och överprövningsrisk.", "Bara titta på pris och glömma kvalitet/värderingsmodell."], ["Vad ska levereras?", "Vilka krav är avgörande?", "Är anbuden jämförbara?", "Vilken risk tar vi om vi svarar?"]),
+    ("Affärsplan och roadmap", "Samla affärsidé, kunder, marknad, konkurrens, produkt, försäljning, affärsmodell, resurser, hållbarhet, team och analys.", "När gruppen ska lämna in eller presentera bolagets samlade affärslogik.", "Hänger riktning, mål, analys, budget och aktiviteter ihop?", "Affärsplanen visar helheten, medan roadmapen visar de viktigaste stegen framåt på ett enklare sätt.", ["Lista rubriker utan beslut.", "Skriva SWOT/BMC utan att visa hur de påverkat riktningen.", "Göra roadmapen lika tung som affärsplanen."], ["Vilken riktning har analysen lett till?", "Vilka mål ska följas upp?", "Vilka aktiviteter gör planen verklig?"]),
 ]
 
 
@@ -555,6 +568,116 @@ def add_lecture6_section(doc, md):
     md.table(["Område", "Vad som ska kommas ihåg"], consulting_rows)
 
 
+def add_lecture7_section(doc, md):
+    h1(doc, "10. Föreläsning 7: offentlig upphandling, affärsplan och roadmap")
+    md.h2("10. Föreläsning 7: offentlig upphandling, affärsplan och roadmap")
+    p(doc, "Källor: Affärsmannaskap 7, Föreläsning 7, 2026-06-08 samt mallen ny-affarsplan-2026. Föreläsningen lägger till två praktiska områden: hur offentlig upphandling fungerar som köpprocess och hur gruppens affärsplan ska visa riktning, mål, analys, budget och aktiviteter.")
+    md.p("Källor: Affärsmannaskap 7, Föreläsning 7, 2026-06-08 samt mallen ny-affarsplan-2026. Föreläsningen lägger till två praktiska områden: hur offentlig upphandling fungerar som köpprocess och hur gruppens affärsplan ska visa riktning, mål, analys, budget och aktiviteter.")
+    p(doc, "Tentapoängen är att kunna koppla ihop upphandling med affärsmannaskap. En offentlig kund köper inte alltid genom fri dialog. Kunden styrs av regler, krav, kriterier, offentlighet och möjlighet till överprövning. För leverantören blir frågan därför: kan vi förstå uppdraget, uppfylla kraven och vinna på rätt grunder?")
+    md.p("Tentapoängen är att kunna koppla ihop upphandling med affärsmannaskap. En offentlig kund köper inte alltid genom fri dialog. Kunden styrs av regler, krav, kriterier, offentlighet och möjlighet till överprövning. För leverantören blir frågan därför: kan vi förstå uppdraget, uppfylla kraven och vinna på rätt grunder?")
+
+    h2(doc, "Offentlig upphandling i korthet")
+    md.h3("Offentlig upphandling i korthet")
+    procurement_rows = [
+        ("LOU och reglerad process", "Föreläsningen tar upp LOU 2016:1145 och förtydliganden kring offentligt styrt organ och upphandlande myndighet. Poängen är att offentliga köp styrs av formella regler, inte bara av relation och förhandling."),
+        ("Upphandlande myndighet/offentligt styrt organ", "Statliga och kommunala myndigheter samt vissa offentligt styrda organ kan omfattas. Det avgör om kunden måste köpa enligt upphandlingsregler."),
+        ("Tröskelvärde och direktupphandling", "Tröskelvärden och direktupphandlingsgränser varierar med typ av kund, tjänst och tidpunkt. Föreläsningens belopp ska därför läsas som kurskontext, inte som evig regel."),
+        ("Kriterier", "Kunden kan utvärdera bästa förhållande mellan pris och kvalitet, kostnad/livscykelkostnad eller pris. Som leverantör måste du förstå vad som faktiskt ger poäng."),
+        ("Offentlig handling", "Anbud och upphandlingsmaterial kan bli offentliga handlingar. Vissa delar kan sekretessbeläggas, men sekretess ska inte tas för given."),
+        ("Överprövning", "Föreläsningen beskriver överprövning inom avtalsspärren, ofta kopplad till otydliga krav, orimliga krav eller otydlig värderingsmodell."),
+        ("Var upphandlingar hittas", "Föreläsningen nämner Opic och TendSign som platser där offentliga upphandlingar finns, samt Upphandling24 som informationskälla."),
+    ]
+    table(doc, ["Del", "Vad du ska kunna säga på tentan"], procurement_rows, [1.65, 4.85], font_size=8.2)
+    md.table(["Del", "Vad du ska kunna säga på tentan"], procurement_rows)
+
+    h2(doc, "RFI, RFP och RFQ")
+    md.h3("RFI, RFP och RFQ")
+    request_rows = [
+        ("RFI", "Request for Information. Kunden samlar information om marknad, leverantörer eller tekniska lösningar inför ett större projekt eller upphandling. Svaret ska hjälpa kunden förstå möjligheter, inte bara ge pris."),
+        ("RFP", "Request for Proposal/offertförfrågan. Kunden bjuder in leverantörer att lämna förslag och offert på produkt, tjänst eller projekt. Svaret behöver visa lösning, värde, upplägg och prislogik."),
+        ("RFQ", "Request for Quotation. Kunden vet mer exakt vad som ska köpas och vill ha pris och villkor. Här blir jämförbarhet, leveranstid och pris tydligare."),
+    ]
+    table(doc, ["Förfrågan", "Hur du känner igen den"], request_rows, [1.1, 5.4], font_size=8.4)
+    md.table(["Förfrågan", "Hur du känner igen den"], request_rows)
+
+    h2(doc, "Så läser du en offentlig upphandling")
+    md.h3("Så läser du en offentlig upphandling")
+    reading_questions = [
+        "Vad vill kunden ha levererat, konkret och avgränsat?",
+        "På vilka villkor ska leveransen ske: tid, ansvar, avtal, ersättning, data, drift och support?",
+        "För hur många användare, enheter, verksamheter eller processer gäller uppdraget?",
+        "Vad ska hända med tidigare data, tidigare system eller befintliga arbetssätt?",
+        "Vilka krav är skallkrav och vilka ger poäng?",
+        "Vilka kriterier avgör vinnaren: pris, kostnad, kvalitet eller kombination?",
+        "Är kraven tydliga nog för jämförbara anbud, eller finns risk för oklar värdering?",
+        "Vilka delar av anbudet kan bli offentliga och vilka delar behöver sekretessmarkeras?",
+        "Är uppdraget lönsamt med realistisk bemanning, risk och tidslinje?",
+    ]
+    bullets(doc, reading_questions)
+    md.bullets(reading_questions)
+
+    h2(doc, "Mölndals Stad-övningen")
+    md.h3("Mölndals Stad-övningen")
+    p(doc, "Föreläsningen använder en övning om Mölndals Stad. Den viktigaste studietekniken är att läsa upphandlingen som en affärs- och riskfråga, inte som en text som bara ska sammanfattas.")
+    md.p("Föreläsningen använder en övning om Mölndals Stad. Den viktigaste studietekniken är att läsa upphandlingen som en affärs- och riskfråga, inte som en text som bara ska sammanfattas.")
+    molndal_rows = [
+        ("Vad vill de ha levererat?", "Identifiera faktisk leverans, omfattning och gränser. Om leveransen är otydlig blir både pris och risk svåra att bedöma."),
+        ("På vilka villkor?", "Läs avtal, krav, ansvar, ersättning, support, tidsplan och eventuella sanktioner."),
+        ("För hur många användare?", "Volym påverkar licenser, support, utbildning, drift och prissättning."),
+        ("Vad händer med tidigare data?", "Migrering, rensning, ägande, säkerhet och ansvar kan bli större än själva nyinförandet."),
+        ("Vilka kriterier avgör?", "Skilj mellan krav som måste uppfyllas och kriterier som ger konkurrensfördel."),
+        ("Reflektion runt punkt 6.3", "Läs punkten som en risk- eller tolkningsfråga: vad kräver den, hur bevisar leverantören uppfyllelse och kan olika anbud jämföras rättvist?"),
+    ]
+    table(doc, ["Fråga", "Hur du pluggar på den"], molndal_rows, [1.75, 4.75], font_size=8.2)
+    md.table(["Fråga", "Hur du pluggar på den"], molndal_rows)
+
+    h2(doc, "Affärsplan, marknadsplan och roadmap")
+    md.h3("Affärsplan, marknadsplan och roadmap")
+    p(doc, "Föreläsningen säger att affärsplanen beskriver idé, kunder, mål, resurser, budget och aktiviteter för att nå målen. Den ska också visa differentiering, affärsmodell och SWOT, alltså hur gruppen arbetat fram riktning och mål. Utöver det ska en marknadsplan finnas med.")
+    md.p("Föreläsningen säger att affärsplanen beskriver idé, kunder, mål, resurser, budget och aktiviteter för att nå målen. Den ska också visa differentiering, affärsmodell och SWOT, alltså hur gruppen arbetat fram riktning och mål. Utöver det ska en marknadsplan finnas med.")
+    plan_rows = [
+        ("1. Affärsidé/verksamhet", "Vad erbjuder ni och vilket problem eller behov löser ni hos kunden?"),
+        ("2. Vision", "Vilken långsiktig ambition, position och vilket kundvärde vill företaget skapa?"),
+        ("3. Mål", "Vilka konkreta mål finns på 3-5 års sikt: tillväxt, lönsamhet, kundbas, marknad eller organisation?"),
+        ("4. Kunder", "Vilka målgrupper och segment har ni, vilka behov har de och varför väljer de er?"),
+        ("5. Marknad", "Hur är marknaden avgränsad och vilka trender, möjligheter eller förändringar påverkar den?"),
+        ("6. Konkurrens", "Vilka konkurrenter och alternativ finns, vilka styrkor/svagheter har de och hur skiljer ni er?"),
+        ("7. Produkt/tjänst", "Vad är det konkreta värdet för kunden och vad gör erbjudandet särskiljande?"),
+        ("8. Sälja, betala, leverera", "Hur når ni kunden, hur sker försäljningen, hur betalar kunden och hur levereras tjänsten?"),
+        ("9. Marknadsbearbetning", "Vilka kanaler och aktiviteter använder ni, och hur prioriterar ni mellan dem?"),
+        ("10. Affärsmodell", "Hur tjänar företaget pengar: prissättning, intäktsströmmar, kostnadsstruktur och marginaler?"),
+        ("11. Resurser/förutsättningar", "Vilken kompetens, teknik, systemstöd, partners eller andra resurser krävs?"),
+        ("12. Hållbart företagande", "Hur skapas långsiktigt ekonomiskt, miljömässigt och socialt värde?"),
+        ("13. Teamet", "Vilka roller och kompetenser finns och hur kompletterar teamet varandra?"),
+        ("14. Analys", "Sammanfatta styrkor, svagheter, möjligheter och hot, gärna kopplat till SWOT och PESTELID."),
+    ]
+    table(doc, ["Affärsplanens del", "Tentafrågan bakom rubriken"], plan_rows, [1.9, 4.6], font_size=7.7)
+    md.table(["Affärsplanens del", "Tentafrågan bakom rubriken"], plan_rows)
+
+    roadmap_rows = [
+        ("Affärsplan", "Full helhet: kund, marknad, erbjudande, analys, ekonomi, resurser, team, hållbarhet och aktiviteter."),
+        ("Marknadsplan", "Hur marknaden ska bearbetas: målgrupp, kanal, budskap, aktivitet och prioritering."),
+        ("Roadmap", "Förenklad version av affärsplanen, ofta för intern kommunikation. Visar större steg, prioriteringar och tidsordning."),
+        ("Scenarier", "Tänkbara utfall, till exempel låg/normal/hög försäljning eller olika kundvägar. Används för att visa risk och handlingsberedskap."),
+    ]
+    table(doc, ["Dokument/verktyg", "Skillnad du ska kunna förklara"], roadmap_rows, [1.55, 4.95], font_size=8.4)
+    md.table(["Dokument/verktyg", "Skillnad du ska kunna förklara"], roadmap_rows)
+
+    h2(doc, "Vanliga tentafällor från föreläsning 7")
+    md.h3("Vanliga tentafällor från föreläsning 7")
+    pitfalls = [
+        "Att memorera en direktupphandlingsgräns som om den alltid gäller. Förklara hellre att gränser varierar och måste kontrolleras.",
+        "Att blanda ihop RFI, RFP och RFQ. De visar olika grad av mognad i kundens behov.",
+        "Att tro att lägsta pris alltid vinner. Kriterierna kan också handla om bästa förhållande mellan pris och kvalitet eller kostnad över livscykeln.",
+        "Att glömma offentlig handling och sekretess när anbud skrivs.",
+        "Att tro att en upphandling alltid leder till avtal. Föreläsningens BRG-exempel visar att processer kan dras tillbaka, göras om eller förskjutas.",
+        "Att skriva affärsplanens rubriker utan att visa hur differentiering, affärsmodell, SWOT och marknadsplan leder till samma riktning.",
+        "Att göra roadmapen till en full affärsplan i stället för en förenklad kommunikationsbild.",
+    ]
+    bullets(doc, pitfalls)
+    md.bullets(pitfalls)
+
+
 def build_document():
     doc = make_doc()
     md = MD()
@@ -566,19 +689,19 @@ def build_document():
     md.h2("1. Så använder du dokumentet")
     p(doc, "Det här är ett levande instuderingsmaterial. Det betyder att dokumentet ska kunna byggas ut när kursen fortsätter och när fler föreläsningar, modeller eller exempel tillkommer.")
     bullets(doc, [
-        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt och REBR 2026 som extern källa.",
-        "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, tentafrågor och nya case från lektioner.",
+        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt, offentlig upphandling, RFI/RFP/RFQ, affärsplan, roadmap, marknadsplan och REBR 2026 som extern källa.",
+        "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, fler tentafrågor och nya case från lektioner.",
         "Studera genom att först läsa förklaringen, sedan titta på exemplet och till sist svara på kontrollfrågorna utan att titta.",
         "Miniövningarna är till för att träna användning, inte bara minne.",
-        "När nytt material kommer: lägg in nya begrepp och modeller i avsnitt 12 och flytta sedan in dem i rätt del av dokumentet.",
+        "När nytt material kommer: lägg in nya begrepp och modeller i det levande avsnittet längst bak och flytta sedan in dem i rätt del av dokumentet.",
     ])
     md.p("Det här är ett levande instuderingsmaterial. Det betyder att dokumentet ska kunna byggas ut när kursen fortsätter och när fler föreläsningar, modeller eller exempel tillkommer.")
     md.bullets([
-        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt och REBR 2026 som extern källa.",
-        "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, tentafrågor och nya case från lektioner.",
+        "Täckt hittills: kursens grundlogik, konsultmässighet, erbjudande, kundvärde, analysmodeller, produkt-marknad, företagsformer, företagsplattform, mål/KPI, företagsekonomi, årsredovisning, budget/prognos, konsultbolagslönsamhet, affärsmodeller, avtalsrätt, offentlig upphandling, RFI/RFP/RFQ, affärsplan, roadmap, marknadsplan och REBR 2026 som extern källa.",
+        "Kan läggas till senare: sälj- och förhandlingsteknik, presentationer, feedback, fler tentafrågor och nya case från lektioner.",
         "Studera genom att först läsa förklaringen, sedan titta på exemplet och till sist svara på kontrollfrågorna utan att titta.",
         "Miniövningarna är till för att träna användning, inte bara minne.",
-        "När nytt material kommer: lägg in nya begrepp och modeller i avsnitt 12 och flytta sedan in dem i rätt del av dokumentet.",
+        "När nytt material kommer: lägg in nya begrepp och modeller i det levande avsnittet längst bak och flytta sedan in dem i rätt del av dokumentet.",
     ])
 
     h1(doc, "2. Kursen i korthet")
@@ -587,18 +710,18 @@ def build_document():
     bullets(doc, [
         "För en IT-projektledare betyder affärsmannaskap att teknik måste kopplas till kundens verksamhet, nytta, risk och ekonomi.",
         "För en konsult betyder det att varje interaktion påverkar förtroende, relation och framtida affär.",
-        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell och avtal.",
-        "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg.",
+        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell, avtal, offentlig upphandling och affärsplan.",
+        "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg i en affärsplan.",
     ])
-    p(doc, "Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss och hur blir det en fungerande affär?")
+    p(doc, "Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss, hur säljer och levererar vi, och hur blir det en fungerande affär?")
     md.p("Affärsmannaskap handlar om att förstå hur ett företag skapar värde för kunder och hur erbjudanden blir kommersiellt hållbara. I den här kursen kopplas det till IT, konsultrollen och projektledarens ansvar för kundnytta, ekonomi, relationer och professionellt agerande.")
     md.bullets([
         "För en IT-projektledare betyder affärsmannaskap att teknik måste kopplas till kundens verksamhet, nytta, risk och ekonomi.",
         "För en konsult betyder det att varje interaktion påverkar förtroende, relation och framtida affär.",
-        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell och avtal.",
-        "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg.",
+        "Kursens modeller hjälper dig gå från idé till argument: kundsegment, erbjudande, pris, marknad, konkurrenter, omvärld, bolagsform, företagsplattform, mål, ekonomisk hälsokoll, budget, affärsmodell, avtal, offentlig upphandling och affärsplan.",
+        "Gruppuppgiften tränar förmågan att bygga ett fiktivt IT-konsultbolag och motivera affärslogiken steg för steg i en affärsplan.",
     ])
-    md.p("Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss och hur blir det en fungerande affär?")
+    md.p("Den röda tråden är enkel: vilka är vi, vilket problem löser vi, för vem, varför ska kunden välja oss, hur säljer och levererar vi, och hur blir det en fungerande affär?")
 
     add_concept_section(doc, md)
     add_models_section(doc, md)
@@ -616,6 +739,8 @@ def build_document():
         ("Affärsmodell/intäktsmodell", "Kombinerar förstudier, fastprisinföranden, löpande förbättringsstöd och prenumerationsliknande support så att intäkterna inte bara bygger på engångsprojekt."),
         ("Differentiering", "Kombinerar verksamhetsförståelse med praktiskt Microsoft 365-genomförande. Fokus på små steg som kunden kan använda direkt."),
         ("Kanaler", "LinkedIn, rekommendationer, partnernätverk, seminarier för mindre organisationer och direktkontakt med verksamhetschefer."),
+        ("Marknadsplan", "Bolaget prioriterar rekommendationer, LinkedIn-innehåll, korta frukostseminarier och partnerkontakter mot verksamhetschefer i dokumenttunga organisationer."),
+        ("Offentlig kund/upphandling", "Om kunden är kommun, region eller myndighet behöver bolaget läsa krav, kriterier, avtal, offentlighet och överprövningsrisk innan anbud lämnas."),
         ("Intäktsströmmar", "Förstudier, införandeprojekt, utbildningar och återkommande abonnemang."),
         ("Nyckelresurser", "M365-kompetens, processkartläggning, AI-kunskap, mallar, projektledning och pedagogisk förmåga."),
         ("Nyckelpartners", "Microsoft-partner, dataskyddsjurist vid behov, redovisningsbyrå och eventuella underkonsulter."),
@@ -630,6 +755,7 @@ def build_document():
         ("Budget/prognos", "Budgetera löner, sociala avgifter, pension, försäkring, licenser, utbildning, sälj och realistisk debiteringsgrad. Följ upp med prognos när beläggning eller kostnader ändras."),
         ("Ekonomisk hälsokoll", "Följ resultat, kassalikviditet, soliditet och kassaflöde så att bolaget inte bara växer på papperet utan också kan betala sina korta skulder."),
         ("Avtalsfrågor", "Klargör omfattning, ersättning, ansvar, sekretess, underleverantörer, hosting, underhåll, personuppgifter och vem som äger lösningen."),
+        ("Roadmap", "Kvartal 1: förstudiepaket och första pilotkund. Kvartal 2: standardiserat införandepaket. Kvartal 3: abonnemang för förbättringsstöd. Kvartal 4: utvärdering och skalning."),
     ]
     table(doc, ["Del", "Exempel"], example_rows, [1.8, 4.7], font_size=8.5)
     md.table(["Del", "Exempel"], example_rows)
@@ -674,9 +800,10 @@ def build_document():
 
     add_annual_reports_section(doc, md)
     add_lecture6_section(doc, md)
+    add_lecture7_section(doc, md)
 
-    h1(doc, "10. Instuderingsfrågor")
-    md.h2("10. Instuderingsfrågor")
+    h1(doc, "11. Instuderingsfrågor")
+    md.h2("11. Instuderingsfrågor")
     q_rows = [
         ("Grundnivå", "Affärsmannaskap", "Förklara affärsmannaskap med egna ord. Hur skiljer det sig från att bara sälja?"),
         ("Grundnivå", "Kundvärde", "Vad är skillnaden mellan en funktion och kundvärde?"),
@@ -688,6 +815,9 @@ def build_document():
         ("Grundnivå", "Likviditet/soliditet", "Vad mäter likviditet respektive soliditet?"),
         ("Grundnivå", "Budget/prognos", "Vad är skillnaden mellan budget och prognos/forecast?"),
         ("Grundnivå", "Avtal", "Vad är skillnaden mellan ramavtal, avrop, avtal och Letter of Intent?"),
+        ("Grundnivå", "Offentlig upphandling", "Vad är offentlig upphandling och varför skiljer den sig från en privat offertdialog?"),
+        ("Grundnivå", "RFI/RFP/RFQ", "Vad är skillnaden mellan RFI, RFP och RFQ?"),
+        ("Grundnivå", "Affärsplan/roadmap", "Vad är skillnaden mellan affärsplan, marknadsplan och roadmap?"),
         ("Tillämpning", "SWOT", "Gör en enkel SWOT för Verksamhetslyftet Digital AB."),
         ("Tillämpning", "PESTELID", "Välj tre omvärldsfaktorer som påverkar ett IT-konsultbolag och förklara påverkan."),
         ("Tillämpning", "BMC", "Fyll i fem BMC-rutor för ett bolag som säljer AI-stöd i administration."),
@@ -697,18 +827,22 @@ def build_document():
         ("Tillämpning", "Produkt-marknad", "Jämför två tjänster mot två kundsegment och motivera vilket alternativ som ska prioriteras."),
         ("Tillämpning", "Konsultlönsamhet", "Hur påverkas lönsamheten om debiteringsgraden sjunker eller intern tid ökar?"),
         ("Tillämpning", "Affärsmodell", "Välj två affärsmodeller från föreläsning 6 och förklara hur de skulle kunna passa ett IT-konsultbolag."),
+        ("Tillämpning", "Upphandlingsanalys", "Läs en upphandling och lista vad som ska levereras, vilka villkor som gäller och vilka kriterier som avgör."),
+        ("Tillämpning", "Affärsplan", "Välj fem rubriker i affärsplanen och förklara hur de hänger ihop med samma röda tråd."),
         ("Analys", "Prissättning", "När är fast pris bättre än timpris? Vilka risker finns?"),
         ("Analys", "Ansoff", "Jämför marknadspenetration och diversifiering för ett IT-konsultbolag."),
         ("Analys", "Konkurrentanalys", "Varför är interna IT-avdelningar och färdiga AI-verktyg också konkurrenter/substitut?"),
         ("Analys", "REBR/omvärld", "Hur kan REBR användas som stöd utan att överdriva slutsatserna?"),
         ("Analys", "Årsredovisning", "Hur skiljer sig Hälsö Fisk AB och Essiq AB om du jämför resultat, likviditet och soliditet?"),
         ("Analys", "Avtalsrätt", "Vilka avtalsfrågor är mest riskfyllda i ett IT-projekt: ägande, hosting, underhåll, personuppgifter, ersättning eller ansvar? Motivera."),
+        ("Analys", "Offentlig upphandling", "Varför kan otydliga krav, orimliga krav eller otydlig värderingsmodell leda till överprövning?"),
+        ("Analys", "Tröskelvärde/direktupphandling", "Varför är det riskabelt att plugga ett fast belopp utan att kontrollera kund, tjänst och tidpunkt?"),
     ]
     table(doc, ["Nivå", "Område", "Fråga"], q_rows, [1.05, 1.35, 4.1], font_size=8.4)
     md.table(["Nivå", "Område", "Fråga"], q_rows)
 
-    h1(doc, "11. Miniövningar")
-    md.h2("11. Miniövningar")
+    h1(doc, "12. Miniövningar")
+    md.h2("12. Miniövningar")
     ex_rows = [
         ("Skriv ett värdeerbjudande", "Skriv två meningar: kundproblem och nytta.", "Vi hjälper mindre organisationer att minska manuell administration genom AI-stöd och automation i Microsoft 365."),
         ("Välj kundsegment", "Välj ett segment och motivera med behov, betalningsvilja och åtkomst.", "små och medelstora organisationer med dokumenttunga processer, eftersom de ofta saknar intern utvecklingskapacitet men har tydliga effektivitetsproblem."),
@@ -724,12 +858,16 @@ def build_document():
         ("Gör en enkel konsultbudget", "Lista intäkter, personalkostnader, overhead och tre scenarier för beläggning.", "Intäkt: arvoden och supportabonnemang. Kostnad: lön, sociala avgifter, pension, licenser, försäkring och sälj. Scenario: 50, 70 och 85 procent debiteringsgrad."),
         ("Välj affärsmodell", "Välj en huvudmodell och en kompletterande modell för bolaget.", "Huvudmodell: fastprisinföranden. Komplettering: prenumeration för löpande support och förbättringsstöd."),
         ("Gör avtalskarta", "Skriv fem punkter som måste regleras innan ett IT-uppdrag startar.", "Omfattning, ersättning, ägande av lösning, hosting/drift, personuppgifter, sekretess och ansvar vid försening eller ändringar."),
+        ("Skilj RFI/RFP/RFQ", "Skriv ett svar på vilken typ av kundförfrågan du har framför dig.", "RFI: kunden söker marknadsinformation. RFP: kunden vill ha förslag och offert. RFQ: kunden vet vad den vill köpa och vill jämföra pris/villkor."),
+        ("Läs en upphandling", "Skriv fem frågor som måste besvaras innan ni lämnar anbud.", "Vad ska levereras? För hur många användare? Vad händer med tidigare data? Vilka krav är skallkrav? Vad ger poäng i utvärderingen?"),
+        ("Bygg affärsplan från modeller", "Koppla BMC, SWOT och differentiering till tre affärsplanerubriker.", "Kundsegment och värdeerbjudande från BMC går in i kunder/produkt. SWOT går in i analys. Differentiering går in i konkurrens och produkt."),
+        ("Gör en roadmap", "Skriv fyra steg för första året.", "Q1: förstudiepaket och pilotkund. Q2: införandepaket. Q3: abonnemang/support. Q4: utvärdera, paketera om och skala."),
     ]
     table(doc, ["Övning", "Uppgift", "Kort exempelsvar"], ex_rows, [1.45, 2.0, 3.05], font_size=8.0)
     md.table(["Övning", "Uppgift", "Kort exempelsvar"], ex_rows)
 
-    h1(doc, "12. Checklista inför grupparbetet")
-    md.h2("12. Checklista inför grupparbetet")
+    h1(doc, "13. Checklista inför grupparbetet")
+    md.h2("13. Checklista inför grupparbetet")
     checklist = [
         "Har vi en tydlig kund, inte bara en bred marknad?",
         "Vet vi vilket kundproblem vi löser?",
@@ -741,18 +879,23 @@ def build_document():
         "Har vi formulerat vision, mission, värderingar och affärsidé så att de hänger ihop?",
         "Har vi mål och KPI:er för kund, medarbetare, interna processer och ekonomi?",
         "Har vi valt affärsmodell och intäktsmodell, inte bara beskrivit tjänsten?",
+        "Har vi en marknadsplan: vilka kunder når vi, i vilka kanaler och med vilket budskap?",
         "Har vi budgeterat lön, sociala avgifter, pension, försäkring, licenser, sälj och realistisk debiteringsgrad?",
         "Har vi gjort en enkel ekonomisk hälsokoll med resultat, likviditet, soliditet och kassaflöde?",
         "Har vi identifierat avtalsfrågor kring scope, ersättning, ansvar, sekretess, underleverantörer, hosting, underhåll och personuppgifter?",
+        "Om kunden är offentlig: har vi förstått krav, kriterier, villkor, offentlighet och överprövningsrisk?",
+        "Kan vi förklara skillnaden mellan RFI, RFP och RFQ?",
+        "Har vi en roadmap som visar prioriterade steg utan att bli en hel affärsplan?",
+        "Täcker affärsplanen idé, kunder, marknad, konkurrens, produkt, sälj/betalning/leverans, marknadsbearbetning, affärsmodell, resurser, hållbarhet, team och analys?",
         "Har vi använt externa källor försiktigt och korrekt?",
         "Kan varje gruppmedlem förklara affärslogiken från kundproblem till intäkt?",
-        "Har vi en röd tråd mellan produkt-marknad, BMC, SWOT, PESTELID och presentation?",
+        "Har vi en röd tråd mellan produkt-marknad, BMC, SWOT, PESTELID, affärsplan och presentation?",
     ]
     bullets(doc, checklist)
     md.bullets(checklist)
 
-    h1(doc, "13. Levande avsnitt för framtida kursmaterial")
-    md.h2("13. Levande avsnitt för framtida kursmaterial")
+    h1(doc, "14. Levande avsnitt för framtida kursmaterial")
+    md.h2("14. Levande avsnitt för framtida kursmaterial")
     p(doc, "Använd det här avsnittet när nytt kursmaterial kommer. Skriv kort först. När något återkommer eller blir viktigt, flytta in det i rätt tidigare avsnitt.")
     md.p("Använd det här avsnittet när nytt kursmaterial kommer. Skriv kort först. När något återkommer eller blir viktigt, flytta in det i rätt tidigare avsnitt.")
     future_rows = [

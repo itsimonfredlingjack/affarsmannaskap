@@ -103,6 +103,7 @@ const bmc = c("bmc", "Business Model Canvas", ["bmc", "business model canvas", "
 const kundsegment = c("kundsegment", "kundsegment", ["kundsegment", "målgrupp", "målkund", "kundgrupp"]);
 const kanal = c("kanal", "kanal eller relation", ["kanal", "kanaler", "relation", "kundrelation", "linkedin", "referens", "sälj"]);
 const intakter = c("intakter", "intäkter", ["intäkt", "intäkter", "intäktsmodell", "får betalt", "betalning", "abonnemang", "projektpris", "timpris", "supportavtal"]);
+const betalning = c("betalning", "betalning", ["betalning", "betalar", "faktura", "fakturering", "förskott", "30 dagar", "inbetalning", "betalningsvillkor"]);
 const kostnader = c("kostnader", "kostnader", ["kostnad", "kostnader", "kostnadsstruktur", "lön", "overhead", "direkta kostnader"]);
 const resurser = c("resurser", "nyckelresurser", ["nyckelresurs", "nyckelresurser", "kompetens", "personal", "konsult", "verktyg"]);
 const pestelid = c("pestelid", "PESTELID", ["pestelid", "omvärld", "politisk", "ekonomisk", "social", "teknologisk", "legal", "demografisk"]);
@@ -182,6 +183,40 @@ const bada = c("bada", "båda parter", ["båda parter", "kund och bolag", "kunde
 const lonsamhet = c("lonsamhet", "lönsamhet", ["lönsamhet", "marginal", "vinst", "täckningsbidrag", "tjäna pengar"]);
 const rodTrad = c("rodtrad", "röd tråd", ["röd tråd", "struktur", "från problem", "till ekonomi", "helhet"]);
 const analys = c("analys", "analysmodell", ["analys", "swot", "pestelid", "bmc", "konkurrent", "omvärld"]);
+const saljprocess = c("saljprocess", "försäljningsprocess", ["försäljningsprocess", "säljprocess", "lead", "prospekt", "första kontakt", "behovsmöte", "offert", "avslut", "uppföljning"]);
+const kvalificering = c("kvalificering", "kvalificering av affär", ["kvalificering", "kvalificera", "budget", "beslutsfattare", "beslutsväg", "tidplan", "behov", "köpmognad"]);
+const saljsamtal = c("saljsamtal", "säljsamtal", ["säljsamtal", "kundmöte", "kunddialog", "affärsmöte", "möte"]);
+const lyssnande = c("lyssnande", "aktivt lyssnande", ["lyssna", "aktivt lyssnande", "öppna frågor", "behovsfrågor", "sammanfattar", "förstår kunden"]);
+const forhandling = c("forhandling", "förhandling", ["förhandling", "förhandla", "villkor", "motkrav", "kompromiss"]);
+const rabatt = c("rabatt", "rabatt eller prispress", ["rabatt", "prispress", "sänka pris", "lägre pris", "20 procent"]);
+const offert = c("offert", "offert", ["offert", "förslag", "prisförslag", "anbud", "erbjudande"]);
+const invandning = c("invandning", "invändning", ["invändning", "kunden säger", "extra", "lägg in", "frågar", "protest"]);
+const affarsplan = c("affarsplan", "affärsplan", ["affärsplan", "affärsidé", "verksamhet", "vision", "mål", "resurser"]);
+const marknadsplan = c("marknadsplan", "marknadsplan", ["marknadsplan", "marknadsbearbetning", "nå kunder", "attrahera kunder", "go to market", "gtm"]);
+const roadmap = c("roadmap", "roadmap", ["roadmap", "färdplan", "tidslinje", "plan över tid"]);
+const milstolpe = c("milstolpe", "milstolpe eller uppföljning", ["milstolpe", "milstolpar", "år 1", "år 2", "år 3", "uppföljning", "ansvar", "ägare"]);
+const aktivitet = c("aktivitet", "aktivitet", ["aktivitet", "aktiviteter", "insats", "insatser", "workshop", "seminarium", "pilot"]);
+const prioritering = c("prioritering", "prioritering eller bortval", ["prioritering", "prioritera", "välja bort", "bortval", "få kanaler", "fokusera"]);
+const rfi = c("rfi", "RFI", ["rfi", "request for information", "samla information", "marknadsdialog", "information om marknaden"]);
+const rfp = c("rfp", "RFP", ["rfp", "request for proposal", "förslag", "lösningsförslag", "offertförfrågan"]);
+const rfq = c("rfq", "RFQ", ["rfq", "request for quotation", "quotation", "prisförfrågan", "jämförbart pris", "leveransvillkor"]);
+const upphandling = c("upphandling", "offentlig upphandling", ["upphandling", "offentlig upphandling", "lou", "upphandlingsunderlag", "offentlig kund"]);
+const skallkrav = c("skallkrav", "obligatoriska krav", ["skallkrav", "ska krav", "obligatoriskt krav", "måste uppfylla", "förkastas"]);
+const borkrav = c("borkrav", "börkrav eller tilldelningskriterier", ["börkrav", "bor krav", "tilldelningskriterier", "utvärderingskriterier", "poäng", "påslag"]);
+const utvardering = c("utvardering", "utvärderingsmodell", ["utvärdering", "utvärderingsmodell", "jämförelsesumma", "bästa förhållande", "pris och kvalitet", "lägsta pris"]);
+const anbud = c("anbud", "anbud", ["anbud", "lämna anbud", "anbudet", "tendsign", "upphandlingsverktyg"]);
+const offentligHandling = c("offentligHandling", "offentlig handling", ["offentlig handling", "offentlighetsprincip", "begäras ut", "lämnas ut", "handling"]);
+const sekretessprovning = c("sekretessprovning", "sekretessprövning", ["sekretessprövning", "prövas", "kan inte garantera", "precisera", "affärshemlighet", "anbudssekretess"]);
+const direktupphandling = c("direktupphandling", "direktupphandling", ["direktupphandling", "direktupphandla", "direkt köp"]);
+const troskelvarde = c("troskelvarde", "tröskelvärde eller aktuell gräns", ["tröskelvärde", "direktupphandlingsgräns", "gräns", "aktuellt belopp", "aktuella regler", "värde"]);
+const resultatbudget = c("resultatbudget", "resultatbudget", ["resultatbudget", "resultat", "periodiserat", "intäkter och kostnader", "vinst"]);
+const likviditetsbudget = c("likviditetsbudget", "likviditetsbudget", ["likviditetsbudget", "likviditet", "kassa", "inbetalning", "utbetalning", "kassaflöde"]);
+const moms = c("moms", "moms", ["moms", "momsredovisning", "momsskuld", "momsfordran", "25 procent"]);
+const kredittid = c("kredittid", "kredittid eller betalningsvillkor", ["kredittid", "betalningsvillkor", "30 dagar", "betalar senare", "förskott", "faktura"]);
+const tidsbox = c("tidsbox", "tidsbox", ["tidsbox", "timebox", "sprint", "pågående tidsbox", "reservtidsbox"]);
+const uppdragsplan = c("uppdragsplan", "uppdragsplan eller projektmål", ["uppdragsplan", "uppdragsbeskrivning", "projektmål", "mål", "plan"]);
+const andring = c("andring", "ändring av uppdrag", ["ändring", "ändringsbegäran", "ändring av uppdrag", "nytt mål", "ny funktion", "tillägg"]);
+const leverans = c("leverans", "leverans", ["leverans", "leverera", "genomförs", "införande", "implementation"]);
 
 const economyMix: CompoundRule = {
   key: "economyMix",
@@ -515,5 +550,303 @@ export const FOKUS_RUBRICS: Record<string, Rubric> = {
     "Helhetscase = kundproblem, analys, affärsmodell, ekonomi, avtal och effekt.",
     ["Ett M365-bolag löser onboarding, motiverar valet med analys, säljer projekt plus support, räknar på debitering/overhead, hanterar DPA/scope och mäter sparad tid."],
     [riskAgreementMix]
+  ),
+  "essay-saljprocess-kundbehov": r(
+    "essay-saljprocess-kundbehov",
+    [saljprocess, kund, problem, kvalificering, offert, beslut],
+    ["saljprocess", "kund", "problem", "kvalificering"],
+    ["offert", "beslut"],
+    "Säljprocessen ska börja i kundbehov och kvalificering, inte i produktprat.",
+    ["Lead -> behovsmöte -> kvalificering av budget och beslutsväg -> avgränsat förslag -> offert -> nästa steg."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "produktpitch-utan-behov",
+          "produktpitch utan behovsanalys",
+          ["börjar med produkt", "presenterar lösningen direkt", "säljer direkt utan behov", "pitchar först"],
+          "Ett affärsmässigt säljarbete behöver först förstå kundens problem, beslutsväg och budget."
+        )
+      ]
+    }
+  ),
+  "essay-saljsamtal-aktivt-lyssnande": r(
+    "essay-saljsamtal-aktivt-lyssnande",
+    [saljsamtal, lyssnande, problem, kundnytta, trov, beslut],
+    ["saljsamtal", "lyssnande", "problem", "kundnytta"],
+    ["trovardighet", "beslut"],
+    "Ett bra säljsamtal gör kundens behov tydligt innan lösningen föreslås.",
+    ["Öppna frågor, sammanfattning av problemet och ett rimligt nästa steg bygger förtroende."]
+  ),
+  "essay-forhandling-marginal-risk": r(
+    "essay-forhandling-marginal-risk",
+    [forhandling, rabatt, scope, lonsamhet, risk, kundnytta],
+    ["forhandling", "rabatt", "scope", "lonsamhet"],
+    ["risk", "kundnytta"],
+    "Förhandla om värde, scope och villkor, inte bara pris.",
+    ["Sänk priset bara om scope, servicenivå, betalning eller omfattning justeras."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "rabatt-loser-allt",
+          "rabatt löser förhandlingen",
+          ["ge rabatt", "sänk priset bara", "alltid rabatt", "20 procent rabatt direkt"],
+          "Rabatt utan motprestation kan förstöra marginal och leveranskvalitet. Förhandla även om scope, tid, betalning eller servicenivå."
+        )
+      ]
+    }
+  ),
+  "essay-affarsplan-kundsegment-varde": r(
+    "essay-affarsplan-kundsegment-varde",
+    [affarsplan, kundsegment, problem, kundnytta, vardeerbjudande, differentiering],
+    ["affarsplan", "kundsegment", "problem", "vardeerbjudande"],
+    ["kundnytta", "differentiering"],
+    "Affärsplanens kunddel ska avgränsa vem som köper, varför och vilket värde de får.",
+    ["Växande tjänsteföretag med manuell onboarding är skarpare än alla SME-kunder."]
+  ),
+  "essay-marknadsplan-kanalprioritering": r(
+    "essay-marknadsplan-kanalprioritering",
+    [marknadsplan, kanal, kundsegment, prioritering, aktivitet, kpi],
+    ["marknadsplan", "kanal", "kundsegment", "prioritering"],
+    ["aktivitet", "kpi"],
+    "En marknadsplan måste prioritera kanaler efter kund och köpbeteende.",
+    ["Referenser, riktad LinkedIn och partnerdialog kan passa B2B bättre än bred annonsering."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "alla-kanaler",
+          "alla kanaler utan prioritering",
+          ["alla kanaler", "linkedin annonser partners events nyhetsbrev", "vi gör allt", "samtliga kanaler"],
+          "En marknadsplan behöver val, bortval, ansvar och uppföljning. Att lista alla kanaler visar inte strategi."
+        )
+      ]
+    }
+  ),
+  "essay-roadmap-mal-affarsplan": r(
+    "essay-roadmap-mal-affarsplan",
+    [roadmap, affarsplan, mal, aktivitet, milstolpe, kpi],
+    ["roadmap", "affarsplan", "mal", "milstolpe"],
+    ["aktivitet", "kpi"],
+    "Roadmapen översätter affärsplanens mål till tid, ansvar och uppföljning.",
+    ["År 1 piloter, år 2 paketerad support, år 3 offentlig sektor först när referenser och kapacitet finns."]
+  ),
+  "essay-salja-betala-leverera-flode": r(
+    "essay-salja-betala-leverera-flode",
+    [saljprocess, kund, offert, betalning, leverans, risk, scope],
+    ["saljprocess", "offert", "betalning", "leverans"],
+    ["kund", "risk", "scope"],
+    "Visa hur affären faktiskt går från kundkontakt till betalning och leverans.",
+    ["Referenslead, behovsmöte, fastprisförstudie, 30 dagars betalning och pilot med tydlig kundmedverkan."]
+  ),
+  "essay-offert-invandning-scope": r(
+    "essay-offert-invandning-scope",
+    [invandning, offert, scope, forhandling, lonsamhet, andring],
+    ["invandning", "offert", "scope", "lonsamhet"],
+    ["forhandling", "andring"],
+    "Bekräfta kundens behov men skydda scope, pris och leveransförmåga.",
+    ["Byt ut något i scope eller lägg integrationerna som separat tillägg efter förstudien."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "gratis-extraarbete",
+          "gratis extraarbete i samma scope",
+          ["ingår gratis", "bara lägga in", "samma pris oavsett", "vi bjuder på det"],
+          "Extra funktioner behöver prioriteras, bytas mot annat scope eller hanteras som ändring."
+        )
+      ]
+    }
+  ),
+  "essay-rfi-rfp-rfq-svarstyp": r(
+    "essay-rfi-rfp-rfq-svarstyp",
+    [rfi, rfp, rfq, upphandling, offert, pris],
+    ["rfi", "rfp", "rfq"],
+    ["upphandling", "offert", "pris"],
+    "RFI = information, RFP = förslag, RFQ = jämförbar prisförfrågan.",
+    ["RFI beskriver möjliga upplägg, RFP ger lösningsförslag och RFQ ger pris och leveransvillkor."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "rfi-rfp-rfq-samma-sak",
+          "RFI, RFP och RFQ blandas ihop",
+          ["samma sak", "alla är offert", "alla betyder pris", "rfi är offert"],
+          "Stegen signalerar olika köpmognad. Anpassa svaret efter om kunden söker information, lösningsförslag eller pris."
+        )
+      ]
+    }
+  ),
+  "essay-upphandling-krav-utvardering": r(
+    "essay-upphandling-krav-utvardering",
+    [upphandling, skallkrav, borkrav, utvardering, anbud, risk, pris],
+    ["upphandling", "skallkrav", "utvardering", "anbud"],
+    ["borkrav", "risk", "pris"],
+    "Lämna bara anbud när obligatoriska krav, pris och villkor går att uppfylla.",
+    ["Skallkrav måste uppfyllas. Börkrav kan påverka jämförelsesumma och bör räknas in i beslutet."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "pitch-kompenserar-skallkrav",
+          "bra pitch kompenserar skallkrav",
+          ["bra pitch räcker", "kan vinna ändå", "skallkrav spelar mindre roll", "kompenserar med presentation"],
+          "Obligatoriska krav måste uppfyllas. Annars kan anbudet förkastas oavsett hur stark presentationen är."
+        )
+      ]
+    }
+  ),
+  "essay-resultatbudget-likviditetsbudget": r(
+    "essay-resultatbudget-likviditetsbudget",
+    [resultatbudget, likviditetsbudget, kassaflode, kredittid, moms, beslut],
+    ["resultatbudget", "likviditetsbudget", "kassaflode"],
+    ["kredittid", "moms", "beslut"],
+    "Resultat visar lönsamhet; likviditetsbudget visar om pengarna räcker i tid.",
+    ["Vinst i mars hjälper inte löner i februari om kundens betalning kommer efter 30 dagar."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "resultat-ar-kassa",
+          "resultat förväxlas med kassa",
+          ["vinst betyder pengar", "resultat är kassa", "positivt resultat räcker", "lönsamt så kassan räcker"],
+          "Ett projekt kan vara lönsamt men ändå skapa likviditetsproblem om betalningar kommer senare än kostnaderna."
+        )
+      ]
+    }
+  ),
+  "essay-agilt-avtal-tidsbox-andring": r(
+    "essay-agilt-avtal-tidsbox-andring",
+    [tidsbox, uppdragsplan, scope, andring, risk, avtal],
+    ["tidsbox", "uppdragsplan", "scope", "andring"],
+    ["risk", "avtal"],
+    "Agilt arbete tillåter omprioritering, men nya mål och större scope kräver ändringshantering.",
+    ["Byt ordning på user stories inom mål, men hantera ny integration som ändring av uppdrag."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "agilt-betyder-allt-ingår",
+          "agilt betyder att allt ingår",
+          ["agilt så allt ingår", "flexibelt betyder gratis", "allt kan ändras utan kostnad", "ingen ändringshantering"],
+          "Agil styrning är flexibel inom ramarna, men nya mål, resurser eller tidsboxsekvenser behöver affärsmässig ändringshantering."
+        )
+      ]
+    }
+  ),
+  "essay-salj-etisk-affar": r(
+    "essay-salj-etisk-affar",
+    [hallbar, kundnytta, risk, trov, beslut, saljprocess],
+    ["hallbar", "kundnytta", "risk", "trovardighet"],
+    ["beslut", "saljprocess"],
+    "Sälj rätt lösning för kundens behov även när större order vore möjlig.",
+    ["Föreslå pilot eller mindre scope om full implementation inte är motiverad."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "maxa-order-fore-kundnytta",
+          "maxa ordervärde före kundnytta",
+          ["sälj största lösningen", "maximera order", "kunden behöver inte men", "hög vinst kortsiktigt"],
+          "Kortsiktig ordermaximering kan skada förtroende, leverans och framtida affärer om lösningen inte passar kundens behov."
+        )
+      ]
+    }
+  ),
+  "essay-affarsplan-mall-utan-analys": r(
+    "essay-affarsplan-mall-utan-analys",
+    [affarsplan, analys, rodTrad, beslut, prioritering, kundnytta],
+    ["affarsplan", "analys", "rodtrad", "beslut"],
+    ["prioritering", "kundnytta"],
+    "Affärsplanen ska vara ett beslutsunderlag, inte bara ifyllda rubriker.",
+    ["Kund, marknad, säljkanal, affärsmodell och budget måste peka åt samma håll."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "mall-ar-analys",
+          "mall ifylld utan analys",
+          ["alla rubriker är ifyllda", "bara fylla i mallen", "checklista räcker", "mall räcker"],
+          "En ifylld mall blir inte en affärsplan om den saknar röd tråd, prioritering och beslut."
+        )
+      ]
+    }
+  ),
+  "essay-marknadsplan-alla-kanaler": r(
+    "essay-marknadsplan-alla-kanaler",
+    [marknadsplan, kanal, prioritering, kundsegment, kpi, aktivitet],
+    ["marknadsplan", "kanal", "prioritering", "kundsegment"],
+    ["kpi", "aktivitet"],
+    "Marknadsplanen ska välja kanaler som passar kundsegment och mätas.",
+    ["För komplex B2B kan referenser och personlig försäljning prioriteras framför bred annonsering."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "alla-kanaler-utan-val",
+          "alla kanaler utan val",
+          ["linkedin annonser partners events nyhetsbrev", "alla kanaler", "vi testar allt", "så många kanaler som möjligt"],
+          "Att lista många kanaler utan ansvar, målgrupp och mätning är svagare än få motiverade kanalval."
+        )
+      ]
+    }
+  ),
+  "essay-offentlig-handling-sekretess": r(
+    "essay-offentlig-handling-sekretess",
+    [offentligHandling, sekretess, sekretessprovning, anbud, upphandling, risk],
+    ["offentligHandling", "sekretess", "sekretessprovning", "anbud"],
+    ["upphandling", "risk"],
+    "Sekretessmarkering är en begäran; myndigheten gör sekretessprövningen.",
+    ["Anbud kan vara hemligt under upphandlingen men prövas efter tilldelning om någon begär ut det."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "sekretessmarkering-garanterar",
+          "sekretessmarkering garanterar sekretess",
+          ["sekretessmarkerar allt", "allt är skyddat", "garanterar sekretess", "hemligt automatiskt"],
+          "Leverantören kan precisera känsliga uppgifter, men kan inte garantera att hela anbudet hålls hemligt efter prövning."
+        )
+      ]
+    }
+  ),
+  "essay-direktupphandling-troskel-risk": r(
+    "essay-direktupphandling-troskel-risk",
+    [direktupphandling, troskelvarde, upphandling, risk, beslut, anbud],
+    ["direktupphandling", "troskelvarde", "risk"],
+    ["upphandling", "beslut", "anbud"],
+    "Direktupphandling kräver aktuell regelkontroll och dokumenterad grund.",
+    ["Lämna offert men säkerställ att kunden kontrollerar aktuellt värde, gräns och upphandlingsform."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "direktupphandling-fritt-kop",
+          "direktupphandling som fritt köp",
+          ["fritt köp", "behöver inga regler", "kan alltid direktupphandla", "inte så stor så spelar ingen roll"],
+          "Direktupphandling är fortfarande upphandling. Värde, gräns, dokumentation och konkurrensrisk behöver kontrolleras."
+        )
+      ]
+    }
+  ),
+  "essay-kredittid-moms-kassaflode": r(
+    "essay-kredittid-moms-kassaflode",
+    [moms, kredittid, kassaflode, likviditet, betalning, resultatbudget],
+    ["moms", "kredittid", "kassaflode", "likviditet"],
+    ["betalning", "resultatbudget"],
+    "Moms och kredittid påverkar när pengar faktiskt finns i kassan.",
+    ["Faktura plus moms kan vara lönsam men ändå kräva buffert om löner betalas innan kunden betalar."],
+    [],
+    {
+      misconceptions: [
+        m(
+          "exkl-moms-ar-kassa",
+          "pris exklusive moms behandlas som fri kassa",
+          ["moms spelar ingen roll", "exklusive moms är pengar", "hela fakturan är vår", "kredittid spelar ingen roll"],
+          "Moms och betalningsvillkor påverkar likviditetsbudgeten även om projektets marginal är positiv."
+        )
+      ]
+    }
   )
 };
