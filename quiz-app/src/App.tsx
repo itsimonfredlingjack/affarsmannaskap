@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, Sun, Moon, Volume2, VolumeX, Flame } from 'lucide-react';
+import { Menu, Sun, Moon, Volume2, VolumeX, Flame, Home } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 // Logic & Data
@@ -587,10 +587,31 @@ export default function App() {
             >
               <Menu size={18} />
             </button>
+            {studyTrack !== null && (
+              <button
+                onClick={handleBackToTracks}
+                className="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer"
+                title="Till startsidan"
+                aria-label="Till startsidan"
+              >
+                <Home size={18} />
+              </button>
+            )}
             <div>
-              <span className="text-sm font-display font-bold text-text-primary">
-                Affärsmannaskap
-              </span>
+              {studyTrack !== null ? (
+                <button
+                  type="button"
+                  onClick={handleBackToTracks}
+                  className="text-sm font-display font-bold text-text-primary hover:text-accent transition-colors cursor-pointer"
+                  aria-label="Till startsidan"
+                >
+                  Affärsmannaskap
+                </button>
+              ) : (
+                <span className="text-sm font-display font-bold text-text-primary">
+                  Affärsmannaskap
+                </span>
+              )}
               {session.active && (
                 <p className="text-[10px] text-text-muted uppercase tracking-wider">
                   {studyTrack === 'terms' ? 'Begreppsläge' : 'Fokusläge'}
