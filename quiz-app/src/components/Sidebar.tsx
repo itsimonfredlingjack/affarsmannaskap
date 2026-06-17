@@ -57,20 +57,10 @@ export function Sidebar({
   collapsed = false,
 }: SidebarProps): JSX.Element {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
-  const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(activeQuestionId);
-  const [syncedActiveQuestionId, setSyncedActiveQuestionId] = useState(activeQuestionId);
   const [overviewOpen, setOverviewOpen] = useState(true);
+  const [questionsListOpen, setQuestionsListOpen] = useState(false);
 
-  if (activeQuestionId !== syncedActiveQuestionId) {
-    setSyncedActiveQuestionId(activeQuestionId);
-    setExpandedQuestionId(activeQuestionId);
-  }
-
-  const toggleQuestionExpanded = (questionId: string) => {
-    setExpandedQuestionId(prev => (prev === questionId ? null : questionId));
-  };
-
-  const isQuestionExpanded = (questionId: string) => expandedQuestionId === questionId;
+  const questionListLabel = studyTrack === 'terms' ? 'Begreppslista' : 'Frågelista';
 
   const getCareerBadge = (percent: number) => {
     if (percent >= 100) return { title: 'Partner', variant: 'warning' as const };
@@ -224,88 +214,57 @@ export function Sidebar({
           )}
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2">
-          <p className="px-1 mb-2 text-xs text-text-muted">
-            {filteredQuestions.length} frågor
-          </p>
-          <ul className="space-y-1 pb-4">
-            {filteredQuestions.map((q) => {
-              const progress = cardProgresses[q.id];
-              const rating = progress?.rating;
+        <div className="flex flex-col flex-1 min-h-0 border-b border-border">
+          <button
+            type="button"
+            onClick={() => setQuestionsListOpen(prev => !prev)}
+            className="flex items-center justify-between w-full px-4 py-3 text-xs font-semibold uppercase tracking-wide text-text-muted hover:text-text-primary cursor-pointer transition-colors shrink-0"
+            aria-expanded={questionsListOpen}
+          >
+            <span>{questionListLabel} ({filteredQuestions.length})</span>
+            <ChevronDown
+              size={14}
+              className={`shrink-0 transition-transform duration-200 ${questionsListOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
 
-              let dotColor = 'bg-border';
-              if (rating === 'known') dotColor = 'bg-success';
-              else if (rating === 'almost') dotColor = 'bg-warning';
-              else if (rating === 'again') dotColor = 'bg-danger';
+          {questionsListOpen && (
+            <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2">
+              <ul className="space-y-1 pb-4">
+                {filteredQuestions.map((q) => {
+                  const progress = cardProgresses[q.id];
+                  const rating = progress?.rating;
 
-              const isActive = activeQuestionId === q.id;
-              const isExpanded = isQuestionExpanded(q.id);
+                  let dotColor = 'bg-border';
+                  if (rating === 'known') dotColor = 'bg-success';
+                  else if (rating === 'almost') dotColor = 'bg-warning';
+                  else if (rating === 'again') dotColor = 'bg-danger';
 
-              return (
-                <li key={q.id}>
-                  <div
-                    className={`rounded-xl border transition-all ${
-                      isActive
-                        ? 'bg-accent-muted border-accent/20'
-                        : 'border-transparent hover:bg-panel'
-                    }`}
-                  >
-                    <div className="flex items-start gap-1.5 w-full px-2 py-2">
-                      <span className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${dotColor}`} />
+                  const isActive = activeQuestionId === q.id;
+
+                  return (
+                    <li key={q.id}>
                       <button
                         type="button"
-                        onClick={() => toggleQuestionExpanded(q.id)}
-                        className={`flex-1 min-w-0 text-left text-sm cursor-pointer ${
-                          isActive ? 'text-text-primary font-semibold' : 'text-text-secondary hover:text-text-primary'
+                        onClick={() => {
+                          onSelectQuestion(q);
+                          if (window.innerWidth < 1024) onClose();
+                        }}
+                        className={`flex items-start gap-1.5 w-full px-2 py-2 rounded-xl text-left text-sm cursor-pointer transition-all ${
+                          isActive
+                            ? 'bg-accent-muted border border-accent/20 text-text-primary font-semibold'
+                            : 'border border-transparent text-text-secondary hover:text-text-primary hover:bg-panel'
                         }`}
-                        aria-expanded={isExpanded}
                       >
+                        <span className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${dotColor}`} />
                         <span className="block truncate">{getQuestionLabel(q)}</span>
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => toggleQuestionExpanded(q.id)}
-                        className="shrink-0 p-2 -mr-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface cursor-pointer transition-colors"
-                        aria-expanded={isExpanded}
-                        aria-label={isExpanded ? 'Dölj frågetext' : 'Visa hela frågan'}
-                      >
-                        <ChevronDown
-                          size={14}
-                          className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                    </div>
-
-                    {isExpanded && (
-                      <div className="px-2.5 pb-2.5 -mt-0.5">
-                        <div className="max-h-40 overflow-y-auto overscroll-contain rounded-lg bg-surface/80 border border-border-subtle px-2.5 py-2">
-                          <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">
-                            {q.question}
-                          </p>
-                        </div>
-                        <div className="flex items-center justify-between gap-2 mt-1.5 px-0.5">
-                          <Badge variant="muted" className="text-[10px] max-w-[120px] truncate">
-                            {q.category}
-                          </Badge>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              onSelectQuestion(q);
-                              setExpandedQuestionId(q.id);
-                              if (window.innerWidth < 1024) onClose();
-                            }}
-                            className="text-[11px] font-semibold text-accent hover:underline cursor-pointer shrink-0"
-                          >
-                            Öppna →
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="px-3 py-3 border-t border-border">
