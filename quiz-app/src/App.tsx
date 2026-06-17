@@ -546,7 +546,7 @@ export default function App() {
   const sessionProgressPercent = session.active 
     ? Math.round((session.questionsAnswered / sessionTarget) * 100) 
     : 0;
-  const sidebarCollapsed = session.active || studyTrack === null;
+  const sidebarCollapsed = studyTrack === null;
 
   return (
     <div className={`min-h-screen flex ambient-bg ${isDarkTheme ? 'dark' : ''}`}>
@@ -580,9 +580,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className={`p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer ${
-                sidebarCollapsed ? '' : 'lg:hidden'
-              }`}
+              className="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-panel transition-colors cursor-pointer lg:hidden"
               aria-label="Öppna sidopanel"
             >
               <Menu size={18} />

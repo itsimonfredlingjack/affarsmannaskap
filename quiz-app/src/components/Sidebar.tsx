@@ -1,5 +1,5 @@
-import { useState, type JSX } from 'react';
-import { Search, RotateCcw, X, ChevronRight, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2 } from 'lucide-react';
+import { useState, useEffect, type JSX } from 'react';
+import { Search, RotateCcw, X, ChevronDown, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2 } from 'lucide-react';
 import type { Question } from '../logic/questions';
 import type { StudyTrack } from './HeroLanding';
 import type { CardProgress } from '../logic/sm2';
@@ -57,6 +57,18 @@ export function Sidebar({
   collapsed = false,
 }: SidebarProps): JSX.Element {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
+  const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
+  const [overviewOpen, setOverviewOpen] = useState(true);
+
+  useEffect(() => {
+    if (activeQuestionId) {
+      setExpandedQuestionId(activeQuestionId);
+    }
+  }, [activeQuestionId]);
+
+  const toggleQuestionExpanded = (questionId: string) => {
+    setExpandedQuestionId(prev => (prev === questionId ? null : questionId));
+  };
 
   const getCareerBadge = (percent: number) => {
     if (percent >= 100) return { title: 'Partner', variant: 'warning' as const };
@@ -118,77 +130,96 @@ export function Sidebar({
           </button>
         </div>
 
-        <div className="px-4 py-4 border-b border-border">
-          <div className="p-4 rounded-xl bg-panel border border-border shadow-card">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs text-text-muted uppercase tracking-wide">Framsteg</span>
-              <Badge variant={badge.variant}>{badge.title}</Badge>
-            </div>
+        <div className="border-b border-border shrink-0">
+          <button
+            type="button"
+            onClick={() => setOverviewOpen(prev => !prev)}
+            className="flex items-center justify-between w-full px-4 py-3 text-xs font-semibold uppercase tracking-wide text-text-muted hover:text-text-primary cursor-pointer transition-colors"
+            aria-expanded={overviewOpen}
+          >
+            <span>Översikt & filter</span>
+            <ChevronDown
+              size={14}
+              className={`shrink-0 transition-transform duration-200 ${overviewOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
 
-            <div className="flex items-center gap-4">
-              <div
-                className="relative w-14 h-14 shrink-0 rounded-full flex items-center justify-center"
-                style={{
-                  background: `conic-gradient(var(--color-accent) ${masteryPercent}%, var(--color-border) ${masteryPercent}%)`,
-                }}
-              >
-                <div className="absolute inset-1.5 rounded-full bg-panel flex items-center justify-center">
-                  <span className="text-xs font-bold text-accent">{masteryPercent}%</span>
+          {overviewOpen && (
+            <>
+              <div className="px-4 pb-4">
+                <div className="p-4 rounded-xl bg-panel border border-border shadow-card">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs text-text-muted uppercase tracking-wide">Framsteg</span>
+                    <Badge variant={badge.variant}>{badge.title}</Badge>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="relative w-14 h-14 shrink-0 rounded-full flex items-center justify-center"
+                      style={{
+                        background: `conic-gradient(var(--color-accent) ${masteryPercent}%, var(--color-border) ${masteryPercent}%)`,
+                      }}
+                    >
+                      <div className="absolute inset-1.5 rounded-full bg-panel flex items-center justify-center">
+                        <span className="text-xs font-bold text-accent">{masteryPercent}%</span>
+                      </div>
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-text-primary">
+                        {masteredCount} / {totalCount} bemästrade
+                      </p>
+                      {dueCount > 0 && (
+                        <p className="text-xs text-warning mt-0.5">{dueCount} att repetera</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-text-primary">
-                  {masteredCount} / {totalCount} bemästrade
-                </p>
-                {dueCount > 0 && (
-                  <p className="text-xs text-warning mt-0.5">{dueCount} att repetera</p>
-                )}
+              <nav className="px-3 pb-3" aria-label="Studielägen">
+                <div className="flex flex-col gap-1">
+                  {modeButtons.map(button => {
+                    const Icon = button.icon;
+                    const isActive = activeMode === button.id;
+                    return (
+                      <button
+                        key={button.id}
+                        onClick={() => {
+                          setActiveMode(button.id);
+                          if (window.innerWidth < 1024) onClose();
+                        }}
+                        className={`flex items-center w-full px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-accent-muted text-accent font-semibold border border-accent/20'
+                            : 'text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent'
+                        }`}
+                      >
+                        <Icon size={15} className={`mr-2.5 shrink-0 ${isActive ? 'text-accent' : 'text-text-muted'}`} />
+                        <span className="flex-1 text-left">{button.label}</span>
+                        {button.id === 'repetition' && dueCount > 0 && (
+                          <Badge variant="warning" className="text-[10px] px-1.5 py-0">{dueCount}</Badge>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </nav>
+
+              <div className="px-3 pb-3">
+                <div className="relative">
+                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+                  <input
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Sök frågor..."
+                    className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl bg-surface border border-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+                  />
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <nav className="px-3 py-3 border-b border-border" aria-label="Studielägen">
-          <div className="flex flex-col gap-1">
-            {modeButtons.map(button => {
-              const Icon = button.icon;
-              const isActive = activeMode === button.id;
-              return (
-                <button
-                  key={button.id}
-                  onClick={() => {
-                    setActiveMode(button.id);
-                    if (window.innerWidth < 1024) onClose();
-                  }}
-                  className={`flex items-center w-full px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-accent-muted text-accent font-semibold border border-accent/20'
-                      : 'text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent'
-                  }`}
-                >
-                  <Icon size={15} className={`mr-2.5 shrink-0 ${isActive ? 'text-accent' : 'text-text-muted'}`} />
-                  <span className="flex-1 text-left">{button.label}</span>
-                  {button.id === 'repetition' && dueCount > 0 && (
-                    <Badge variant="warning" className="text-[10px] px-1.5 py-0">{dueCount}</Badge>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </nav>
-
-        <div className="px-3 py-3 border-b border-border">
-          <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Sök frågor..."
-              className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl bg-surface border border-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
-            />
-          </div>
+            </>
+          )}
         </div>
 
         <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2">
@@ -206,27 +237,71 @@ export function Sidebar({
               else if (rating === 'again') dotColor = 'bg-danger';
 
               const isActive = activeQuestionId === q.id;
+              const isExpanded = expandedQuestionId === q.id;
 
               return (
                 <li key={q.id}>
-                  <button
-                    onClick={() => {
-                      onSelectQuestion(q);
-                      if (window.innerWidth < 1024) onClose();
-                    }}
-                    className={`flex items-center gap-2 w-full px-2.5 py-2 rounded-xl text-left text-sm transition-all cursor-pointer ${
+                  <div
+                    className={`rounded-xl border transition-all ${
                       isActive
-                        ? 'bg-accent-muted text-text-primary font-semibold border border-accent/20'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent'
+                        ? 'bg-accent-muted border-accent/20'
+                        : 'border-transparent hover:bg-panel'
                     }`}
                   >
-                    <span className={`shrink-0 w-2 h-2 rounded-full ${dotColor}`} />
-                    <span className="truncate flex-1 min-w-0">{getQuestionLabel(q)}</span>
-                    <Badge variant="muted" className="shrink-0 text-[10px] max-w-[72px] truncate hidden sm:inline-flex">
-                      {q.category}
-                    </Badge>
-                    <ChevronRight size={12} className="text-text-muted shrink-0" />
-                  </button>
+                    <div className="flex items-start gap-1.5 w-full px-2 py-2">
+                      <span className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${dotColor}`} />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onSelectQuestion(q);
+                          setExpandedQuestionId(q.id);
+                          if (window.innerWidth < 1024) onClose();
+                        }}
+                        className={`flex-1 min-w-0 text-left text-sm cursor-pointer ${
+                          isActive ? 'text-text-primary font-semibold' : 'text-text-secondary hover:text-text-primary'
+                        }`}
+                      >
+                        <span className="block truncate">{getQuestionLabel(q)}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleQuestionExpanded(q.id)}
+                        className="shrink-0 p-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface cursor-pointer transition-colors"
+                        aria-expanded={isExpanded}
+                        aria-label={isExpanded ? 'Dölj frågetext' : 'Visa hela frågan'}
+                      >
+                        <ChevronDown
+                          size={14}
+                          className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="px-2.5 pb-2.5 -mt-0.5">
+                        <div className="max-h-24 overflow-y-auto overscroll-contain rounded-lg bg-surface/80 border border-border-subtle px-2.5 py-2">
+                          <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">
+                            {q.question}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-between gap-2 mt-1.5 px-0.5">
+                          <Badge variant="muted" className="text-[10px] max-w-[120px] truncate">
+                            {q.category}
+                          </Badge>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onSelectQuestion(q);
+                              if (window.innerWidth < 1024) onClose();
+                            }}
+                            className="text-[11px] font-semibold text-accent hover:underline cursor-pointer shrink-0"
+                          >
+                            Öppna →
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </li>
               );
             })}
