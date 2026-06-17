@@ -1,4 +1,4 @@
-import { useState, useEffect, type JSX } from 'react';
+import { useState, type JSX } from 'react';
 import { Search, RotateCcw, X, ChevronDown, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2 } from 'lucide-react';
 import type { Question } from '../logic/questions';
 import type { StudyTrack } from './HeroLanding';
@@ -60,15 +60,14 @@ export function Sidebar({
   const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
   const [overviewOpen, setOverviewOpen] = useState(true);
 
-  useEffect(() => {
-    if (activeQuestionId) {
-      setExpandedQuestionId(activeQuestionId);
-    }
-  }, [activeQuestionId]);
-
   const toggleQuestionExpanded = (questionId: string) => {
     setExpandedQuestionId(prev => (prev === questionId ? null : questionId));
   };
+
+  const isQuestionExpanded = (questionId: string) => (
+    expandedQuestionId === questionId
+    || (expandedQuestionId === null && activeQuestionId === questionId)
+  );
 
   const getCareerBadge = (percent: number) => {
     if (percent >= 100) return { title: 'Partner', variant: 'warning' as const };
@@ -237,7 +236,7 @@ export function Sidebar({
               else if (rating === 'again') dotColor = 'bg-danger';
 
               const isActive = activeQuestionId === q.id;
-              const isExpanded = expandedQuestionId === q.id;
+              const isExpanded = isQuestionExpanded(q.id);
 
               return (
                 <li key={q.id}>
@@ -254,7 +253,7 @@ export function Sidebar({
                         type="button"
                         onClick={() => {
                           onSelectQuestion(q);
-                          setExpandedQuestionId(q.id);
+                          setExpandedQuestionId(null);
                           if (window.innerWidth < 1024) onClose();
                         }}
                         className={`flex-1 min-w-0 text-left text-sm cursor-pointer ${

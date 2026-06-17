@@ -217,6 +217,21 @@ const tidsbox = c("tidsbox", "tidsbox", ["tidsbox", "timebox", "sprint", "pågå
 const uppdragsplan = c("uppdragsplan", "uppdragsplan eller projektmål", ["uppdragsplan", "uppdragsbeskrivning", "projektmål", "mål", "plan"]);
 const andring = c("andring", "ändring av uppdrag", ["ändring", "ändringsbegäran", "ändring av uppdrag", "nytt mål", "ny funktion", "tillägg"]);
 const leverans = c("leverans", "leverans", ["leverans", "leverera", "genomförs", "införande", "implementation"]);
+const prenumeration = c("prenumeration", "prenumeration eller abonnemang", ["prenumeration", "abonnemang", "återkommande", "månadsavgift"]);
+const freemium = c("freemium", "freemium", ["freemium", "gratis grund", "premium"]);
+const overprovning = c("overprovning", "överprövning", ["överprövning", "överpröva", "avtalsspärr", "processfel"]);
+const pipeline = c("pipeline", "pipeline eller säljsteg", ["pipeline", "lead", "prospekt", "möte", "offert", "beslut", "säljtratt"]);
+const nastaSteg = c("nastaSteg", "nästa aktivitet", ["nästa steg", "nästa aktivitet", "uppföljning", "boka", "kontakt"]);
+const spin = c("spin", "SPIN-frågor", ["spin", "situation", "problem", "inverkan", "nytta"]);
+const losningsforslag = c("losningsforslag", "lösningsförslag", ["lösningsförslag", "behov", "mål", "tidplan", "investering", "nytta", "avtal"]);
+const koproller = c("koproller", "köproller", ["ekonomisk köpare", "teknisk köpare", "användare", "användarköpare", "guide", "beslutsfattare", "veto"]);
+const hosting = c("hosting", "hosting eller ägande", ["hosting", "ägande", "hostar", "drift", "underhåll"]);
+const effektanalys = c("effektanalys", "effektanalys", ["effektanalys", "påverkar", "konsekvens", "kassa", "beläggning"]);
+const handlingsplan = c("handlingsplan", "handlingsplan", ["handlingsplan", "aktivitet", "ansvarig", "datum", "förväntad effekt", "uppföljning"]);
+const saljmal = c("saljmal", "säljmål", ["säljmål", "möten", "offerter", "intäkt", "leads"]);
+const budskap = c("budskap", "budskap", ["budskap", "message", "kommunikation", "positionering"]);
+const problemLosning = c("problemLosning", "lösning på problem", ["problem", "lösning på problem", "inte bara produkt", "inte bara tjänst", "utfall"]);
+const behovsanalys = c("behovsanalys", "behovsanalys", ["behovsanalys", "behov", "förstå behov", "frågor", "lyssna"]);
 
 const economyMix: CompoundRule = {
   key: "economyMix",
@@ -848,5 +863,117 @@ export const FOKUS_RUBRICS: Record<string, Rubric> = {
         )
       ]
     }
+  ),
+  "essay-affarsmodeller-f6-konsult": r(
+    "essay-affarsmodeller-f6-konsult",
+    [affarsmodell, prenumeration, paketering, freemium, kund, risk, intakter],
+    ["affarsmodell", "prenumeration", "paketering"],
+    ["freemium", "risk", "kund"],
+    "Välj två modeller och koppla till kund och risk.",
+    ["Paketering för införande, prenumeration för löpande support."]
+  ),
+  "essay-upphandling-las-checklista": r(
+    "essay-upphandling-las-checklista",
+    [upphandling, skallkrav, utvardering, leverans, avtal, risk, anbud],
+    ["upphandling", "skallkrav", "utvardering", "leverans"],
+    ["avtal", "risk", "anbud"],
+    "Läs leverans, villkor och kriterier — sedan go/no-go.",
+    ["Lista skallkrav, utvärdering och bedöm om anbud är lönsamt."]
+  ),
+  "essay-affarsplan-fem-rubriker": r(
+    "essay-affarsplan-fem-rubriker",
+    [affarsplan, kundsegment, differentiering, affarsmodell, analys, rodTrad],
+    ["affarsplan", "rodTrad"],
+    ["kundsegment", "differentiering", "affarsmodell", "analys"],
+    "Fem rubriker ska peka åt samma håll.",
+    ["Kund, konkurrens, produkt, affärsmodell och SWOT med samma röda tråd."]
+  ),
+  "essay-scenario-tre-steg-kvartal": r(
+    "essay-scenario-tre-steg-kvartal",
+    [scenario, belaggning, kpi, effektanalys, likviditet, beslut],
+    ["scenario", "effektanalys"],
+    ["belaggning", "kpi", "likviditet"],
+    "Tre scenarier med mätetal och effekt.",
+    ["O/R/P med debiteringsgrad och leads plus kort effektanalys."]
+  ),
+  "essay-handlingsplan-scenario": r(
+    "essay-handlingsplan-scenario",
+    [handlingsplan, scenario, ansvarig, aktivitet, kpi, beslut],
+    ["handlingsplan", "scenario"],
+    ["ansvarig", "aktivitet", "kpi"],
+    "Handlingsplan = aktivitet + ägare + datum + effekt.",
+    ["Tre aktiviteter med ansvarig och datum kopplat till pessimistiskt scenario."]
+  ),
+  "essay-marknadsplan-saljmål": r(
+    "essay-marknadsplan-saljmål",
+    [marknadsplan, kundsegment, budskap, kanal, aktivitet, saljmal],
+    ["marknadsplan", "kundsegment", "saljmal"],
+    ["budskap", "kanal", "aktivitet"],
+    "Marknadsplan kopplar målgrupp till mätbart säljmål.",
+    ["Målgrupp, budskap, kanal och tre aktiviteter mot fem möten."]
+  ),
+  "essay-pipeline-nasta-steg": r(
+    "essay-pipeline-nasta-steg",
+    [pipeline, nastaSteg, kvalificering, offert, saljprocess],
+    ["pipeline", "nastaSteg"],
+    ["kvalificering", "offert", "saljprocess"],
+    "Varje pipeline-steg behöver nästa aktivitet.",
+    ["Fem kunder i olika steg med tydlig nästa handling."]
+  ),
+  "essay-spin-arendehantering": r(
+    "essay-spin-arendehantering",
+    [spin, problem, kund, behovsanalys],
+    ["spin", "problem"],
+    ["kund", "behovsanalys"],
+    "SPIN = S, P, I, N med öppna frågor.",
+    ["Åtta frågor för manuell ärendehantering."]
+  ),
+  "essay-losningsforslag-automation": r(
+    "essay-losningsforslag-automation",
+    [losningsforslag, problem, mal, leverans, pris, kundnytta, avtal],
+    ["losningsforslag", "problem", "kundnytta"],
+    ["mal", "leverans", "pris", "avtal"],
+    "Lösningsförslag = behov → mål → investering → nytta → avtal.",
+    ["Rubriker ifyllda för M365-automation med scope och nytta."]
+  ),
+  "essay-avtalsratt-it-risk": r(
+    "essay-avtalsratt-it-risk",
+    [avtal, hosting, gdpr, ansvar, scope, risk, beslut],
+    ["avtal", "risk", "beslut"],
+    ["hosting", "gdpr", "ansvar", "scope"],
+    "Rangordna avtalsrisk utifrån IT-scenario.",
+    ["Motivera varför DPA eller hosting är värst i just detta fall."]
+  ),
+  "essay-upphandling-overprovning": r(
+    "essay-upphandling-overprovning",
+    [overprovning, upphandling, skallkrav, utvardering, risk],
+    ["overprovning", "upphandling"],
+    ["skallkrav", "utvardering", "risk"],
+    "Otydlig process → överprövningsrisk.",
+    ["Förklara hur otydliga krav eller värdering underminerar jämförbarhet."]
+  ),
+  "essay-marknad-salj-kedja": r(
+    "essay-marknad-salj-kedja",
+    [marknadsplan, pipeline, behovsanalys, losningsforslag, saljprocess, kvalificering],
+    ["marknadsplan", "pipeline", "losningsforslag"],
+    ["behovsanalys", "saljprocess", "kvalificering"],
+    "Marknad matar pipeline → behov → lösningsförslag.",
+    ["Webinar → lead → behovsmöte → förslag → offert."]
+  ),
+  "essay-koproller-komplex-forsaljning": r(
+    "essay-koproller-komplex-forsaljning",
+    [koproller, kvalificering, beslut, risk, saljprocess],
+    ["koproller", "beslut"],
+    ["kvalificering", "risk", "saljprocess"],
+    "Kartlägg vem som kan säga ja och nej.",
+    ["Användaren räcker inte om IT och ekonomi kan stoppa affären."]
+  ),
+  "essay-salj-losning-inte-produkt": r(
+    "essay-salj-losning-inte-produkt",
+    [problemLosning, kundnytta, problem, losningsforslag, kund],
+    ["problemLosning", "kundnytta", "problem"],
+    ["losningsforslag", "kund"],
+    "Sälj lösningen på problemet — inte feature-listan.",
+    ["Halverad handläggningstid, inte bara Power Automate."]
   )
 };

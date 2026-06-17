@@ -262,5 +262,163 @@ export const TERM_RUBRICS: Record<string, Rubric> = {
     ["timing"],
     "Resultat bokförs vid fakturering. Kassaflöde följer faktiska betalningar."
   ),
+  "term-affarsmannaskap": tr(
+    "term-affarsmannaskap",
+    [
+      c("decision", "affärsmässiga beslut", ["affärsmässig", "beslut", "analys", "helhet"]),
+      c("value", "kundvärde eller långsiktigt värde", ["kundvärde", "kundnytta", "långsiktig", "värde"]),
+      c("notJustSell", "inte bara sälja", ["inte bara sälja", "mer än sälj", "inte bara order", "inte bara stänga"])
+    ],
+    ["decision", "value"],
+    ["notJustSell"],
+    "Affärsmannaskap = förstå, analysera och skapa värde — inte bara sälja."
+  ),
+  "term-funktion-kundvarde": tr(
+    "term-funktion-kundvarde",
+    [
+      c("function", "funktion eller teknisk egenskap", ["funktion", "feature", "teknisk", "vad den kan göra"]),
+      c("value", "kundvärde eller nytta", ["kundvärde", "kundnytta", "nytta", "värde", "sparar", "minskar"])
+    ],
+    ["function", "value"],
+    [],
+    "Funktion = vad den gör. Kundvärde = nyttan för kunden."
+  ),
+  "term-fab-5p": tr(
+    "term-fab-5p",
+    [
+      c("fab", "FAB-delar", ["feature", "advantage", "benefit", "egenskap", "fördel", "kundnytta"]),
+      c("fiveP", "5P-delar", ["product", "price", "place", "promotion", "people", "produkt", "pris", "kanal"])
+    ],
+    ["fab", "fiveP"],
+    [],
+    "FAB = egenskap → fördel → nytta. 5P = produkt, pris, plats, promotion, people."
+  ),
+  "term-juridisk-person": tr(
+    "term-juridisk-person",
+    [
+      c("entity", "juridisk person", ["juridisk person", "organisation", "eget namn"]),
+      c("why", "varför det spelar roll", ["avtal", "ansvar", "ägare", "trovardighet", "trovärdighet", "skatt"])
+    ],
+    ["entity", "why"],
+    [],
+    "Juridisk person = organisation med egen rättskapacitet."
+  ),
+  "term-vision-mission-affarside": tr(
+    "term-vision-mission-affarside",
+    [
+      c("vision", "vision framtid", ["vision", "vart", "framtid", "riktning"]),
+      c("mission", "mission uppdrag", ["mission", "uppdrag", "vad bolaget gör", "för vem"]),
+      c("idea", "affärsidé kärna", ["affärsidé", "affärsidé", "kärna", "kort", "problem som löses"])
+    ],
+    ["vision", "mission", "idea"],
+    [],
+    "Vision = vart. Mission = vad idag. Affärsidé = kärnan."
+  ),
+  "term-resultatposter": tr(
+    "term-resultatposter",
+    [
+      c("revenue", "nettoomsättning", ["nettoomsättning", "omsättning", "intäkter", "försäljning"]),
+      c("operating", "rörelseresultat", ["rörelseresultat", "rörelsekostnader", "kärnverksamhet"]),
+      c("net", "årets resultat", ["årets resultat", "slutrad", "efter skatt", "finansiella poster"])
+    ],
+    ["revenue", "operating", "net"],
+    [],
+    "Omsättning → rörelseresultat → årets resultat."
+  ),
+  "term-avtalstyper": tr(
+    "term-avtalstyper",
+    [
+      c("framework", "ramavtal och avrop", ["ramavtal", "avrop", "ram"]),
+      c("specific", "enskilt avtal", ["enskilt avtal", "specifik leverans", "konkret"]),
+      c("loi", "LOI avsikt", ["letter of intent", "loi", "avsiktsförklaring", "inte leveransavtal"])
+    ],
+    ["framework", "loi"],
+    ["specific"],
+    "Ramavtal + avrop. LOI ≠ färdigt avtal."
+  ),
+  "term-offentlig-upphandling": tr(
+    "term-offentlig-upphandling",
+    [
+      c("regulated", "reglerad process", ["reglerad", "lou", "formella krav", "offentlig"]),
+      c("diff", "skillnad privat dialog", ["inte bara relation", "kriterier", "anbud", "överprövning", "dokumentation"])
+    ],
+    ["regulated", "diff"],
+    [],
+    "Offentlig upphandling styrs av regler — inte bara förhandling."
+  ),
+  "term-plan-dokument-samband": tr(
+    "term-plan-dokument-samband",
+    [
+      c("business", "affärsplan helhet", ["affärsplan", "helhet", "kund", "marknad", "ekonomi"]),
+      c("marketing", "marknadsplan kanaler", ["marknadsplan", "kanal", "målgrupp", "budskap", "aktivitet"]),
+      c("roadmap", "roadmap förenklad", ["roadmap", "förenklad", "tidsatt", "steg", "kommunikation"])
+    ],
+    ["business", "marketing", "roadmap"],
+    [],
+    "Affärsplan = helhet. Marknadsplan = bearbetning. Roadmap = förenklad tidsbild."
+  ),
+  "term-scenarioplanering-steg": tr(
+    "term-scenarioplanering-steg",
+    [
+      c("analysis", "scenarioanalys", ["scenarioanalys", "optimistiskt", "realistiskt", "pessimistiskt", "scenario"]),
+      c("effect", "effektanalys", ["effektanalys", "påverkar", "kunder", "finansiering", "organisation"]),
+      c("action", "handlingsplan", ["handlingsplan", "aktivitet", "ansvarig", "datum", "uppföljning"])
+    ],
+    ["analysis", "effect", "action"],
+    [],
+    "Scenario → effekt → handlingsplan med ägare och datum."
+  ),
+  "term-marknadsforing-grund": tr(
+    "term-marknadsforing-grund",
+    [
+      c("strategy", "strategi och målgrupp", ["strategi", "målgrupp", "positionering", "differentiering"]),
+      c("notJustAds", "inte bara aktiviteter", ["inte bara reklam", "inte bara aktiviteter", "varumärke", "paketering"])
+    ],
+    ["strategy"],
+    ["notJustAds"],
+    "Marknadsföring vilar på strategi — inte bara kanaler."
+  ),
+  "term-marknadsforingslagen": tr(
+    "term-marknadsforingslagen",
+    [
+      c("clear", "tydlig marknadsföring", ["tydlig", "framgår", "vem som ansvarar", "märkning"]),
+      c("misleading", "inte vilseledande", ["vilseledande", "inte vilseleda", "påstående", "bevis", "sponsrat"])
+    ],
+    ["clear", "misleading"],
+    [],
+    "Tydlig, inte vilseledande — före, under och efter köp."
+  ),
+  "term-behovsfragor": tr(
+    "term-behovsfragor",
+    [
+      c("open", "öppna frågor", ["öppna", "hur", "vad", "varför", "information"]),
+      c("closed", "slutna eller ledande", ["slutna", "ledande", "ja/nej", "bekräfta"]),
+      c("altAcc", "alternativ eller acceptans", ["alternativ", "acceptans", "välj mellan", "om vi löser"])
+    ],
+    ["open"],
+    ["closed", "altAcc"],
+    "Öppna frågor samlar info. Slutna bekräftar. Acceptans binder nästa steg."
+  ),
+  "term-spin": tr(
+    "term-spin",
+    [
+      c("spin", "SPIN-bokstäver", ["situation", "problem", "inverkan", "nytta", "spin"]),
+      c("order", "bygger behov stegvis", ["steg", "innan lösning", "behov", "frågor"])
+    ],
+    ["spin"],
+    ["order"],
+    "S → P → I → N innan du presenterar lösningen."
+  ),
+  "term-rfi-rfp-rfq": tr(
+    "term-rfi-rfp-rfq",
+    [
+      c("rfi", "RFI information", ["rfi", "information", "marknad", "utforska"]),
+      c("rfp", "RFP förslag", ["rfp", "förslag", "proposal", "lösning", "offertförfrågan"]),
+      c("rfq", "RFQ pris", ["rfq", "quotation", "pris", "villkor", "tydligt behov"])
+    ],
+    ["rfi", "rfp", "rfq"],
+    [],
+    "RFI = info. RFP = förslag. RFQ = pris/villkor."
+  ),
 };
 

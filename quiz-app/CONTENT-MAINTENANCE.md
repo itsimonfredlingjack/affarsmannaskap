@@ -89,9 +89,11 @@ De första 30 öppna frågorna i `FOKUS_QUESTIONS` (före sälj/affärsplan-till
 
 Kör `npm run validate:content` för lista med status per fråga.
 
-## Ekonomibegrepp (AM5)
+## Ekonomibegrepp (AM5 + kursbegrepp)
 
-Korten i `economy-terms.ts` täcker kurslitteraturens företagsekonomi — inte IT-begrepp.
+Korten i `economy-terms.ts` börjar i AM5-ekonomi men innehåller även grundbegrepp från senare föreläsningar (avtal, upphandling, sälj, marknad). Använd `source`-fältet (`AM5`, `AM6`, `AM7`, `AM9`, `AM10`) vid redigering.
+
+Section 13 i `output/markdown/Individuellt - Affärsmannaskap instuderingsmaterial.md` är masterlista — kör `npm run validate:content` efter nya kort.
 
 | Typ | `mode` | `type` | Facit-fält |
 |-----|--------|--------|------------|
