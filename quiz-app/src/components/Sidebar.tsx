@@ -57,17 +57,20 @@ export function Sidebar({
   collapsed = false,
 }: SidebarProps): JSX.Element {
   const [showConfirmReset, setShowConfirmReset] = useState(false);
-  const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
+  const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(activeQuestionId);
+  const [syncedActiveQuestionId, setSyncedActiveQuestionId] = useState(activeQuestionId);
   const [overviewOpen, setOverviewOpen] = useState(true);
+
+  if (activeQuestionId !== syncedActiveQuestionId) {
+    setSyncedActiveQuestionId(activeQuestionId);
+    setExpandedQuestionId(activeQuestionId);
+  }
 
   const toggleQuestionExpanded = (questionId: string) => {
     setExpandedQuestionId(prev => (prev === questionId ? null : questionId));
   };
 
-  const isQuestionExpanded = (questionId: string) => (
-    expandedQuestionId === questionId
-    || (expandedQuestionId === null && activeQuestionId === questionId)
-  );
+  const isQuestionExpanded = (questionId: string) => expandedQuestionId === questionId;
 
   const getCareerBadge = (percent: number) => {
     if (percent >= 100) return { title: 'Partner', variant: 'warning' as const };
@@ -251,21 +254,18 @@ export function Sidebar({
                       <span className={`shrink-0 w-2 h-2 rounded-full mt-1.5 ${dotColor}`} />
                       <button
                         type="button"
-                        onClick={() => {
-                          onSelectQuestion(q);
-                          setExpandedQuestionId(null);
-                          if (window.innerWidth < 1024) onClose();
-                        }}
+                        onClick={() => toggleQuestionExpanded(q.id)}
                         className={`flex-1 min-w-0 text-left text-sm cursor-pointer ${
                           isActive ? 'text-text-primary font-semibold' : 'text-text-secondary hover:text-text-primary'
                         }`}
+                        aria-expanded={isExpanded}
                       >
                         <span className="block truncate">{getQuestionLabel(q)}</span>
                       </button>
                       <button
                         type="button"
                         onClick={() => toggleQuestionExpanded(q.id)}
-                        className="shrink-0 p-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface cursor-pointer transition-colors"
+                        className="shrink-0 p-2 -mr-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface cursor-pointer transition-colors"
                         aria-expanded={isExpanded}
                         aria-label={isExpanded ? 'Dölj frågetext' : 'Visa hela frågan'}
                       >
@@ -278,7 +278,7 @@ export function Sidebar({
 
                     {isExpanded && (
                       <div className="px-2.5 pb-2.5 -mt-0.5">
-                        <div className="max-h-24 overflow-y-auto overscroll-contain rounded-lg bg-surface/80 border border-border-subtle px-2.5 py-2">
+                        <div className="max-h-40 overflow-y-auto overscroll-contain rounded-lg bg-surface/80 border border-border-subtle px-2.5 py-2">
                           <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">
                             {q.question}
                           </p>
@@ -291,6 +291,7 @@ export function Sidebar({
                             type="button"
                             onClick={() => {
                               onSelectQuestion(q);
+                              setExpandedQuestionId(q.id);
                               if (window.innerWidth < 1024) onClose();
                             }}
                             className="text-[11px] font-semibold text-accent hover:underline cursor-pointer shrink-0"
