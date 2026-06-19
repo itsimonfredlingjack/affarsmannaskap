@@ -23,28 +23,44 @@ interface QuestionPromptProps {
 }
 
 export function QuestionPrompt({ question }: QuestionPromptProps): JSX.Element {
-  const tags = question.tags.slice(0, 3);
   const tenta = question.mode === 'tenta' ? (question as TentaQuestion) : null;
+
+  const filteredTags = question.tags.slice(0, 3).filter(tag => {
+    if (!tenta) return true;
+    if (tag === question.category) return false;
+    if (/^Tentaprio/.test(tag)) return false;
+    if (/^Prio \d/.test(tag)) return false;
+    return true;
+  });
 
   return (
     <div className={`reading-panel rounded-2xl p-6 sm:p-8 ${tenta?.isPriority ? 'ring-2 ring-warning/30' : ''}`}>
       <div className="flex flex-wrap items-center gap-2 mb-5">
-        <Badge variant="accent">{MODE_LABELS[question.mode]}</Badge>
-        {tenta && (
-          <Badge variant="muted">Fråga {tenta.originalNumber}</Badge>
-        )}
-        {tenta?.isPriority && tenta.priorityLevel && (
-          <Badge variant="warning">{PRIO_LABELS[tenta.priorityLevel]}</Badge>
-        )}
-        <Badge variant="default">{question.category}</Badge>
-        {question.source && (
-          <span className="text-xs text-text-muted">· {question.source}</span>
+        {tenta ? (
+          <>
+            <Badge variant="accent">Tenta #{tenta.originalNumber}</Badge>
+            {tenta.isPriority && tenta.priorityLevel && (
+              <Badge variant="warning">{PRIO_LABELS[tenta.priorityLevel]}</Badge>
+            )}
+            <span className="text-xs text-text-muted">{question.category}</span>
+            {question.source && (
+              <span className="text-xs text-text-muted">· {question.source}</span>
+            )}
+          </>
+        ) : (
+          <>
+            <Badge variant="accent">{MODE_LABELS[question.mode]}</Badge>
+            <Badge variant="default">{question.category}</Badge>
+            {question.source && (
+              <span className="text-xs text-text-muted">· {question.source}</span>
+            )}
+          </>
         )}
       </div>
 
-      {tags.length > 0 && (
+      {filteredTags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-5">
-          {tags.map(tag => (
+          {filteredTags.map(tag => (
             <Badge key={tag} variant="muted">{tag}</Badge>
           ))}
         </div>

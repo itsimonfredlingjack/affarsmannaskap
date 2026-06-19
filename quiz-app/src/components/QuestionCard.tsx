@@ -101,10 +101,10 @@ export function QuestionCard({
 
   const verdictBadge = verdict && (
     <Badge
-      variant={verdict === 'correct' ? 'success' : isAlmostVerdict ? 'warning' : 'danger'}
+      variant={verdict === 'correct' ? 'success' : isAlmostVerdict ? 'warning' : verdict === 'uncertain' ? 'muted' : 'danger'}
       className="text-sm font-semibold px-3 py-1"
     >
-      {verdict === 'correct' ? '✓ Rätt' : isAlmostVerdict ? '≈ Nästan' : isMC ? '✗ Fel' : 'Jämför med facit'}
+      {verdict === 'correct' ? '✓ Rätt' : isAlmostVerdict ? '≈ Nästan' : verdict === 'uncertain' ? 'Bedöm själv' : isMC ? '✗ Fel' : 'Jämför med facit'}
     </Badge>
   );
 
@@ -179,7 +179,7 @@ export function QuestionCard({
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {answerInput.trim() && (
+                  {!isTentaCard && answerInput.trim() && (
                     <Panel title="Ditt svar" tone="default">
                       <p className="text-base text-text-secondary leading-relaxed italic">
                         {answerInput}
@@ -187,7 +187,7 @@ export function QuestionCard({
                     </Panel>
                   )}
 
-                  {assessment && !isMC && (
+                  {assessment && !isMC && !isTentaCard && (
                     <Panel title="Coachens bedömning" tone={coachTone}>
                       <p className="text-base font-semibold leading-relaxed">
                         {assessment.feedback.title}
@@ -227,6 +227,14 @@ export function QuestionCard({
                       </p>
                     )}
                   </Panel>
+
+                  {isTentaCard && answerInput.trim() && (
+                    <Panel title="Ditt svar" tone="default">
+                      <p className="text-base text-text-secondary leading-relaxed italic">
+                        {answerInput}
+                      </p>
+                    </Panel>
+                  )}
 
                   {(question.why || question.example || question.hint || assessment?.memoryRule) && (
                     <div>

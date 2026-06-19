@@ -24,10 +24,40 @@ export function FacitContent({ text }: FacitContentProps): JSX.Element {
   return (
     <div className="space-y-3 text-base leading-relaxed text-text-primary">
       {blocks.map((block, index) => {
-        const lines = block.split('\n');
-        const isList = lines.every(line => line.trim() === '' || line.trim().startsWith('- '));
-        const isQuote = lines.every(line => line.trim() === '' || line.trim().startsWith('> '));
+        const trimmed = block.trim();
 
+        if (trimmed === '---') {
+          return <hr key={index} className="border-border-subtle my-1" />;
+        }
+
+        const headingMatch = trimmed.match(/^(#{2,3})\s+(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length;
+          const content = headingMatch[2];
+          if (level === 2) {
+            return <h3 key={index} className="text-lg font-bold text-text-primary mt-3 first:mt-0">{renderInline(content)}</h3>;
+          }
+          return <h4 key={index} className="text-base font-bold text-text-primary mt-2 first:mt-0">{renderInline(content)}</h4>;
+        }
+
+        const lines = block.split('\n');
+
+        const isNumberedList = lines.every(
+          line => line.trim() === '' || /^\d+\.\s/.test(line.trim())
+        );
+        if (isNumberedList && lines.some(line => /^\d+\.\s/.test(line.trim()))) {
+          return (
+            <ol key={index} className="list-decimal pl-5 space-y-2 text-text-secondary">
+              {lines
+                .filter(line => /^\d+\.\s/.test(line.trim()))
+                .map((line, li) => (
+                  <li key={li} className="pl-1">{renderInline(line.trim().replace(/^\d+\.\s/, ''))}</li>
+                ))}
+            </ol>
+          );
+        }
+
+        const isList = lines.every(line => line.trim() === '' || line.trim().startsWith('- '));
         if (isList && lines.some(line => line.trim().startsWith('- '))) {
           return (
             <ul key={index} className="list-disc pl-5 space-y-1 text-text-secondary">
@@ -40,6 +70,7 @@ export function FacitContent({ text }: FacitContentProps): JSX.Element {
           );
         }
 
+        const isQuote = lines.every(line => line.trim() === '' || line.trim().startsWith('> '));
         if (isQuote && lines.some(line => line.trim().startsWith('> '))) {
           return (
             <blockquote
