@@ -117,6 +117,16 @@ function priorityStars(level: PriorityLevel): string {
   return '★';
 }
 
+function extractSummary(answer: string): string | undefined {
+  const blocks = answer.split(/\n\n+/);
+  const first = blocks[0].trim();
+  if (first.startsWith('#')) return undefined;
+  if (blocks.length < 2) return undefined;
+  const wordCount = first.split(/\s+/).length;
+  if (wordCount < 15) return undefined;
+  return first;
+}
+
 function buildOutput(questions: ParsedQuestion[], priorities: PriorityMeta[]): string {
   const prioByOrig = new Map(priorities.map(p => [p.originalNumber, p]));
   const priorityNumbers = new Set(priorities.map(p => p.originalNumber));
@@ -139,6 +149,8 @@ function buildOutput(questions: ParsedQuestion[], priorities: PriorityMeta[]): s
       ...(prio ? [`Tentaprio ${priorityStars(prio.level)}`, `Prio ${prio.prioOrder}`] : []),
     ];
 
+    const summary = extractSummary(q.answer);
+
     const fields = [
       `    id: "tenta-${num}",`,
       `    mode: "tenta",`,
@@ -148,6 +160,7 @@ function buildOutput(questions: ParsedQuestion[], priorities: PriorityMeta[]): s
       `    question: ${JSON.stringify(q.question)},`,
       `    tags: ${JSON.stringify(tags)},`,
       `    answer: \`${escapeTemplate(q.answer)}\`,`,
+      ...(summary ? [`    answerSummary: \`${escapeTemplate(summary)}\`,`] : []),
       `    originalNumber: ${num},`,
       `    examArea: ${area},`,
       `    isPriority: ${prio ? 'true' : 'false'},`,

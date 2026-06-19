@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 
 interface FacitContentProps {
   text: string;
+  skipFirstBlock?: boolean;
 }
 
 function renderInline(text: string): JSX.Element {
@@ -18,8 +19,9 @@ function renderInline(text: string): JSX.Element {
   );
 }
 
-export function FacitContent({ text }: FacitContentProps): JSX.Element {
-  const blocks = text.split(/\n\n+/);
+export function FacitContent({ text, skipFirstBlock }: FacitContentProps): JSX.Element {
+  const allBlocks = text.split(/\n\n+/);
+  const blocks = skipFirstBlock ? allBlocks.slice(1) : allBlocks;
 
   return (
     <div className="space-y-3 text-base leading-relaxed text-text-primary">

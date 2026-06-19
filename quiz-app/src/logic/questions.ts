@@ -24,6 +24,7 @@ export interface TentaQuestion extends Question {
   isPriority: boolean;
   priorityOrder?: number;
   priorityLevel?: 'high' | 'medium' | 'low';
+  answerSummary?: string;
 }
 
 export const FOKUS_QUESTIONS: Question[] = [

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type JSX } from 'react';
 import { Check, Minus, RotateCcw } from 'lucide-react';
-import type { Question } from '../logic/questions';
+import type { Question, TentaQuestion } from '../logic/questions';
 import type { Assessment } from '../logic/grader';
 import { AnswerOptions } from './AnswerOptions';
 import { FacitContent } from './FacitContent';
@@ -45,6 +45,9 @@ export function QuestionCard({
   const setShowDetails = (show: boolean) => {
     setDetailsState({ questionId: question.id, show });
   };
+  const [facitExpanded, setFacitExpanded] = useState({ questionId: question.id, show: false });
+  const showFullFacit = facitExpanded.questionId === question.id ? facitExpanded.show : false;
+  const tentaSummary = question.mode === 'tenta' ? (question as TentaQuestion).answerSummary : undefined;
 
   useEffect(() => {
     if (question.type === 'open' && textareaRef.current && !isRevealed) {
@@ -220,7 +223,27 @@ export function QuestionCard({
 
                   <Panel title={facitTitle} tone="success" accentBar>
                     {isTentaCard && question.answer ? (
-                      <FacitContent text={question.answer} />
+                      tentaSummary ? (
+                        <div>
+                          <p className="text-lg leading-relaxed text-text-primary font-medium">
+                            <FacitContent text={tentaSummary} />
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => setFacitExpanded({ questionId: question.id, show: !showFullFacit })}
+                            className="mt-3 text-sm text-accent hover:underline cursor-pointer"
+                          >
+                            {showFullFacit ? '▲ Dölj fullständigt svar' : '▼ Visa fullständigt svar'}
+                          </button>
+                          {showFullFacit && (
+                            <div className="mt-4 pt-4 border-t border-success/20">
+                              <FacitContent text={question.answer} skipFirstBlock />
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <FacitContent text={question.answer} />
+                      )
                     ) : (
                       <p className="font-serif text-lg leading-relaxed text-text-primary">
                         {question.answer}
