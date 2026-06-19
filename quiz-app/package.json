@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "validate:content": "npx tsx scripts/validate-content.ts",
+    "build:tenta": "npx tsx scripts/build-tenta-questions.ts",
     "preview": "vite preview"
   },
   "dependencies": {

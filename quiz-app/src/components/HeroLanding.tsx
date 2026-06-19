@@ -1,16 +1,23 @@
 import { useState, type JSX } from 'react';
-import { BookOpen, RefreshCw, Calculator, GitMerge } from 'lucide-react';
+import { BookOpen, RefreshCw, Calculator, GitMerge, GraduationCap, Star } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
+import { TENTA_EXAM_INFO } from '../logic/tenta-questions';
+import type { TentaReadiness } from '../logic/tenta-readiness';
+import { TentaDashboard } from './TentaDashboard';
 
-export type StudyTrack = 'essay' | 'terms';
+export type StudyTrack = 'essay' | 'terms' | 'tenta';
 
 interface HeroLandingProps {
   studyTrack: StudyTrack | null;
   essayCount: number;
   termsCount: number;
+  tentaCount: number;
+  tentaPriorityCount: number;
   essayDueCount: number;
   termsDueCount: number;
+  tentaDueCount: number;
+  tentaReadiness?: TentaReadiness | null;
   onSelectTrack: (track: StudyTrack) => void;
   onBackToTracks: () => void;
   onBrowse: () => void;
@@ -21,8 +28,12 @@ export function HeroLanding({
   studyTrack,
   essayCount,
   termsCount,
+  tentaCount,
+  tentaPriorityCount,
   essayDueCount,
   termsDueCount,
+  tentaDueCount,
+  tentaReadiness = null,
   onSelectTrack,
   onBackToTracks,
   onBrowse,
@@ -39,11 +50,36 @@ export function HeroLanding({
             Dags att studera
           </h1>
           <p className="text-sm text-text-secondary leading-relaxed max-w-sm mx-auto">
-            Välj om du vill träna essäer eller ekonomibegrepp från kurslitteraturen.
+            Välj studieläge: tentafrågor med facit, essäträning eller ekonomibegrepp.
           </p>
         </div>
 
         <div className="grid gap-3">
+          <button
+            type="button"
+            onClick={() => onSelectTrack('tenta')}
+            className="text-left rounded-2xl border-2 border-warning/40 bg-panel p-5 hover:border-warning/60 hover:bg-warning-muted/10 transition-all cursor-pointer"
+          >
+            <div className="flex items-start gap-4">
+              <div className="p-2.5 rounded-xl bg-warning-muted/30 text-warning">
+                <GraduationCap size={22} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="font-display font-bold text-text-primary">Tentamen</h2>
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-warning">Nästa vecka</span>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Alla 61 instuderingsfrågor med handkurerade tentasvar. Prioriterade 25 först.
+                </p>
+                <p className="text-xs text-text-muted mt-2 flex items-center gap-1">
+                  <Star size={11} className="text-warning fill-warning" />
+                  {tentaPriorityCount} prioriterade · {tentaCount} totalt
+                </p>
+              </div>
+            </div>
+          </button>
+
           <button
             type="button"
             onClick={() => onSelectTrack('essay')}
@@ -86,10 +122,12 @@ export function HeroLanding({
     );
   }
 
-  const totalCount = studyTrack === 'essay' ? essayCount : termsCount;
-  const dueCount = studyTrack === 'essay' ? essayDueCount : termsDueCount;
-  const trackLabel = studyTrack === 'essay' ? 'Essäträning' : 'Ekonomibegrepp';
-  const trackDescription = studyTrack === 'essay'
+  const totalCount = studyTrack === 'tenta' ? tentaCount : studyTrack === 'essay' ? essayCount : termsCount;
+  const dueCount = studyTrack === 'tenta' ? tentaDueCount : studyTrack === 'essay' ? essayDueCount : termsDueCount;
+  const trackLabel = studyTrack === 'tenta' ? 'Tentamen' : studyTrack === 'essay' ? 'Essäträning' : 'Ekonomibegrepp';
+  const trackDescription = studyTrack === 'tenta'
+    ? 'Träna de faktiska tentafrågorna. Prioriterade frågor kommer först i kön.'
+    : studyTrack === 'essay'
     ? 'Träna korta essäsvar med modeller, ekonomi och affärsbeslut.'
     : 'Träna definitioner, flerval och samband från företagsekonomin.';
 
@@ -112,6 +150,27 @@ export function HeroLanding({
           {trackDescription}
         </p>
       </div>
+
+      {studyTrack === 'tenta' && tentaReadiness && (
+        <TentaDashboard readiness={tentaReadiness} />
+      )}
+
+      {studyTrack === 'tenta' && (
+        <Card className="mb-6 border-warning/20 bg-warning-muted/5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-warning mb-3">Så bedöms tentan</p>
+          <ul className="space-y-2 text-sm text-text-secondary">
+            {TENTA_EXAM_INFO.areas.map(area => (
+              <li key={area.id}>
+                <span className="font-semibold text-text-primary">{area.label}:</span>{' '}
+                {area.questionsOnExam} frågor på provet, minst {area.passAt} rätt.
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-text-muted mt-3 leading-relaxed">
+            Godkänt svar: förklara, redogör, sätt i sammanhang och ge exempel när det efterfrågas.
+          </p>
+        </Card>
+      )}
 
       <div className="mb-6 grid grid-cols-2 gap-3">
         <Card padding="sm" className="text-center">
@@ -138,8 +197,11 @@ export function HeroLanding({
           Hur många frågor?
         </p>
 
-        <div className="grid grid-cols-3 gap-2.5 mb-5">
-          {([5, 10, 'all'] as const).map((size) => {
+        <div className={`grid gap-2.5 mb-5 ${studyTrack === 'tenta' ? 'grid-cols-4' : 'grid-cols-3'}`}>
+          {(studyTrack === 'tenta'
+            ? ([5, 10, 25, 'all'] as Array<number | 'all'>)
+            : ([5, 10, 'all'] as Array<number | 'all'>)
+          ).map((size) => {
             const isSelected = sessionSize === size;
             return (
               <button

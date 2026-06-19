@@ -1,6 +1,6 @@
 import { useState, type JSX } from 'react';
-import { Search, RotateCcw, X, ChevronDown, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2 } from 'lucide-react';
-import type { Question } from '../logic/questions';
+import { Search, RotateCcw, X, ChevronDown, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2, GraduationCap, Star, Building2, Users, Handshake } from 'lucide-react';
+import type { Question, TentaQuestion } from '../logic/questions';
 import type { StudyTrack } from './HeroLanding';
 import type { CardProgress } from '../logic/sm2';
 import { Badge } from './ui/Badge';
@@ -27,6 +27,15 @@ interface SidebarProps {
 }
 
 function getQuestionLabel(question: Question): string {
+  if (question.mode === 'tenta') {
+    const tenta = question as TentaQuestion;
+    const prefix = tenta.isPriority ? '★ ' : '';
+    const title = question.question.length <= 36
+      ? question.question
+      : `${question.question.slice(0, 36)}…`;
+    return `${prefix}${tenta.originalNumber}. ${title}`;
+  }
+
   const fromId = question.id
     .replace(/^essay-/, '')
     .replace(/^mc-/, '')
@@ -60,7 +69,11 @@ export function Sidebar({
   const [overviewOpen, setOverviewOpen] = useState(true);
   const [questionsListOpen, setQuestionsListOpen] = useState(false);
 
-  const questionListLabel = studyTrack === 'terms' ? 'Begreppslista' : 'Frågelista';
+  const questionListLabel = studyTrack === 'terms'
+    ? 'Begreppslista'
+    : studyTrack === 'tenta'
+    ? 'Tentafrågor'
+    : 'Frågelista';
 
   const getCareerBadge = (percent: number) => {
     if (percent >= 100) return { title: 'Partner', variant: 'warning' as const };
@@ -89,7 +102,20 @@ export function Sidebar({
     { id: 'repetition', label: 'Repetition', icon: RefreshCw },
   ];
 
-  const modeButtons = studyTrack === 'terms' ? termsModeButtons : essayModeButtons;
+  const tentaModeButtons = [
+    { id: 'all', label: 'Alla frågor', icon: GraduationCap },
+    { id: 'priority', label: 'Tentaprio 25', icon: Star },
+    { id: 'area1', label: 'Block A — Ekonomi', icon: Building2 },
+    { id: 'area2', label: 'Block B — Kund', icon: Users },
+    { id: 'area3', label: 'Block C — Sälj', icon: Handshake },
+    { id: 'repetition', label: 'Repetition', icon: RefreshCw },
+  ];
+
+  const modeButtons = studyTrack === 'tenta'
+    ? tentaModeButtons
+    : studyTrack === 'terms'
+    ? termsModeButtons
+    : essayModeButtons;
 
   if (collapsed) {
     return <></>;
@@ -111,7 +137,7 @@ export function Sidebar({
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-border">
           <span className="text-sm font-display font-bold text-text-primary">
-            {studyTrack === 'terms' ? 'Ekonomibegrepp' : studyTrack === 'essay' ? 'Essäträning' : 'Affärsmannaskap'}
+            {studyTrack === 'tenta' ? 'Tentamen' : studyTrack === 'terms' ? 'Ekonomibegrepp' : studyTrack === 'essay' ? 'Essäträning' : 'Affärsmannaskap'}
           </span>
           <button
             onClick={onClose}
@@ -241,6 +267,7 @@ export function Sidebar({
                   else if (rating === 'again') dotColor = 'bg-danger';
 
                   const isActive = activeQuestionId === q.id;
+                  const isPriorityTenta = q.mode === 'tenta' && (q as TentaQuestion).isPriority;
 
                   return (
                     <li key={q.id}>
@@ -253,6 +280,8 @@ export function Sidebar({
                         className={`flex items-start gap-1.5 w-full px-2 py-2 rounded-xl text-left text-sm cursor-pointer transition-all ${
                           isActive
                             ? 'bg-accent-muted border border-accent/20 text-text-primary font-semibold'
+                            : isPriorityTenta
+                            ? 'border border-warning/15 text-text-secondary hover:text-text-primary hover:bg-warning-muted/10'
                             : 'border border-transparent text-text-secondary hover:text-text-primary hover:bg-panel'
                         }`}
                       >

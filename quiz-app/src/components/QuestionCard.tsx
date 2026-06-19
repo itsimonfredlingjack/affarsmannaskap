@@ -3,6 +3,7 @@ import { Check, Minus, RotateCcw } from 'lucide-react';
 import type { Question } from '../logic/questions';
 import type { Assessment } from '../logic/grader';
 import { AnswerOptions } from './AnswerOptions';
+import { FacitContent } from './FacitContent';
 import { QuestionPrompt } from './QuestionPrompt';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
@@ -79,7 +80,12 @@ export function QuestionCard({
 
   const isMC = question.type === 'mc';
   const isTermCard = question.mode === 'begrepp' || question.mode === 'samband';
-  const facitTitle = isTermCard && !isMC ? 'Facit — Definition' : 'Facit — Modellssvar';
+  const isTentaCard = question.mode === 'tenta';
+  const facitTitle = isTentaCard
+    ? 'Facit — Tentasvar'
+    : isTermCard && !isMC
+    ? 'Facit — Definition'
+    : 'Facit — Modellssvar';
   const isCorrectMC = isMC && selectedMCIndex === question.correctIndex;
 
   const getVerdict = () => {
@@ -213,19 +219,27 @@ export function QuestionCard({
                   )}
 
                   <Panel title={facitTitle} tone="success" accentBar>
-                    <p className="font-serif text-lg leading-relaxed text-text-primary">
-                      {question.answer}
-                    </p>
+                    {isTentaCard && question.answer ? (
+                      <FacitContent text={question.answer} />
+                    ) : (
+                      <p className="font-serif text-lg leading-relaxed text-text-primary">
+                        {question.answer}
+                      </p>
+                    )}
                   </Panel>
 
-                  {(question.why || question.example || assessment?.memoryRule) && (
+                  {(question.why || question.example || question.hint || assessment?.memoryRule) && (
                     <div>
                       <button
                         type="button"
                         onClick={() => setShowDetails(!showDetails)}
                         className="text-sm text-accent hover:underline cursor-pointer"
                       >
-                        {showDetails ? '▲ Dölj detaljer' : '▼ Visa fördjupning'}
+                        {showDetails
+                          ? '▲ Dölj detaljer'
+                          : question.hint && !question.why && !question.example
+                          ? '▼ Visa tips'
+                          : '▼ Visa fördjupning'}
                       </button>
 
                       {showDetails && (
@@ -243,6 +257,11 @@ export function QuestionCard({
                           {question.example && (
                             <Panel title="Exempel" tone="default">
                               <p className="text-sm leading-relaxed text-text-secondary">{question.example}</p>
+                            </Panel>
+                          )}
+                          {question.hint && (
+                            <Panel title="Tips / kursnotering" tone="default">
+                              <p className="text-sm leading-relaxed text-text-secondary">{question.hint}</p>
                             </Panel>
                           )}
                         </div>
