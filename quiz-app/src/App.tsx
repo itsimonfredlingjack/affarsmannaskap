@@ -3,9 +3,10 @@ import { Menu, Sun, Moon, Volume2, VolumeX, Flame, Home } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 // Logic & Data
-import { FOKUS_QUESTIONS, type Question, type TentaQuestion } from './logic/questions';
+import { FOKUS_QUESTIONS, type Question, type TentaQuestion, type TentaprioQuestion } from './logic/questions';
 import { ECONOMY_TERM_QUESTIONS } from './logic/economy-terms';
 import { TENTA_QUESTIONS } from './logic/tenta-questions';
+import { TENTAPRIO_QUESTIONS } from './logic/tentaprio-questions';
 import { computeTentaReadiness } from './logic/tenta-readiness';
 import { FOKUS_RUBRICS } from './logic/rubrics';
 import { TERM_RUBRICS } from './logic/term-rubrics';
@@ -44,6 +45,7 @@ export default function App() {
   const [essayProgresses, setEssayProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-progress-v2', {});
   const [termsProgresses, setTermsProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-terms-progress-v1', {});
   const [tentaProgresses, setTentaProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-tenta-progress-v1', {});
+  const [tentaprioProgresses, setTentaprioProgresses] = useLocalStorage<Record<string, CardProgress>>('fokusbladet-tentaprio-progress-v1', {});
   const [streak, setStreak] = useLocalStorage<number>('fokusbladet-streak', 0);
   const [soundEnabled, setSoundEnabled] = useLocalStorage<boolean>('fokusbladet-sound', true);
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage<boolean>('fokusbladet-theme-dark', true);
@@ -58,24 +60,31 @@ export default function App() {
   const essayQuestions = FOKUS_QUESTIONS.filter(q => q.mode !== 'repetition');
   const termQuestions = ECONOMY_TERM_QUESTIONS;
   const tentaQuestions = TENTA_QUESTIONS;
+  const tentaprioQuestions = TENTAPRIO_QUESTIONS;
   const studyQuestions = studyTrack === 'tenta'
     ? tentaQuestions
+    : studyTrack === 'tentaprio'
+    ? tentaprioQuestions
     : studyTrack === 'terms'
     ? termQuestions
     : essayQuestions;
   const cardProgresses = studyTrack === 'tenta'
     ? tentaProgresses
+    : studyTrack === 'tentaprio'
+    ? tentaprioProgresses
     : studyTrack === 'terms'
     ? termsProgresses
     : essayProgresses;
   const setCardProgresses = studyTrack === 'tenta'
     ? setTentaProgresses
+    : studyTrack === 'tentaprio'
+    ? setTentaprioProgresses
     : studyTrack === 'terms'
     ? setTermsProgresses
     : setEssayProgresses;
 
   const getRubric = (question: Question) => {
-    if (studyTrack === 'tenta' || question.mode === 'tenta') return undefined;
+    if (studyTrack === 'tenta' || studyTrack === 'tentaprio' || question.mode === 'tenta' || question.mode === 'tentaprio') return undefined;
     return studyTrack === 'terms' ? TERM_RUBRICS[question.id] : FOKUS_RUBRICS[question.id];
   };
   
@@ -152,6 +161,19 @@ export default function App() {
         list = studyQuestions.filter(q => (q as TentaQuestion).examArea === 2);
       } else if (mode === 'area3') {
         list = studyQuestions.filter(q => (q as TentaQuestion).examArea === 3);
+      } else if (mode === 'repetition') {
+        list = studyQuestions.filter(q => {
+          const rating = cardProgresses[q.id]?.rating;
+          return rating === 'again' || rating === 'almost';
+        });
+      }
+    } else if (studyTrack === 'tentaprio') {
+      if (mode === 'area1') {
+        list = studyQuestions.filter(q => (q as TentaprioQuestion).examArea === 1);
+      } else if (mode === 'area2') {
+        list = studyQuestions.filter(q => (q as TentaprioQuestion).examArea === 2);
+      } else if (mode === 'area3') {
+        list = studyQuestions.filter(q => (q as TentaprioQuestion).examArea === 3);
       } else if (mode === 'repetition') {
         list = studyQuestions.filter(q => {
           const rating = cardProgresses[q.id]?.rating;
@@ -533,13 +555,17 @@ export default function App() {
   const essayDueCount = getDueCountFor(essayQuestions, essayProgresses);
   const termsDueCount = getDueCountFor(termQuestions, termsProgresses);
   const tentaDueCount = getDueCountFor(tentaQuestions, tentaProgresses);
+  const tentaprioDueCount = getDueCountFor(tentaprioQuestions, tentaprioProgresses);
   const tentaPriorityCount = tentaQuestions.filter(q => q.isPriority).length;
   const tentaReadiness = computeTentaReadiness(tentaQuestions, tentaProgresses);
+  const tentaprioReadiness = computeTentaReadiness(tentaprioQuestions, tentaprioProgresses);
 
   // Reset progress for active track only
   const handleResetProgress = () => {
     if (studyTrack === 'tenta') {
       setTentaProgresses({});
+    } else if (studyTrack === 'tentaprio') {
+      setTentaprioProgresses({});
     } else if (studyTrack === 'terms') {
       setTermsProgresses({});
     } else {
@@ -656,7 +682,7 @@ export default function App() {
               )}
               {session.active && (
                 <p className="text-[10px] text-text-muted uppercase tracking-wider">
-                  {studyTrack === 'tenta' ? 'Tentaläge' : studyTrack === 'terms' ? 'Begreppsläge' : 'Fokusläge'}
+                  {studyTrack === 'tenta' ? 'Tentaläge' : studyTrack === 'tentaprio' ? 'Tentaprio-läge' : studyTrack === 'terms' ? 'Begreppsläge' : 'Fokusläge'}
                 </p>
               )}
             </div>
@@ -695,7 +721,7 @@ export default function App() {
 
         {/* Content Wrapper */}
         <div className={`flex-1 flex flex-col overflow-y-auto ${
-          studyTrack === 'tenta' && !session.active && session.results.length === 0
+          (studyTrack === 'tenta' || studyTrack === 'tentaprio') && !session.active && session.results.length === 0
             ? 'p-0 sm:p-2'
             : 'justify-start p-4 sm:p-6 md:p-8'
         }`}>
@@ -753,10 +779,13 @@ export default function App() {
               termsCount={termQuestions.length}
               tentaCount={tentaQuestions.length}
               tentaPriorityCount={tentaPriorityCount}
+              tentaprioCount={tentaprioQuestions.length}
               essayDueCount={essayDueCount}
               termsDueCount={termsDueCount}
               tentaDueCount={tentaDueCount}
+              tentaprioDueCount={tentaprioDueCount}
               tentaReadiness={tentaReadiness}
+              tentaprioReadiness={tentaprioReadiness}
               onSelectTrack={handleSelectTrack}
               onBackToTracks={handleBackToTracks}
               onBrowse={handleBrowse}
@@ -799,10 +828,13 @@ export default function App() {
               termsCount={termQuestions.length}
               tentaCount={tentaQuestions.length}
               tentaPriorityCount={tentaPriorityCount}
+              tentaprioCount={tentaprioQuestions.length}
               essayDueCount={essayDueCount}
               termsDueCount={termsDueCount}
               tentaDueCount={tentaDueCount}
+              tentaprioDueCount={tentaprioDueCount}
               tentaReadiness={tentaReadiness}
+              tentaprioReadiness={tentaprioReadiness}
               onSelectTrack={handleSelectTrack}
               onBackToTracks={handleBackToTracks}
               onBrowse={handleBrowse}

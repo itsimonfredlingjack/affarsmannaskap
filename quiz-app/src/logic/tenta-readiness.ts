@@ -1,4 +1,4 @@
-import type { TentaQuestion } from './questions';
+import type { ExamAreaQuestion } from './questions';
 import type { CardProgress } from './sm2';
 import { TENTA_EXAM_INFO } from './tenta-questions';
 
@@ -26,7 +26,7 @@ export interface TentaReadiness {
 }
 
 function getRatingCounts(
-  questions: TentaQuestion[],
+  questions: Pick<ExamAreaQuestion, 'id'>[],
   progresses: Record<string, CardProgress>
 ) {
   let known = 0;
@@ -62,7 +62,7 @@ function overallStatus(blocks: BlockReadiness[]): ReadinessStatus {
 }
 
 export function computeTentaReadiness(
-  questions: TentaQuestion[],
+  questions: Array<Pick<ExamAreaQuestion, 'id' | 'examArea' | 'isPriority'>>,
   progresses: Record<string, CardProgress>
 ): TentaReadiness {
   const blocks = TENTA_EXAM_INFO.areas.map(area => {
@@ -84,14 +84,17 @@ export function computeTentaReadiness(
   });
 
   const priorityPool = questions.filter(q => q.isPriority);
-  const priorityCounts = getRatingCounts(priorityPool, progresses);
+  const priorityCounts = getRatingCounts(
+    priorityPool.length > 0 ? priorityPool : questions,
+    progresses
+  );
 
   return {
     blocks,
     overallStatus: overallStatus(blocks),
     passedBlocks: blocks.filter(b => b.status === 'pass').length,
     priorityKnown: priorityCounts.known,
-    priorityTotal: priorityPool.length,
+    priorityTotal: priorityPool.length > 0 ? priorityPool.length : questions.length,
   };
 }
 

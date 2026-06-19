@@ -1,6 +1,6 @@
 export interface Question {
   id: string;
-  mode: 'resonemang' | 'case' | 'examinatorrisk' | 'repetition' | 'begrepp' | 'samband' | 'tenta';
+  mode: 'resonemang' | 'case' | 'examinatorrisk' | 'repetition' | 'begrepp' | 'samband' | 'tenta' | 'tentaprio';
   type: 'open' | 'mc';
   category: string;
   source: string;
@@ -26,6 +26,19 @@ export interface TentaQuestion extends Question {
   priorityLevel?: 'high' | 'medium' | 'low';
   answerSummary?: string;
 }
+
+export interface TentaprioQuestion extends Question {
+  mode: 'tentaprio';
+  type: 'open';
+  originalNumber: number;
+  examArea: 1 | 2 | 3;
+}
+
+export type ExamAreaQuestion = {
+  id: string;
+  examArea: 1 | 2 | 3;
+  isPriority?: boolean;
+};
 
 export const FOKUS_QUESTIONS: Question[] = [
   {

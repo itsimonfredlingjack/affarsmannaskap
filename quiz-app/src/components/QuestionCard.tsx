@@ -84,7 +84,11 @@ export function QuestionCard({
   const isMC = question.type === 'mc';
   const isTermCard = question.mode === 'begrepp' || question.mode === 'samband';
   const isTentaCard = question.mode === 'tenta';
-  const facitTitle = isTentaCard
+  const isTentaprioCard = question.mode === 'tentaprio';
+  const isExamStyleCard = isTentaCard || isTentaprioCard;
+  const facitTitle = isTentaprioCard
+    ? 'Facit — Kort sammanfattning'
+    : isTentaCard
     ? 'Facit — Tentasvar'
     : isTermCard && !isMC
     ? 'Facit — Definition'
@@ -182,7 +186,7 @@ export function QuestionCard({
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {!isTentaCard && answerInput.trim() && (
+                  {!isExamStyleCard && answerInput.trim() && (
                     <Panel title="Ditt svar" tone="default">
                       <p className="text-base text-text-secondary leading-relaxed italic">
                         {answerInput}
@@ -190,7 +194,7 @@ export function QuestionCard({
                     </Panel>
                   )}
 
-                  {assessment && !isMC && !isTentaCard && (
+                  {assessment && !isMC && !isExamStyleCard && (
                     <Panel title="Coachens bedömning" tone={coachTone}>
                       <p className="text-base font-semibold leading-relaxed">
                         {assessment.feedback.title}
@@ -222,7 +226,29 @@ export function QuestionCard({
                   )}
 
                   <Panel title={facitTitle} tone="success" accentBar>
-                    {isTentaCard && question.answer ? (
+                    {isTentaprioCard && question.answer ? (
+                      <div>
+                        <p className="text-lg leading-relaxed text-text-primary font-medium">
+                          <FacitContent text={question.answer} />
+                        </p>
+                        {question.why && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => setFacitExpanded({ questionId: question.id, show: !showFullFacit })}
+                              className="mt-3 text-sm text-accent hover:underline cursor-pointer"
+                            >
+                              {showFullFacit ? '▲ Dölj fördjupning & exempel' : '▼ Visa fördjupning & exempel'}
+                            </button>
+                            {showFullFacit && (
+                              <div className="mt-4 pt-4 border-t border-success/20">
+                                <FacitContent text={question.why} />
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    ) : isTentaCard && question.answer ? (
                       tentaSummary ? (
                         <div>
                           <p className="text-lg leading-relaxed text-text-primary font-medium">
@@ -251,7 +277,7 @@ export function QuestionCard({
                     )}
                   </Panel>
 
-                  {isTentaCard && answerInput.trim() && (
+                  {isExamStyleCard && answerInput.trim() && (
                     <Panel title="Ditt svar" tone="default">
                       <p className="text-base text-text-secondary leading-relaxed italic">
                         {answerInput}
@@ -259,7 +285,7 @@ export function QuestionCard({
                     </Panel>
                   )}
 
-                  {(question.why || question.example || question.hint || assessment?.memoryRule) && (
+                  {!isTentaprioCard && (question.why || question.example || question.hint || assessment?.memoryRule) && (
                     <div>
                       <button
                         type="button"

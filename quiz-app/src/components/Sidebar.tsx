@@ -1,6 +1,6 @@
 import { useState, type JSX } from 'react';
 import { Search, RotateCcw, X, ChevronDown, BookOpen, GitMerge, Briefcase, RefreshCw, Target, Calculator, ListChecks, Link2, GraduationCap, Star, Building2, Users, Handshake } from 'lucide-react';
-import type { Question, TentaQuestion } from '../logic/questions';
+import type { Question, TentaQuestion, TentaprioQuestion } from '../logic/questions';
 import type { StudyTrack } from './HeroLanding';
 import type { CardProgress } from '../logic/sm2';
 import { Badge } from './ui/Badge';
@@ -27,13 +27,13 @@ interface SidebarProps {
 }
 
 function getQuestionLabel(question: Question): string {
-  if (question.mode === 'tenta') {
-    const tenta = question as TentaQuestion;
-    const prefix = tenta.isPriority ? '★ ' : '';
+  if (question.mode === 'tenta' || question.mode === 'tentaprio') {
+    const exam = question as TentaQuestion | TentaprioQuestion;
+    const prefix = question.mode === 'tenta' && (exam as TentaQuestion).isPriority ? '★ ' : '';
     const title = question.question.length <= 36
       ? question.question
       : `${question.question.slice(0, 36)}…`;
-    return `${prefix}${tenta.originalNumber}. ${title}`;
+    return `${prefix}${exam.originalNumber}. ${title}`;
   }
 
   const fromId = question.id
@@ -73,6 +73,8 @@ export function Sidebar({
     ? 'Begreppslista'
     : studyTrack === 'tenta'
     ? 'Tentafrågor'
+    : studyTrack === 'tentaprio'
+    ? 'Tentaprio 25'
     : 'Frågelista';
 
   const getCareerBadge = (percent: number) => {
@@ -111,8 +113,18 @@ export function Sidebar({
     { id: 'repetition', label: 'Repetition', icon: RefreshCw },
   ];
 
+  const tentaprioModeButtons = [
+    { id: 'all', label: 'Alla 25', icon: Star },
+    { id: 'area1', label: 'Block A — Ekonomi', icon: Building2 },
+    { id: 'area2', label: 'Block B — Kund', icon: Users },
+    { id: 'area3', label: 'Block C — Sälj', icon: Handshake },
+    { id: 'repetition', label: 'Repetition', icon: RefreshCw },
+  ];
+
   const modeButtons = studyTrack === 'tenta'
     ? tentaModeButtons
+    : studyTrack === 'tentaprio'
+    ? tentaprioModeButtons
     : studyTrack === 'terms'
     ? termsModeButtons
     : essayModeButtons;
@@ -137,7 +149,7 @@ export function Sidebar({
       >
         <div className="flex items-center justify-between px-4 py-4 border-b border-border">
           <span className="text-sm font-display font-bold text-text-primary">
-            {studyTrack === 'tenta' ? 'Tentamen' : studyTrack === 'terms' ? 'Ekonomibegrepp' : studyTrack === 'essay' ? 'Essäträning' : 'Affärsmannaskap'}
+            {studyTrack === 'tenta' ? 'Tentamen' : studyTrack === 'tentaprio' ? 'Tentaprio 25' : studyTrack === 'terms' ? 'Ekonomibegrepp' : studyTrack === 'essay' ? 'Essäträning' : 'Affärsmannaskap'}
           </span>
           <button
             onClick={onClose}

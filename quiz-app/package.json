@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "validate:content": "npx tsx scripts/validate-content.ts",
     "build:tenta": "npx tsx scripts/build-tenta-questions.ts",
+    "build:tentaprio": "npx tsx scripts/build-25q-questions.ts",
     "preview": "vite preview"
   },
   "dependencies": {

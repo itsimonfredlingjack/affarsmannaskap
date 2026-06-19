@@ -1,12 +1,12 @@
 import { useState, type JSX } from 'react';
-import { BookOpen, RefreshCw, Calculator, GitMerge, GraduationCap, Star } from 'lucide-react';
+import { BookOpen, RefreshCw, Calculator, GitMerge, GraduationCap, Star, Zap } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import type { TentaReadiness } from '../logic/tenta-readiness';
 import { TentaDashboard } from './TentaDashboard';
 import { TentaSessionPanel } from './TentaSessionPanel';
 
-export type StudyTrack = 'essay' | 'terms' | 'tenta';
+export type StudyTrack = 'essay' | 'terms' | 'tenta' | 'tentaprio';
 
 interface HeroLandingProps {
   studyTrack: StudyTrack | null;
@@ -14,10 +14,13 @@ interface HeroLandingProps {
   termsCount: number;
   tentaCount: number;
   tentaPriorityCount: number;
+  tentaprioCount: number;
   essayDueCount: number;
   termsDueCount: number;
   tentaDueCount: number;
+  tentaprioDueCount: number;
   tentaReadiness?: TentaReadiness | null;
+  tentaprioReadiness?: TentaReadiness | null;
   onSelectTrack: (track: StudyTrack) => void;
   onBackToTracks: () => void;
   onBrowse: () => void;
@@ -30,10 +33,13 @@ export function HeroLanding({
   termsCount,
   tentaCount,
   tentaPriorityCount,
+  tentaprioCount,
   essayDueCount,
   termsDueCount,
   tentaDueCount,
+  tentaprioDueCount,
   tentaReadiness = null,
+  tentaprioReadiness = null,
   onSelectTrack,
   onBackToTracks,
   onBrowse,
@@ -50,11 +56,11 @@ export function HeroLanding({
             Dags att studera
           </h1>
           <p className="text-sm text-text-secondary leading-relaxed max-w-2xl">
-            Välj studieläge: tentafrågor med facit, essäträning eller ekonomibegrepp.
+            Välj studieläge: tentafrågor med facit, snabbversion av de 25 prioriterade, essäträning eller ekonomibegrepp.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           <button
             type="button"
             onClick={() => onSelectTrack('tenta')}
@@ -75,6 +81,31 @@ export function HeroLanding({
                 <p className="text-xs text-text-muted mt-2 flex items-center gap-1">
                   <Star size={11} className="text-warning fill-warning" />
                   {tentaPriorityCount} prioriterade · {tentaCount} totalt
+                </p>
+              </div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onSelectTrack('tentaprio')}
+            className="text-left rounded-2xl border-2 border-accent/40 bg-panel p-5 hover:border-accent/60 hover:bg-accent-subtle transition-all cursor-pointer"
+          >
+            <div className="flex items-start gap-4">
+              <div className="p-2.5 rounded-xl bg-accent-subtle text-accent">
+                <Zap size={22} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="font-display font-bold text-text-primary">Tentaprio 25</h2>
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-accent">Snabbversion</span>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Samma 25 prioriterade frågor med kort sammanfattning först och fördjupning på begäran.
+                </p>
+                <p className="text-xs text-text-muted mt-2 flex items-center gap-1">
+                  <Star size={11} className="text-accent fill-accent" />
+                  {tentaprioCount} frågor · sammanfattningsfacit
                 </p>
               </div>
             </div>
@@ -122,16 +153,36 @@ export function HeroLanding({
     );
   }
 
-  const totalCount = studyTrack === 'tenta' ? tentaCount : studyTrack === 'essay' ? essayCount : termsCount;
-  const dueCount = studyTrack === 'tenta' ? tentaDueCount : studyTrack === 'essay' ? essayDueCount : termsDueCount;
-  const trackLabel = studyTrack === 'tenta' ? 'Tentamen' : studyTrack === 'essay' ? 'Essäträning' : 'Ekonomibegrepp';
+  const totalCount = studyTrack === 'tenta'
+    ? tentaCount
+    : studyTrack === 'tentaprio'
+    ? tentaprioCount
+    : studyTrack === 'essay'
+    ? essayCount
+    : termsCount;
+  const dueCount = studyTrack === 'tenta'
+    ? tentaDueCount
+    : studyTrack === 'tentaprio'
+    ? tentaprioDueCount
+    : studyTrack === 'essay'
+    ? essayDueCount
+    : termsDueCount;
+  const trackLabel = studyTrack === 'tenta'
+    ? 'Tentamen'
+    : studyTrack === 'tentaprio'
+    ? 'Tentaprio 25'
+    : studyTrack === 'essay'
+    ? 'Essäträning'
+    : 'Ekonomibegrepp';
   const trackDescription = studyTrack === 'tenta'
     ? 'Träna de faktiska tentafrågorna. Prioriterade frågor kommer först i kön.'
+    : studyTrack === 'tentaprio'
+    ? 'Snabbträna de 25 viktigaste frågorna. Facit visar kort sammanfattning — fäll ut fördjupning vid behov.'
     : studyTrack === 'essay'
     ? 'Träna korta essäsvar med modeller, ekonomi och affärsbeslut.'
     : 'Träna definitioner, flerval och samband från företagsekonomin.';
 
-  if (studyTrack === 'tenta') {
+  if (studyTrack === 'tenta' || studyTrack === 'tentaprio') {
     return (
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 card-enter">
         <button
@@ -158,12 +209,13 @@ export function HeroLanding({
 
         <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-8">
-            {tentaReadiness && <TentaDashboard readiness={tentaReadiness} />}
+            {studyTrack === 'tenta' && tentaReadiness && <TentaDashboard readiness={tentaReadiness} />}
+            {studyTrack === 'tentaprio' && tentaprioReadiness && <TentaDashboard readiness={tentaprioReadiness} />}
           </div>
           <div className="lg:col-span-4">
             <TentaSessionPanel
-              totalCount={tentaCount}
-              dueCount={tentaDueCount}
+              totalCount={studyTrack === 'tentaprio' ? tentaprioCount : tentaCount}
+              dueCount={studyTrack === 'tentaprio' ? tentaprioDueCount : tentaDueCount}
               onStartSession={onStartSession}
               onBrowse={onBrowse}
             />

@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import type { Question, TentaQuestion } from '../logic/questions';
+import type { Question, TentaQuestion, TentaprioQuestion } from '../logic/questions';
 import { Badge } from './ui/Badge';
 
 const MODE_LABELS: Record<Question['mode'], string> = {
@@ -10,6 +10,7 @@ const MODE_LABELS: Record<Question['mode'], string> = {
   begrepp: 'Begrepp',
   samband: 'Samband',
   tenta: 'Tentamen',
+  tentaprio: 'Tentaprio 25',
 };
 
 const PRIO_LABELS = {
@@ -24,6 +25,7 @@ interface QuestionPromptProps {
 
 export function QuestionPrompt({ question }: QuestionPromptProps): JSX.Element {
   const tenta = question.mode === 'tenta' ? (question as TentaQuestion) : null;
+  const tentaprio = question.mode === 'tentaprio' ? (question as TentaprioQuestion) : null;
 
   const filteredTags = question.tags.slice(0, 3).filter(tag => {
     if (!tenta) return true;
@@ -34,9 +36,18 @@ export function QuestionPrompt({ question }: QuestionPromptProps): JSX.Element {
   });
 
   return (
-    <div className={`reading-panel rounded-2xl p-6 sm:p-8 ${tenta?.isPriority ? 'ring-2 ring-warning/30' : ''}`}>
+    <div className={`reading-panel rounded-2xl p-6 sm:p-8 ${tenta?.isPriority ? 'ring-2 ring-warning/30' : tentaprio ? 'ring-2 ring-accent/25' : ''}`}>
       <div className="flex flex-wrap items-center gap-2 mb-5">
-        {tenta ? (
+        {tentaprio ? (
+          <>
+            <Badge variant="accent">Tentaprio #{tentaprio.originalNumber}</Badge>
+            <Badge variant="warning">Prioriterad</Badge>
+            <span className="text-xs text-text-muted">{question.category}</span>
+            {question.source && (
+              <span className="text-xs text-text-muted">· {question.source}</span>
+            )}
+          </>
+        ) : tenta ? (
           <>
             <Badge variant="accent">Tenta #{tenta.originalNumber}</Badge>
             {tenta.isPriority && tenta.priorityLevel && (
@@ -76,6 +87,8 @@ export function QuestionPrompt({ question }: QuestionPromptProps): JSX.Element {
           <p className="text-sm text-text-muted text-center">
             {question.mode === 'tenta'
               ? 'Skriv ett utvecklat tentasvar innan du visar facit'
+              : question.mode === 'tentaprio'
+              ? 'Skriv ett kort svar innan du visar sammanfattningsfacit'
               : question.mode === 'begrepp' || question.mode === 'samband'
               ? 'Skriv definitionen med egna ord innan du visar facit'
               : 'Skriv ett kort resonemang innan du visar facit'}
