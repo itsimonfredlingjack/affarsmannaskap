@@ -128,7 +128,7 @@ function buildOutput(questions: ParsedQuestion[], priorities: PriorityMeta[]): s
 
   const byNumber = new Map(questions.map(q => [q.number, q]));
 
-  const blocks = orderedNumbers.map((num, index) => {
+  const blocks = orderedNumbers.map((num) => {
     const q = byNumber.get(num);
     if (!q) throw new Error(`Missing question ${num}`);
 
