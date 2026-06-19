@@ -7,6 +7,7 @@ import { Badge } from './ui/Badge';
 
 interface TentaDashboardProps {
   readiness: TentaReadiness;
+  compact?: boolean;
 }
 
 const STATUS_ICON: Record<ReadinessStatus, typeof CheckCircle2> = {
@@ -27,17 +28,23 @@ const BAR_COLOR: Record<ReadinessStatus, string> = {
   fail: 'bg-danger',
 };
 
-export function TentaDashboard({ readiness }: TentaDashboardProps): JSX.Element {
+const BLOCK_SHORT: Record<1 | 2 | 3, string> = {
+  1: 'Ekonomi & avtal',
+  2: 'Kundrelation',
+  3: 'Sälj & förhandling',
+};
+
+export function TentaDashboard({ readiness, compact = false }: TentaDashboardProps): JSX.Element {
   const OverallIcon = STATUS_ICON[readiness.overallStatus];
 
   return (
-    <Card className="mb-6 border-accent/20">
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
+    <Card className="h-full border-accent/20 flex flex-col">
+      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-1">
             Tentastatus
           </p>
-          <p className="text-sm text-text-secondary leading-relaxed">
+          <p className="text-sm text-text-secondary leading-relaxed max-w-prose">
             Varje block kräver minst lika många &quot;Kan&quot; som godkäntgränsen.
           </p>
         </div>
@@ -56,7 +63,7 @@ export function TentaDashboard({ readiness }: TentaDashboardProps): JSX.Element 
         </Badge>
       </div>
 
-      <div className="grid gap-3">
+      <div className={`grid gap-4 flex-1 ${compact ? 'sm:grid-cols-3' : 'md:grid-cols-3'}`}>
         {readiness.blocks.map(block => {
           const Icon = STATUS_ICON[block.status];
           const progressPercent = Math.min(
@@ -67,46 +74,59 @@ export function TentaDashboard({ readiness }: TentaDashboardProps): JSX.Element 
           return (
             <div
               key={block.areaId}
-              className={`rounded-xl border p-4 ${STATUS_TONE[block.status]}`}
+              className={`rounded-xl border p-4 flex flex-col min-h-[168px] ${STATUS_TONE[block.status]}`}
             >
-              <div className="flex items-start justify-between gap-2 mb-2">
+              <div className="flex items-start justify-between gap-2 mb-3">
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-text-primary leading-snug">
-                    Block {String.fromCharCode(64 + block.areaId)} — {block.label}
+                  <p className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1">
+                    Block {String.fromCharCode(64 + block.areaId)}
                   </p>
-                  <p className="text-xs text-text-muted mt-0.5">
-                    {block.questionsOnExam} frågor på provet · minst {block.passAt} rätt
+                  <p className="text-sm font-semibold text-text-primary leading-snug">
+                    {BLOCK_SHORT[block.areaId]}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 shrink-0 text-xs font-semibold">
+                <div className="flex items-center gap-1 shrink-0 text-xs font-semibold">
                   <Icon size={14} />
-                  {READINESS_LABELS[block.status]}
+                  <span className="hidden sm:inline">{READINESS_LABELS[block.status]}</span>
                 </div>
               </div>
 
-              <div className="h-2 rounded-full bg-surface/80 overflow-hidden mb-2">
+              <div className="h-2 rounded-full bg-surface/80 overflow-hidden mb-3">
                 <div
-                  className={`h-full rounded-full transition-all ${BAR_COLOR[block.status]}`}
+                  className={`h-full rounded-full transition-all duration-300 motion-reduce:transition-none ${BAR_COLOR[block.status]}`}
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
 
-              <p className="text-xs text-text-secondary">
-                <span className="font-semibold text-text-primary">{block.knownCount}</span>
-                {' '}av {block.passAt} krävs markerade som Kan
-                <span className="text-text-muted">
-                  {' '}({block.totalInPool} i övningspoolen)
-                </span>
-              </p>
+              <div className="mt-auto space-y-1">
+                <p className="text-lg font-display font-bold text-text-primary tabular-nums">
+                  {block.knownCount}
+                  <span className="text-sm font-normal text-text-muted"> / {block.passAt} Kan</span>
+                </p>
+                <p className="text-xs text-text-muted leading-relaxed">
+                  {block.questionsOnExam} på provet · {block.totalInPool} i poolen
+                </p>
+              </div>
             </div>
           );
         })}
       </div>
 
-      <p className="text-xs text-text-muted mt-4 pt-3 border-t border-border-subtle">
-        Tentaprio: {readiness.priorityKnown} / {readiness.priorityTotal} markerade som Kan ·{' '}
-        {readiness.passedBlocks} / 3 block godkända i övningen
-      </p>
+      <div className="mt-6 pt-4 border-t border-border-subtle flex flex-wrap items-center justify-between gap-3 text-xs text-text-muted">
+        <span>
+          Tentaprio:{' '}
+          <span className="font-semibold text-text-primary tabular-nums">
+            {readiness.priorityKnown}/{readiness.priorityTotal}
+          </span>{' '}
+          Kan
+        </span>
+        <span>
+          Block godkända:{' '}
+          <span className="font-semibold text-text-primary tabular-nums">
+            {readiness.passedBlocks}/3
+          </span>
+        </span>
+      </div>
     </Card>
   );
 }

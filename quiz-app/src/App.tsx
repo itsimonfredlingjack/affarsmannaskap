@@ -694,7 +694,11 @@ export default function App() {
         </header>
 
         {/* Content Wrapper */}
-        <div className="flex-1 flex flex-col justify-start overflow-y-auto p-4 sm:p-6 md:p-8">
+        <div className={`flex-1 flex flex-col overflow-y-auto ${
+          studyTrack === 'tenta' && !session.active && session.results.length === 0
+            ? 'p-0 sm:p-2'
+            : 'justify-start p-4 sm:p-6 md:p-8'
+        }`}>
           {session.active ? (
             /* Active Session flow */
             currentQuestion ? (

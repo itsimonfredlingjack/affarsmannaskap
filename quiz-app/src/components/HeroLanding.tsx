@@ -2,9 +2,9 @@ import { useState, type JSX } from 'react';
 import { BookOpen, RefreshCw, Calculator, GitMerge, GraduationCap, Star } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
-import { TENTA_EXAM_INFO } from '../logic/tenta-questions';
 import type { TentaReadiness } from '../logic/tenta-readiness';
 import { TentaDashboard } from './TentaDashboard';
+import { TentaSessionPanel } from './TentaSessionPanel';
 
 export type StudyTrack = 'essay' | 'terms' | 'tenta';
 
@@ -43,18 +43,18 @@ export function HeroLanding({
 
   if (studyTrack === null) {
     return (
-      <div className="max-w-lg mx-auto w-full my-auto px-4 py-12 flex flex-col justify-center card-enter">
-        <div className="text-center mb-10">
+      <div className="max-w-5xl mx-auto w-full my-auto px-4 sm:px-6 py-8 sm:py-12 flex flex-col justify-center card-enter">
+        <div className="mb-8 sm:mb-10">
           <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Briefing Room</p>
           <h1 className="font-serif text-3xl sm:text-4xl text-text-primary mb-3">
             Dags att studera
           </h1>
-          <p className="text-sm text-text-secondary leading-relaxed max-w-sm mx-auto">
+          <p className="text-sm text-text-secondary leading-relaxed max-w-2xl">
             Välj studieläge: tentafrågor med facit, essäträning eller ekonomibegrepp.
           </p>
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-4 md:grid-cols-3">
           <button
             type="button"
             onClick={() => onSelectTrack('tenta')}
@@ -131,6 +131,48 @@ export function HeroLanding({
     ? 'Träna korta essäsvar med modeller, ekonomi och affärsbeslut.'
     : 'Träna definitioner, flerval och samband från företagsekonomin.';
 
+  if (studyTrack === 'tenta') {
+    return (
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 card-enter">
+        <button
+          type="button"
+          onClick={onBackToTracks}
+          className="text-sm text-text-muted hover:text-accent mb-6 cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-lg px-1"
+        >
+          ← Byt studieläge
+        </button>
+
+        <header className="flex flex-wrap items-end justify-between gap-4 mb-6">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">
+              {trackLabel}
+            </p>
+            <h1 className="font-serif text-2xl sm:text-3xl text-text-primary mb-2">
+              Dags att studera
+            </h1>
+            <p className="text-sm text-text-secondary leading-relaxed max-w-xl">
+              {trackDescription}
+            </p>
+          </div>
+        </header>
+
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
+          <div className="lg:col-span-8">
+            {tentaReadiness && <TentaDashboard readiness={tentaReadiness} />}
+          </div>
+          <div className="lg:col-span-4">
+            <TentaSessionPanel
+              totalCount={tentaCount}
+              dueCount={tentaDueCount}
+              onStartSession={onStartSession}
+              onBrowse={onBrowse}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-lg mx-auto w-full my-auto px-4 py-12 flex flex-col justify-center card-enter">
       <button
@@ -150,27 +192,6 @@ export function HeroLanding({
           {trackDescription}
         </p>
       </div>
-
-      {studyTrack === 'tenta' && tentaReadiness && (
-        <TentaDashboard readiness={tentaReadiness} />
-      )}
-
-      {studyTrack === 'tenta' && (
-        <Card className="mb-6 border-warning/20 bg-warning-muted/5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-warning mb-3">Så bedöms tentan</p>
-          <ul className="space-y-2 text-sm text-text-secondary">
-            {TENTA_EXAM_INFO.areas.map(area => (
-              <li key={area.id}>
-                <span className="font-semibold text-text-primary">{area.label}:</span>{' '}
-                {area.questionsOnExam} frågor på provet, minst {area.passAt} rätt.
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-text-muted mt-3 leading-relaxed">
-            Godkänt svar: förklara, redogör, sätt i sammanhang och ge exempel när det efterfrågas.
-          </p>
-        </Card>
-      )}
 
       <div className="mb-6 grid grid-cols-2 gap-3">
         <Card padding="sm" className="text-center">
@@ -197,11 +218,8 @@ export function HeroLanding({
           Hur många frågor?
         </p>
 
-        <div className={`grid gap-2.5 mb-5 ${studyTrack === 'tenta' ? 'grid-cols-4' : 'grid-cols-3'}`}>
-          {(studyTrack === 'tenta'
-            ? ([5, 10, 25, 'all'] as Array<number | 'all'>)
-            : ([5, 10, 'all'] as Array<number | 'all'>)
-          ).map((size) => {
+        <div className="grid grid-cols-3 gap-2.5 mb-5">
+          {([5, 10, 'all'] as Array<number | 'all'>).map((size) => {
             const isSelected = sessionSize === size;
             return (
               <button
